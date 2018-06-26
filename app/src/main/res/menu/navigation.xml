@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_main"
+        android:icon="@drawable/main"
+        android:title="@string/bottom_main" />
+
+    <item
+        android:id="@+id/navigation_lesson"
+        android:icon="@drawable/lesson"
+        android:title="@string/bottom_lesson" />
+
+    <item
+        android:id="@+id/navigation_note"
+        android:icon="@drawable/note"
+        android:title="@string/bottom_note" />
+    <item
+        android:id="@+id/navigation_me"
+        android:icon="@drawable/me"
+        android:title="@string/bottom_me" />
+
+</menu>
