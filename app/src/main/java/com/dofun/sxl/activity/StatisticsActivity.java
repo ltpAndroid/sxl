@@ -86,8 +86,6 @@ public class StatisticsActivity extends BaseActivity {
 
     private void setData(int count, float range) {
 
-        float mult = range;
-
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
         for (int i = 0; i < data.size(); i++) {
             entries.add(new PieEntry(data.get(i)));
