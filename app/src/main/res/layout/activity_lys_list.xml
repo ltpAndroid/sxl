@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_lys_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="@string/lys"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:id="@+id/finish_from_lys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/back" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_001" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/one" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_002" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/two" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_003" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/three" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_004" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/four" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_005" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/five" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_006" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/six" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_007" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/seven" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_008" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/eight" />
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/item_lys_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/num_009" />
+
+                <TextView
+                    style="@style/lys_item"
+                    android:text="@string/nine" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

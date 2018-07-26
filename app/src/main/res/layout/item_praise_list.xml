@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/item_rank_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="1"
+        android:textSize="@dimen/sp_16" />
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_toRightOf="@+id/item_rank_num">
+
+        <ImageView
+            android:id="@+id/item_rank_header"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/rank_header" />
+
+        <ImageView
+            android:id="@+id/item_rank_crown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="35dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/crown_gold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_rank_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/header_layout"
+        android:text="王富华"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/item_rank_medal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@drawable/item_icon_medal"
+        android:gravity="center"
+        android:text="58" />
+
+    <TextView
+        android:id="@+id/item_rank_praise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_toLeftOf="@+id/item_rank_medal"
+        android:drawableLeft="@drawable/item_icon_praise"
+        android:gravity="center"
+        android:text="21" />
+</RelativeLayout>

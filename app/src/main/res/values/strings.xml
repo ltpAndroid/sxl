@@ -1,7 +1,70 @@
 <resources>
-    <string name="app_name">sxl</string>
+    <string name="app_name">诵习练</string>
     <string name="bottom_main">首页</string>
     <string name="bottom_lesson">微课</string>
     <string name="bottom_note">错题本</string>
     <string name="bottom_me">我的</string>
+    <string name="sjd">诵经典</string>
+    <string name="xhz">习汉字</string>
+    <string name="lys">练运算</string>
+    <!--诵经典选题-->
+    <string name="jwth">精卫填海（填空）</string>
+    <string name="sckl">诗词酷连（连线）</string>
+    <string name="ggxs">宫格寻诗（拼诗）</string>
+    <string name="sqxm">搜奇选妙（选择）</string>
+    <string name="mbsf">明辨是非（判断）</string>
+    <string name="ryss">日有所诵（诵读）</string>
+    <string name="syzy">诵以致用（视频）</string>
+    <!--练运算选题-->
+    <string name="one">一、直接计算</string>
+    <string name="two">二、竖式计算</string>
+    <string name="three">三、计算</string>
+    <string name="four">四、填空</string>
+    <string name="five">五、在方框中填上合适的数</string>
+    <string name="six">六、计算</string>
+    <string name="seven">七、在O里填上 ">" "&lt;" 或 "="</string>
+    <string name="eight">八、想一想，填一填</string>
+    <string name="nine">九、选一选</string>
+
+    <string name="go_back">返回</string>
+    <!--个人奖励-->
+    <string name="personal_reward">个人奖励</string>
+    <string name="my_medal">我的勋章</string>
+    <string name="today_rank">今日排名</string>
+    <string name="no_rank">未上榜</string>
+    <string name="total_praise">获赞总数</string>
+    <string name="who_give_praise">谁给我点赞 ></string>
+    <!--个人等级-->
+    <string name="personal_level">个人等级</string>
+    <string name="synthesize_grade">诵习练综合成绩</string>
+    <string name="synthesize_attainment">个人综合素养雷达图</string>
+
+    <!--首页-->
+    <string name="wycg">我要闯关</string>
+    <string name="cjbg">成绩报告</string>
+    <string name="xxgj">学习工具</string>
+    <!--统计报告-->
+    <string name="statistics_report">统计报告</string>
+    <string name="tj_homework">作业统计情况</string>
+    <string name="tj_mistake">错题统计</string>
+    <string name="full_score">满分</string>
+    <string name="high_score">最高分</string>
+    <string name="low_score">最低分</string>
+    <string name="average_score">平均分</string>
+    <!--学习工具-->
+    <string name="gxjd">国学经典</string>
+    <string name="gs">故事</string>
+    <string name="kp">科普</string>
+    <string name="gnwx">国内文学</string>
+    <string name="wgwx">外国文学</string>
+    <!--微课-->
+    <string name="weike">微课</string>
+    <string name="kzkt">空中课堂</string>
+
+    <!--网络请求相关-->
+    <string name="network_request_fail">服务繁忙，请稍后再试 </string>
+    <!--请输入搜索关键字-->
+    <string name="key_word">请输入搜索关键字</string>
+    <!--示例-->
+    <string name="brief_introduction">教育部推荐中小学生必读传统文化精品读物！增强民族认同，修补文化断层，提高综合素质！传统文化业能鲜活、有趣！</string>
 </resources>

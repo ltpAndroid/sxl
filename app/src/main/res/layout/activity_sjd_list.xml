@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_sjd_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="@string/sjd"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:id="@+id/finish_from_sjd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/back" />
+    </RelativeLayout>
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_1"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/jwth"
+        android:padding="5dp"
+        android:text="@string/jwth"
+        android:textSize="@dimen/sp_16" />
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_2"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/sckl"
+        android:padding="5dp"
+        android:text="@string/sckl"
+        android:textSize="@dimen/sp_16" />
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_3"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ggxs"
+        android:padding="5dp"
+        android:text="@string/ggxs"
+        android:textSize="@dimen/sp_16" />
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_4"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/sqxm"
+        android:padding="5dp"
+        android:text="@string/sqxm"
+        android:textSize="@dimen/sp_16" />
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_5"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/mbsf"
+        android:padding="5dp"
+        android:text="@string/mbsf"
+        android:textSize="@dimen/sp_16" />
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_6"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ryss"
+        android:padding="5dp"
+        android:text="@string/ryss"
+        android:textSize="@dimen/sp_16" />
+
+    <View style="@style/separate_line" />
+
+    <TextView
+        android:id="@+id/item_sjd_7"
+        style="@style/imgAtTxtLeft"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/syzy"
+        android:padding="5dp"
+        android:text="@string/syzy"
+        android:textSize="@dimen/sp_16" />
+
+</LinearLayout>

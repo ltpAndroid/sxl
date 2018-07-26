@@ -297,4 +297,11 @@
     <color name="md_blue_grey_700">#455A64</color>
     <color name="md_blue_grey_800">#37474F</color>
     <color name="md_blue_grey_900">#263238</color>
+
+    <!-- 主色调 -->
+    <color name="main_color">#37c6c0</color>
+    <!-- 白色-->
+    <color name="white">#FFFFFF</color>
+    <!-- 透明色-->
+    <color name="transparent">#00000000</color>
 </resources>
