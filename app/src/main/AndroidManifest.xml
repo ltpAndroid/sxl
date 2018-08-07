@@ -38,21 +38,33 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".activity.LoginActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.SjdListActivity" />
         <activity android:name=".activity.LysListActivity" />
         <activity android:name=".activity.XhzListActivity" />
-        <activity android:name=".activity.PersonRewardActivity" />
-        <activity android:name=".activity.PersonalLevelActivity" />
+        <activity android:name=".activity.personal.PersonRewardActivity" />
+        <activity android:name=".activity.personal.PersonalLevelActivity" />
         <activity android:name=".activity.StudyToolActivity" />
-        <activity android:name=".activity.StatisticsActivity"></activity>
+        <activity android:name=".activity.StatisticsActivity" />
+        <activity android:name=".activity.SjdDetailActivity" />
+        <activity android:name=".activity.MistakeListActivity" />
+        <activity android:name=".activity.personal.FeedbackActivity" />
+        <activity android:name=".activity.personal.ContactActivity" />
+        <activity android:name=".activity.personal.JoinActivity" />
+        <activity android:name=".activity.personal.SettingActivity" />
+        <activity android:name=".activity.personal.ChangeNetActivity" />
+        <activity android:name=".activity.personal.UserInfoActivity"></activity>
     </application>
 
 </manifest>

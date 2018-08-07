@@ -28,6 +28,7 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
+        setStateBarColor();
         btnToLogin.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
     }
 

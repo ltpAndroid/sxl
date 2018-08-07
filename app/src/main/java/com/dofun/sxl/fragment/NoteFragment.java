@@ -4,19 +4,29 @@ package com.dofun.sxl.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
-import com.dofun.sxl.adapter.PractiseAdapter;
-import com.dofun.sxl.bean.DailyPractise;
+import com.dofun.sxl.activity.MistakeListActivity;
+import com.dofun.sxl.adapter.MistakeNoteAdapter;
+import com.dofun.sxl.bean.MistakeNote;
+import com.dofun.sxl.http.HttpUs;
+import com.dofun.sxl.http.ResInfo;
+import com.dofun.sxl.view.DialogWaiting;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -28,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class NoteFragment extends BaseFragment {
@@ -37,11 +48,24 @@ public class NoteFragment extends BaseFragment {
     @BindView(R.id.refresh_mistake)
     SmartRefreshLayout refreshMistake;
     Unbinder unbinder;
-    @BindView(R.id.title_layout)
-    TabLayout titleLayout;
+    @BindView(R.id.iv_sjd)
+    ImageView ivSjd;
+    @BindView(R.id.title_sjd)
+    LinearLayout titleSjd;
+    @BindView(R.id.iv_xhz)
+    ImageView ivXhz;
+    @BindView(R.id.title_xhz)
+    LinearLayout titleXhz;
+    @BindView(R.id.iv_lys)
+    ImageView ivLys;
+    @BindView(R.id.title_lys)
+    LinearLayout titleLys;
+    @BindView(R.id.tv_filtrate)
+    TextView tvFiltrate;
 
-    private PractiseAdapter adapter;
-    private List<DailyPractise> mistakeList;
+    private MistakeNoteAdapter adapter;
+    private List<MistakeNote> mistakeList = new ArrayList<>();
+    private List<MistakeNote> orgList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,26 +79,9 @@ public class NoteFragment extends BaseFragment {
     }
 
     private void initView() {
-        titleLayout.addTab(titleLayout.newTab().setCustomView(setTabItem("诵经典", R.drawable.recite_book)));
-        titleLayout.addTab(titleLayout.newTab().setCustomView(setTabItem("习汉字", R.drawable.write_word)));
-        titleLayout.addTab(titleLayout.newTab().setCustomView(setTabItem("练运算", R.drawable.practise_num)));
-    }
-
-    private View setTabItem(String text, int imgId) {
-        View tabItem = LayoutInflater.from(mActivity).inflate(R.layout.custom_tabitem, null);
-        ImageView icon = tabItem.findViewById(R.id.tab_icon);
-        icon.setImageResource(imgId);
-        TextView title = tabItem.findViewById(R.id.tab_text);
-        title.setText(text);
-        return tabItem;
-    }
-
-    private void initData() {
-        mistakeList = new ArrayList<>();
-        mistakeList.add(new DailyPractise("诵经典", "2018-07-07", "张慧敏", "口语评测", "2018-07-09 21:00"));
-        mistakeList.add(new DailyPractise("习汉字", "2018-07-07", "张慧敏", "书法练习", "2018-07-09 21:00"));
-        mistakeList.add(new DailyPractise("练运算", "2018-07-07", "张慧敏", "心算口算", "2018-07-09 21:00"));
-
+        ivSjd.setVisibility(View.VISIBLE);
+        ivXhz.setVisibility(View.INVISIBLE);
+        ivLys.setVisibility(View.INVISIBLE);
 
         LinearLayoutManager manager = new LinearLayoutManager(mActivity);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -83,13 +90,10 @@ public class NoteFragment extends BaseFragment {
 
         refreshMistake.setRefreshHeader(new ClassicsHeader(mActivity))
                 .setRefreshFooter(new ClassicsFooter(mActivity));
+    }
 
-        if (adapter == null) {
-            adapter = new PractiseAdapter(R.layout.item_practise, mistakeList);
-            rvMistake.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+    private void initData() {
+        changeData("10");
 
         refreshMistake.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -97,9 +101,7 @@ public class NoteFragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mistakeList.add(new DailyPractise("习汉字", "2018-07-07", "张慧敏", "书法练习", "2018-07-09 21:00"));
                         refreshLayout.finishLoadMore();
-                        adapter.notifyDataSetChanged();
                     }
                 }, 2000);
 
@@ -117,5 +119,86 @@ public class NoteFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick({R.id.title_sjd, R.id.title_xhz, R.id.title_lys, R.id.tv_filtrate})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.title_sjd:
+                ivSjd.setVisibility(View.VISIBLE);
+                ivXhz.setVisibility(View.INVISIBLE);
+                ivLys.setVisibility(View.INVISIBLE);
+
+                changeData("10");
+                break;
+            case R.id.title_xhz:
+                ivXhz.setVisibility(View.VISIBLE);
+                ivSjd.setVisibility(View.INVISIBLE);
+                ivLys.setVisibility(View.INVISIBLE);
+
+                changeData("11");
+                break;
+            case R.id.title_lys:
+                ivLys.setVisibility(View.VISIBLE);
+                ivXhz.setVisibility(View.INVISIBLE);
+                ivSjd.setVisibility(View.INVISIBLE);
+
+                changeData("12");
+                break;
+            case R.id.tv_filtrate:
+
+                break;
+        }
+    }
+
+    private void changeData(final String courseId) {
+        final DialogWaiting dialog = DialogWaiting.build(mActivity);
+        dialog.show();
+
+        JSONObject param = new JSONObject();
+        param.put("courseId", courseId);
+        param.put("timeType", "1");
+        param.put("roleType", "1");
+        HttpUs.send(Deploy.getWrongBook(), param, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                Log.i("onSuccess", info + "");
+                dialog.dimiss();
+
+                mistakeList = JSONArray.parseArray(info.getData(), MistakeNote.class);
+                for (MistakeNote note : mistakeList) {
+                    note.setCourseId(courseId);
+                }
+                if (adapter == null) {
+                    adapter = new MistakeNoteAdapter(R.layout.item_mistake_note, mistakeList);
+                    rvMistake.setAdapter(adapter);
+                } else {
+                    adapter.replaceData(mistakeList);
+                }
+
+                setListener();
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                Log.i("onFailure", info + "");
+                showTip(info.getMsg());
+            }
+        });
+
+    }
+
+    private void setListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MistakeNote mistakeNote = (MistakeNote) adapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("mistakeNote", mistakeNote);
+                if (mistakeNote.getCourseId().equals("10")) {
+                    ActivityUtils.startActivity(bundle, MistakeListActivity.class);
+                }
+            }
+        });
     }
 }

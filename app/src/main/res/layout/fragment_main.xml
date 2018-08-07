@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -16,7 +16,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="5dp"
-            android:text="诵习练"
+            android:text="@string/app_name"
             android:textColor="@color/main_color"
             android:textSize="20sp" />
 
@@ -33,9 +33,9 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp120"
-        android:layout_margin="@dimen/dp5"
-        app1:image_scale_type="fit_xy"
-        app1:scroll_time="1000" />
+        android:layout_margin="@dimen/dp10"
+        app:image_scale_type="fit_xy"
+        app:scroll_time="1000" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,12 +132,12 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_practise"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scrollbars="none" />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

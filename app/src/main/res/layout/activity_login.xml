@@ -26,6 +26,7 @@
             android:textSize="24sp" />
 
         <EditText
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
@@ -41,6 +42,7 @@
             android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
@@ -51,6 +53,7 @@
             android:drawableLeft="@drawable/password"
             android:drawablePadding="4dp"
             android:hint="请输入密码"
+            android:inputType="textPassword"
             android:paddingLeft="6dp"
             android:textColorHint="@color/white"
             android:textSize="14sp" />
@@ -94,6 +97,7 @@
 
             <Button
                 android:id="@+id/btn_login"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="fill_parent"
                 android:layout_height="40dip"
                 android:background="@drawable/btn_bg"

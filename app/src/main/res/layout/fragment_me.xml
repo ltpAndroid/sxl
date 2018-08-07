@@ -10,6 +10,7 @@
         android:padding="10dp">
 
         <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="80dp"
             android:layout_height="30dp"
             android:background="@drawable/bg_sign_btn"
@@ -108,16 +109,11 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/user_header" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="编辑" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -127,8 +123,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp">
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/personal_reward"
@@ -170,6 +166,7 @@
     <View style="@style/separate_line" />
 
     <TextView
+        android:id="@+id/tv_setting"
         style="@style/imgAtTxtLeft"
         android:drawableLeft="@drawable/setting"
         android:text="设置" />
@@ -177,10 +174,26 @@
     <View style="@style/d_w" />
 
     <TextView
+        android:id="@+id/tv_feedback"
         style="@style/imgAtTxtLeft"
         android:drawableLeft="@drawable/question"
         android:text="帮助与反馈" />
 
     <View style="@style/d_w" />
 
+    <TextView
+        android:id="@+id/tv_contact"
+        style="@style/imgAtTxtLeft"
+        android:drawableLeft="@drawable/contact"
+        android:text="联系我们" />
+
+    <View style="@style/d_w" />
+
+    <TextView
+        android:id="@+id/tv_join"
+        style="@style/imgAtTxtLeft"
+        android:drawableLeft="@drawable/join"
+        android:text="加入我们" />
+
+    <View style="@style/d_w" />
 </LinearLayout>

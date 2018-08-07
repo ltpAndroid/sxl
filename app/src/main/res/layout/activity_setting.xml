@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.personal.SettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_back_setting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_bar_height"
+            android:background="@color/main_color"
+            android:drawableLeft="@drawable/back"
+            android:gravity="center_vertical"
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+
+        <LinearLayout
+            android:id="@+id/change_term"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:orientation="horizontal">
+
+            <LinearLayout
+
+                style="@style/user_content_c_t">
+
+                <LinearLayout style="@style/user_content_c_t_1">
+
+                    <ImageView
+                        style="@style/user_content_c_t_2"
+                        android:src="@drawable/user_item_1" />
+
+                    <TextView
+                        style="@style/user_content_c_t_3"
+                        android:text="学习阶段" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/user_content_c_t_4"
+                    android:text="年级 / 学期" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/go_to" />
+        </LinearLayout>
+
+        <View style="@style/d_w" />
+
+        <LinearLayout
+            android:id="@+id/net_setting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:orientation="horizontal">
+
+            <LinearLayout
+
+                style="@style/user_content_c_t">
+
+                <LinearLayout style="@style/user_content_c_t_1">
+
+                    <ImageView
+                        style="@style/user_content_c_t_2"
+                        android:src="@drawable/user_item_2" />
+
+                    <TextView
+                        style="@style/user_content_c_t_3"
+                        android:text="网络" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/user_content_c_t_4"
+                    android:text="播放 / 下载" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/go_to" />
+        </LinearLayout>
+
+        <View style="@style/d_w" />
+
+        <LinearLayout
+            android:id="@+id/clear_cache"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp10">
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp5"
+                android:src="@drawable/user_item_3" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp40"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="清除缓存"
+                android:textSize="@dimen/sp16" />
+
+            <TextView
+                android:id="@+id/tv_cache"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp10"
+                android:gravity="center_vertical"
+                android:text="20M"
+                android:textColor="@color/md_grey_600"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <View style="@style/d_w" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_quit"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="@dimen/dp40"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dp20"
+        android:background="@drawable/bg_btn_quit"
+        android:text="退出当前账号"
+        android:textColor="@color/white" />
+</RelativeLayout>

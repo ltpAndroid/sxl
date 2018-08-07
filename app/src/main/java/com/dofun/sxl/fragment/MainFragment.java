@@ -10,22 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONArray;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
-import com.dofun.sxl.activity.LysListActivity;
 import com.dofun.sxl.activity.SjdListActivity;
 import com.dofun.sxl.activity.StatisticsActivity;
 import com.dofun.sxl.activity.StudyToolActivity;
-import com.dofun.sxl.activity.XhzListActivity;
 import com.dofun.sxl.adapter.PractiseAdapter;
 import com.dofun.sxl.bean.DailyPractise;
+import com.dofun.sxl.http.HttpUs;
+import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.GlideImageLoader;
+import com.dofun.sxl.view.DialogWaiting;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -55,7 +59,7 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.grade_report)
     LinearLayout gradeReport;
     private PractiseAdapter adapter;
-    private List<DailyPractise> practises;
+    private List<DailyPractise> practises = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,39 +99,68 @@ public class MainFragment extends BaseFragment {
     }
 
     private void initData() {
-        practises = new ArrayList<DailyPractise>();
-        practises.add(new DailyPractise("诵经典", "2018-07-07", "张慧敏", "口语评测", "2018-07-09 21:00"));
-        practises.add(new DailyPractise("习汉字", "2018-07-07", "张慧敏", "书法练习", "2018-07-09 21:00"));
-        practises.add(new DailyPractise("练运算", "2018-07-07", "张慧敏", "心算口算", "2018-07-09 21:00"));
+        askData();
 
-        if (adapter == null) {
-            adapter = new PractiseAdapter(R.layout.item_practise, practises);
-            rvPractise.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
-
-        refresh.setOnRefreshListener(null);
-        refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+        refresh.setOnRefreshListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishLoadMore(2000);
+                refreshLayout.finishLoadMore(1000);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                askData();
+                refreshLayout.finishRefresh(1000);
             }
         });
+    }
 
+    private void askData() {
+        final DialogWaiting dialog = DialogWaiting.build(mActivity);
+        dialog.show();
 
+        HttpUs.send(Deploy.getDailyPractise(), null, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtils.i(info.getData());
+
+                practises = JSONArray.parseArray(info.getData(), DailyPractise.class);
+                if (adapter == null) {
+                    adapter = new PractiseAdapter(R.layout.item_practise, practises);
+                    rvPractise.setAdapter(adapter);
+                } else {
+                    adapter.replaceData(practises);
+                }
+                dialog.dimiss();
+                setListener();
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.getMsg());
+                showTip(info.getMsg());
+            }
+        });
+    }
+
+    private void setListener() {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                DailyPractise item = (DailyPractise) adapter.getItem(position);
-                String title = item.getTitle();
-                if (title.equals("诵经典")) {
-                    ActivityUtils.startActivity(SjdListActivity.class);
-                } else if (title.equals("习汉字")) {
-                    ActivityUtils.startActivity(XhzListActivity.class);
-                } else if (title.equals("练运算")) {
-                    ActivityUtils.startActivity(LysListActivity.class);
-                }
+                DailyPractise dailyPractise = (DailyPractise) adapter.getItem(position);
+
+                //                String title = item.getCourseName();
+                //                if (title.equals("诵经典")) {
+                //                    ActivityUtils.startActivity(SjdListActivity.class);
+                //                } else if (title.equals("习汉字")) {
+                //                    ActivityUtils.startActivity(XhzListActivity.class);
+                //                } else if (title.equals("练运算")) {
+                //                    ActivityUtils.startActivity(LysListActivity.class);
+                //                }
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("dailyPractise", dailyPractise);
+                ActivityUtils.startActivity(bundle, SjdListActivity.class);
             }
         });
     }

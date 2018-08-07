@@ -42,6 +42,7 @@
                 android:layout_toLeftOf="@id/iv_search"
                 android:background="@null"
                 android:hint="@string/key_word"
+                android:textColorHint="@color/md_grey_500"
                 android:paddingLeft="@dimen/dp5"
                 android:textSize="@dimen/sp12" />
 

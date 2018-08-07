@@ -1,4 +1,4 @@
-package com.dofun.sxl.bean;
+package com.dofun.sxl.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.dofun.sxl.R;
+import com.dofun.sxl.bean.LiveList;
 
 import java.util.List;
 

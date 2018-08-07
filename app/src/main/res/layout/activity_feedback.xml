@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.personal.FeedbackActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/main_color">
+
+        <TextView
+            android:id="@+id/tv_back_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/back"
+            android:gravity="center_vertical"
+            android:text="@string/feedback"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:id="@+id/tv_send_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_back_feedback"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/dp10"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/feedback_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp10"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="请在这里写出你对诵习练的感受，我们将为你不断改进!"
+        android:minHeight="@dimen/dp200"
+        android:padding="@dimen/dp5"
+        android:textSize="@dimen/sp16" />
+</LinearLayout>

@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dofun.sxl.R;
+import com.dofun.sxl.adapter.LiveAdapter;
 import com.dofun.sxl.adapter.LiveTeacherAdapter;
-import com.dofun.sxl.bean.LiveAdapter;
 import com.dofun.sxl.bean.LiveList;
 import com.dofun.sxl.bean.LiveTeacher;
 

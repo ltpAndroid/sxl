@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="15dip"
+        android:paddingBottom="15dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:background="@drawable/show_loading_xml">
+
+        <ImageView
+            android:id="@+id/loadingImageView"
+            android:layout_width="55dip"
+            android:layout_height="55dip"
+            android:src="@drawable/show_loading" />
+
+        <TextView
+            android:id="@+id/id_tv_loadingmsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dip"
+            android:gravity="center"
+            android:text="加载数据"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

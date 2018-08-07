@@ -15,6 +15,14 @@
     <string name="mbsf">明辨是非（判断）</string>
     <string name="ryss">日有所诵（诵读）</string>
     <string name="syzy">诵以致用（视频）</string>
+
+    <string name="jwth00">精卫填海</string>
+    <string name="sckl00">诗词酷连</string>
+    <string name="ggxs00">宫格寻诗</string>
+    <string name="sqxm00">搜奇选妙</string>
+    <string name="mbsf00">明辨是非</string>
+    <string name="ryss00">日有所诵</string>
+    <string name="syzy00">诵以致用</string>
     <!--练运算选题-->
     <string name="one">一、直接计算</string>
     <string name="two">二、竖式计算</string>
@@ -22,10 +30,23 @@
     <string name="four">四、填空</string>
     <string name="five">五、在方框中填上合适的数</string>
     <string name="six">六、计算</string>
-    <string name="seven">七、在O里填上 ">" "&lt;" 或 "="</string>
+    <string name="seven">七、在O里填上 ">"、"&lt;" 或 "="</string>
     <string name="eight">八、想一想，填一填</string>
     <string name="nine">九、选一选</string>
 
+    <string name="lys_tk">填空</string>
+    <string name="lys_lx">连线</string>
+    <string name="lys_pd">判断</string>
+    <string name="lys_xz">选择</string>
+    <string name="lys_js">计算题</string>
+    <string name="lys_yy">应用题</string>
+    <string name="lys_ht">画图题</string>
+
+    <!--习汉字选题-->
+    <string name="xhz_tk">填空</string>
+    <string name="xhz_lm">临摹</string>
+
+    <!--回退键-->
     <string name="go_back">返回</string>
     <!--个人奖励-->
     <string name="personal_reward">个人奖励</string>
@@ -67,4 +88,24 @@
     <string name="key_word">请输入搜索关键字</string>
     <!--示例-->
     <string name="brief_introduction">教育部推荐中小学生必读传统文化精品读物！增强民族认同，修补文化断层，提高综合素质！传统文化业能鲜活、有趣！</string>
+
+    <!--dialog-->
+    <string name="content_topic">注意：退出当前界面将重新开始做题与计时，请确认后退出！</string>
+
+    <!--个人中心-->
+    <string name="feedback">用户反馈</string>
+    <string name="contact">联系我们</string>
+    <string name="join">加入我们</string>
+    <string name="empty_content">内容不能为空！</string>
+    <string name="clip_wx">客服微信号已复制，请打开微信并在搜索内粘贴即可添加客服</string>
+    <string name="contact_phone">联系诵习练的电话客服\n025-50458112</string>
+    <string name="join_us_1">&#160;&#160;&#160;&#160;&#160;&#160;诵习练APP由敦锋科技出品，提供辅助学习的服务，立志让知识变得生动，将学习变得充满乐趣。</string>
+    <string name="join_us_2">&#160;&#160;&#160;&#160;&#160;&#160;如果你和我们一样，是拥有思想的潮人的话，快来猛烈的骚扰我们吧！</string>
+    <string name="clean_cache">是否确定清理app缓存？</string>
+    <string name="quit_app">是否退出当前账号？</string>
+    <string name="title_activity_change_net">Settings</string>
+    <string name="net_download">使用2G/3G/4G网络下载</string>
+    <string name="net_play">使用2G/3G/4G网络播放</string>
+    <string name="download_on">2G/3G/4G下载会产生较多流量消耗\n建议在WIFI模式下下载</string>
+    <string name="play_on">2G/3G/4G下载会产生较多流量消耗\n建议在WIFI模式下播放</string>
 </resources>

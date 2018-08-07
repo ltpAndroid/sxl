@@ -89,4 +89,70 @@
         <item name="android:indeterminateDuration">800</item>
         <item name="android:indeterminateOnly">true</item>
     </style>
+
+    <!--从学趣部落copy过来-->
+    <!-- 加载网络进度条 -->
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- 无背景色样式dialog -->
+    <style name="CustomDialogHint" parent="android:style/Theme.Dialog">
+        <!--背景颜色及透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <!--设置界面-->
+    <style name="user_content_c_t">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">@dimen/dp10</item>
+    </style>
+
+    <style name="user_content_c_t_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="user_content_c_t_2">
+        <item name="android:layout_width">6dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="user_content_c_t_3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="user_content_c_t_4">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textColor">#80000000</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.dofun.sxl.activity;
+package com.dofun.sxl.activity.personal;
 
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.dofun.sxl.R;
+import com.dofun.sxl.activity.BaseActivity;
 import com.dofun.sxl.adapter.RewardAdapter;
 import com.dofun.sxl.bean.RewardBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

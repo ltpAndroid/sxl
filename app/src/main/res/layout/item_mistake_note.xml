@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/item_note_assign_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018-07-06"
+                android:textColor="@color/md_black_1000"
+                android:textSize="@dimen/sp16" />
+
+            <TextView
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日常练习"
+                android:textColor="@color/md_black_1000"
+                android:textSize="@dimen/sp16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送老师:" />
+
+            <TextView
+                android:id="@+id/item_note_teacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张慧敏" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="作业类型:" />
+
+            <TextView
+                android:id="@+id/item_note_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="口语评测" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="作业截止时间:" />
+
+            <TextView
+                android:id="@+id/item_note_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018-07-09 21:00" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:src="@drawable/write" />
+
+</LinearLayout>

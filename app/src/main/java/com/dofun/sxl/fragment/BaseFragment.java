@@ -42,5 +42,9 @@ public class BaseFragment extends BaseLazyFragment {
     public int setColor(int colorId) {
         return mActivity.getResources().getColor(colorId);
     }
+
+
+    /********************dialog*******************/
+
 }
 
