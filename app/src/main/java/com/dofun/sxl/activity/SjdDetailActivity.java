@@ -100,7 +100,7 @@ public class SjdDetailActivity extends BaseActivity {
     }
 
     private void queryTopic() {
-        int kind = /*getIntent().getIntExtra("kind",101)*/kinds[position];
+        int kind = kinds[position];/*getIntent().getIntExtra("kind",101)*/
         JSONObject param = new JSONObject();
         param.put("homeworkId", homeworkId);
         param.put("fkId", fkId);
