@@ -23,6 +23,8 @@
     <string name="mbsf00">明辨是非</string>
     <string name="ryss00">日有所诵</string>
     <string name="syzy00">诵以致用</string>
+
+    <string name="homework_toast">温馨提示：亲爱的同学们，做题要认真仔细，注意时间。本次作业请在5分钟内完成。</string>
     <!--练运算选题-->
     <string name="one">一、直接计算</string>
     <string name="two">二、竖式计算</string>
@@ -108,4 +110,7 @@
     <string name="net_play">使用2G/3G/4G网络播放</string>
     <string name="download_on">2G/3G/4G下载会产生较多流量消耗\n建议在WIFI模式下下载</string>
     <string name="play_on">2G/3G/4G下载会产生较多流量消耗\n建议在WIFI模式下播放</string>
+
+    <!--题目详情-->
+    <string name="do_again">是否重做该题？</string>
 </resources>

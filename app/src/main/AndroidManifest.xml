@@ -64,7 +64,9 @@
         <activity android:name=".activity.personal.JoinActivity" />
         <activity android:name=".activity.personal.SettingActivity" />
         <activity android:name=".activity.personal.ChangeNetActivity" />
-        <activity android:name=".activity.personal.UserInfoActivity"></activity>
+        <activity android:name=".activity.personal.UserInfoActivity" />
+        <activity android:name=".activity.DailyPraciseActivity" />
+        <activity android:name=".activity.personal.LysKsActivity"></activity>
     </application>
 
 </manifest>

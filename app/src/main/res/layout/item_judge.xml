@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_judge_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1、" />
+
+        <TextView
+            android:id="@+id/item_judge_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/dp2"
+            android:lineSpacingMultiplier="1.2"
+            android:text="子曰：“人而无信，不知其可也。”这句话出自《论语》(  )" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp5"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/item_judge_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp60"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="√"
+            android:textColor="@color/md_grey_600"
+            android:textSize="@dimen/sp20" />
+
+        <RadioButton
+            android:id="@+id/item_judge_wrong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="X"
+            android:textColor="@color/md_grey_600"
+            android:textSize="@dimen/sp20" />
+    </RadioGroup>
+</LinearLayout>

@@ -112,7 +112,7 @@ public class BaseActivity extends AppCompatActivity {
     public void showMyDialog(int resId, DialogInterface.OnClickListener negativeListener, DialogInterface.OnClickListener positiveListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(resId)
-                .setCancelable(true)
+                .setCancelable(false)
                 .setNegativeButton("取消", negativeListener)
                 .setPositiveButton("确认", positiveListener)
                 .show();

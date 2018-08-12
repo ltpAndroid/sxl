@@ -30,9 +30,38 @@
             android:src="@drawable/back" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/toast" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/dp2"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@string/homework_toast"
+            android:textSize="@dimen/sp12" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@drawable/divider_height" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_sjd_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 
 </LinearLayout>

@@ -43,8 +43,8 @@ public class LoginActivity extends BaseActivity {
         btnToRegister.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
 
         //调试用
-        etPhone.setText(SPUtils.getString(SPUtils.UserName));
-        etPassword.setText(SPUtils.getString(SPUtils.UserPwd));
+        etPhone.setText(SPUtils.getString(SPUtils.UserName, ""));
+        etPassword.setText(SPUtils.getString(SPUtils.UserPwd, ""));
     }
 
 

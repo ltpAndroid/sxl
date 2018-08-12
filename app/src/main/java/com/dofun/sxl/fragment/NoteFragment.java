@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,20 @@ import com.dofun.sxl.adapter.MistakeNoteAdapter;
 import com.dofun.sxl.bean.MistakeNote;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
+import com.dofun.sxl.util.SPUtils;
 import com.dofun.sxl.view.DialogWaiting;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.timmy.tdialog.TDialog;
+import com.timmy.tdialog.base.BindViewHolder;
+import com.timmy.tdialog.base.TBaseAdapter;
+import com.timmy.tdialog.list.TListDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,6 +74,8 @@ public class NoteFragment extends BaseFragment {
     private List<MistakeNote> mistakeList = new ArrayList<>();
     private List<MistakeNote> orgList = new ArrayList<>();
 
+    private String timeType = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,6 +102,7 @@ public class NoteFragment extends BaseFragment {
     }
 
     private void initData() {
+        timeType = SPUtils.getString("timeType", "1");
         changeData("10");
 
         refreshMistake.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -146,9 +156,43 @@ public class NoteFragment extends BaseFragment {
                 changeData("12");
                 break;
             case R.id.tv_filtrate:
-
+                showDialog();
                 break;
         }
+    }
+
+    private void showDialog() {
+        String[] data = {"近一周", "近一月", "近半年", "近一年"};
+        new TListDialog.Builder(mActivity.getSupportFragmentManager())
+                .setHeight(600)
+                .setScreenWidthAspect(mActivity, 0.5f)
+                .setGravity(Gravity.CENTER)
+                .setAdapter(new TBaseAdapter<String>(R.layout.item_simple_text, Arrays.asList(data)) {
+
+                    @Override
+                    protected void onBind(BindViewHolder holder, int position, String s) {
+                        holder.setText(R.id.tv, s);
+                    }
+                })
+                .setOnAdapterItemClickListener(new TBaseAdapter.OnAdapterItemClickListener<String>() {
+                    @Override
+                    public void onItemClick(BindViewHolder holder, int position, String s, TDialog tDialog) {
+                        switch (s) {
+                            case "近一周":
+                                timeType = "1";
+                            case "近一月":
+                                timeType = "2";
+                            case "近半年":
+                                timeType = "3";
+                            case "近一年":
+                                timeType = "4";
+                        }
+                        SPUtils.setString("timeType", timeType);
+                        tDialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
     }
 
     private void changeData(final String courseId) {
@@ -157,7 +201,7 @@ public class NoteFragment extends BaseFragment {
 
         JSONObject param = new JSONObject();
         param.put("courseId", courseId);
-        param.put("timeType", "1");
+        param.put("timeType", SPUtils.getString("timeType", "1"));
         param.put("roleType", "1");
         HttpUs.send(Deploy.getWrongBook(), param, new HttpUs.CallBackImp() {
             @Override

@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="@dimen/dp5">
 
     <ImageView
         android:id="@+id/item_sjd_icon"
-        android:layout_width="@dimen/dp45"
-        android:layout_height="@dimen/dp45"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
         android:scaleType="fitXY"
         android:src="@drawable/jwth" />
 

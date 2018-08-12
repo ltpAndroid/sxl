@@ -8,7 +8,9 @@ import android.view.KeyEvent;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.dofun.sxl.Deploy;
+import com.dofun.sxl.MyApplication;
 import com.dofun.sxl.http.httputil.HttpException;
 import com.dofun.sxl.http.httputil.HttpHandler;
 import com.dofun.sxl.http.httputil.HttpRequest;
@@ -60,9 +62,9 @@ public class HttpUs {
         RequestParams data = new RequestParams();
 
         JSONObject json = new JSONObject();
-        json.put("deviceId", SPUtils.getString(SPUtils.IMEI));
+        json.put("deviceId", SPUtils.getString(SPUtils.IMEI, ""));
         json.put("method", method[1]);// 调用方法
-        json.put("token", SPUtils.getString(SPUtils.TOKEN));// token,登录后就使用
+        json.put("token", SPUtils.getString(SPUtils.TOKEN, ""));// token,登录后就使用
         json.put("params", params);// 方法的参数
         LogUtils.i("网络参数:" + json.toJSONString());
         data.addBodyParameter("data", json.toJSONString());
@@ -169,14 +171,14 @@ class MyCallBack extends RequestCallBack<String> {
                 if (info.getStatus().equals("200")) {
                     _RequestCallBackImp.onSuccess(info);
                 } else if (info.getStatus().equals("404")) {
-                    //					//退出登录，当前用户未登录
-                    //                    SPUtils.setString(SPUtils.userName, "");
-                    //                    SPUtils.setString(SPUtils.userPaw, "");
+                    //退出登录，当前用户未登录
+                    //                    SPUtils.setString(SPUtils.UserName, "");
+                    //                    SPUtils.setString(SPUtils.UserPwd, "");
                     //                    // 停止账号统计
                     //                    MobclickAgent.onProfileSignOff();
-                    //					MyApplication.exitApp();
-                    //					MyApplication.toLogin();
-                    //					ToastUtils.showLong(MyApplication._this, info.getMsg());
+                    MyApplication.exitApp();
+                    MyApplication.toLogin();
+                    ToastUtils.showShort(info.getMsg());
                 } else {
                     _RequestCallBackImp.onFailure(info);
                 }

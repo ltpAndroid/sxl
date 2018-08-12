@@ -34,6 +34,7 @@
     <dimen name="dp100">100dp</dimen>
     <dimen name="dp120">120dp</dimen>
     <dimen name="dp150">150dp</dimen>
+    <dimen name="dp180">180dp</dimen>
     <dimen name="dp200">200dp</dimen>
 
     <!--常用字体大小sp-->

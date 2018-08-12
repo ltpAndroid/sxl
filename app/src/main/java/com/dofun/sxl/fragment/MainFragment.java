@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.blankj.utilcode.util.ActivityUtils;
@@ -16,9 +17,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
+import com.dofun.sxl.activity.DailyPraciseActivity;
+import com.dofun.sxl.activity.LysListActivity;
 import com.dofun.sxl.activity.SjdListActivity;
 import com.dofun.sxl.activity.StatisticsActivity;
 import com.dofun.sxl.activity.StudyToolActivity;
+import com.dofun.sxl.activity.XhzListActivity;
 import com.dofun.sxl.adapter.PractiseAdapter;
 import com.dofun.sxl.bean.DailyPractise;
 import com.dofun.sxl.http.HttpUs;
@@ -27,9 +31,8 @@ import com.dofun.sxl.util.GlideImageLoader;
 import com.dofun.sxl.view.DialogWaiting;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -50,16 +53,18 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.rv_practise)
     RecyclerView rvPractise;
 
-    @BindView(R.id.refresh)
-    SmartRefreshLayout refresh;
-
     Unbinder unbinder;
     @BindView(R.id.study_tool)
     LinearLayout studyTool;
     @BindView(R.id.grade_report)
     LinearLayout gradeReport;
+    @BindView(R.id.tv_more)
+    TextView tvMore;
+    @BindView(R.id.refresh_main)
+    SmartRefreshLayout refreshMain;
+
     private PractiseAdapter adapter;
-    private List<DailyPractise> practises = new ArrayList<>();
+    private ArrayList<DailyPractise> practises = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +83,7 @@ public class MainFragment extends BaseFragment {
         banner.setImageLoader(new GlideImageLoader());
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置图片集合
-        List<Integer> images = new ArrayList<Integer>();
+        List<Integer> images = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             images.add(R.drawable.banner_main);
         }
@@ -88,31 +93,17 @@ public class MainFragment extends BaseFragment {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 
-
-        refresh.setRefreshFooter(new ClassicsFooter(mActivity))
-                .setRefreshHeader(new ClassicsHeader(mActivity));
-
         LinearLayoutManager manager = new LinearLayoutManager(mActivity);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rvPractise.setLayoutManager(manager);
         rvPractise.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
+
+        refreshMain.setRefreshHeader(new ClassicsHeader(mActivity));
     }
 
     private void initData() {
         askData();
 
-        refresh.setOnRefreshListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishLoadMore(1000);
-            }
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                askData();
-                refreshLayout.finishRefresh(1000);
-            }
-        });
     }
 
     private void askData() {
@@ -124,12 +115,35 @@ public class MainFragment extends BaseFragment {
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.getData());
 
-                practises = JSONArray.parseArray(info.getData(), DailyPractise.class);
+                practises = (ArrayList<DailyPractise>) JSONArray.parseArray(info.getData(), DailyPractise.class);
+                List<DailyPractise> list = new ArrayList<>();
+                if (practises.size() > 3) {
+                    tvMore.setText("查看更多练习");
+                    tvMore.setEnabled(true);
+                    list.add(practises.get(0));
+                    list.add(practises.get(1));
+                    list.add(practises.get(2));
+                } else {
+                    if (practises.size() == 0) {
+                        tvMore.setText("需要老师布置练习再刷新");
+                        tvMore.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                askData();
+                            }
+                        });
+                    } else {
+                        tvMore.setText("没有更多练习");
+                        tvMore.setEnabled(false);
+                        list = practises;
+                    }
+                }
+
                 if (adapter == null) {
-                    adapter = new PractiseAdapter(R.layout.item_practise, practises);
+                    adapter = new PractiseAdapter(R.layout.item_practise, list);
                     rvPractise.setAdapter(adapter);
                 } else {
-                    adapter.replaceData(practises);
+                    adapter.replaceData(list);
                 }
                 dialog.dimiss();
                 setListener();
@@ -144,28 +158,38 @@ public class MainFragment extends BaseFragment {
     }
 
     private void setListener() {
+        refreshMain.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                askData();
+                refreshLayout.finishRefresh();
+            }
+        });
+        refreshMain.setEnableLoadMore(false);
+
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DailyPractise dailyPractise = (DailyPractise) adapter.getItem(position);
-
-                //                String title = item.getCourseName();
-                //                if (title.equals("诵经典")) {
-                //                    ActivityUtils.startActivity(SjdListActivity.class);
-                //                } else if (title.equals("习汉字")) {
-                //                    ActivityUtils.startActivity(XhzListActivity.class);
-                //                } else if (title.equals("练运算")) {
-                //                    ActivityUtils.startActivity(LysListActivity.class);
-                //                }
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("dailyPractise", dailyPractise);
-                ActivityUtils.startActivity(bundle, SjdListActivity.class);
+                String title = dailyPractise.getCourseName();
+                if (title.equals("诵经典")) {
+                    ActivityUtils.startActivity(bundle, SjdListActivity.class);
+                } else if (title.equals("习汉字")) {
+                    ActivityUtils.startActivity(bundle, XhzListActivity.class);
+                } else if (title.equals("练运算")) {
+                    ActivityUtils.startActivity(bundle, LysListActivity.class);
+                }
+
+                //                Bundle bundle = new Bundle();
+                //                bundle.putSerializable("dailyPractise", dailyPractise);
+                //                ActivityUtils.startActivity(bundle, SjdListActivity.class);
             }
         });
     }
 
-    @OnClick({R.id.study_tool, R.id.grade_report})
+    @OnClick({R.id.study_tool, R.id.grade_report, R.id.tv_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.study_tool:
@@ -173,6 +197,11 @@ public class MainFragment extends BaseFragment {
                 break;
             case R.id.grade_report:
                 ActivityUtils.startActivity(StatisticsActivity.class);
+                break;
+            case R.id.tv_more:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("practises", practises);
+                ActivityUtils.startActivity(bundle, DailyPraciseActivity.class);
                 break;
         }
     }

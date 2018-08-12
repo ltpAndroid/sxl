@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.sjd.SpellFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_spell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp30" />
+
+    <View style="@style/separate_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="答案："
+            android:textColor="@color/main_color" />
+
+        <EditText
+            android:id="@+id/spell_1"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/spell_2"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/spell_3"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/spell_4"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/spell_5"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/spell_6"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+        <EditText
+            android:id="@+id/spell_7"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:maxLength="1" />
+
+    </LinearLayout>
+</LinearLayout>

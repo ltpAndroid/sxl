@@ -1,21 +1,25 @@
 package com.dofun.sxl.bean;
 
+import java.util.List;
+
 public class TopicDetail extends BaseBean {
 
+
     /**
-     * analysis : 正确答案1
-     * answer : 2638
-     * createTime : 1533177365000
-     * detail : 1.慈母手中_线，游子身上_?
-     * difficultyDegree : 1
+     * analysis : 线
+     * answer : 2639
+     * createTime : 1533279265000
+     * detail : 慈母手中（ ）,游子身上衣。
+     * difficultyDegree : 16
      * fkId : 10
-     * fkType : 1
-     * fraction : 1
-     * id : 559
+     * fkType : 2
+     * fraction : 16
+     * id : 564
      * kind : 101
+     * optionList : [{"detail":"线","id":2639,"status":0,"topicId":564}]
      * status : 0
-     * type : 0
-     * userId : 7
+     * type : 1
+     * userId : 1
      */
 
     private String analysis;
@@ -31,6 +35,7 @@ public class TopicDetail extends BaseBean {
     private int status;
     private int type;
     private int userId;
+    private List<OptionListBean> optionList;
 
     public String getAnalysis() {
         return analysis;
@@ -134,5 +139,59 @@ public class TopicDetail extends BaseBean {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public List<OptionListBean> getOptionList() {
+        return optionList;
+    }
+
+    public void setOptionList(List<OptionListBean> optionList) {
+        this.optionList = optionList;
+    }
+
+    public static class OptionListBean {
+        /**
+         * detail : 线
+         * id : 2639
+         * status : 0
+         * topicId : 564
+         */
+
+        private String detail;
+        private int id;
+        private int status;
+        private int topicId;
+
+        public String getDetail() {
+            return detail;
+        }
+
+        public void setDetail(String detail) {
+            this.detail = detail;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public int getTopicId() {
+            return topicId;
+        }
+
+        public void setTopicId(int topicId) {
+            this.topicId = topicId;
+        }
     }
 }

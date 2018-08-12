@@ -71,18 +71,8 @@ public class SjdListActivity extends BaseActivity {
 
         dailyPractise = (DailyPractise) getIntent().getSerializableExtra("dailyPractise");
         String courseName = dailyPractise.getCourseName();
-        String type = "";
-        switch (courseName) {
-            case "诵经典":
-                type = "question_types";
-                break;
-            case "习汉字":
-                type = "characters_type";
-                break;
-            case "练运算":
-                type = "operation_type";
-                break;
-        }
+        String type = "question_types";
+
         tvTitle.setText(courseName);
 
         JSONObject param = new JSONObject();
@@ -125,9 +115,14 @@ public class SjdListActivity extends BaseActivity {
                 bundle.putString("type", bean.getType());
                 bundle.putInt("position", position);
                 //bundle.putInt("kind",bean.getId());
-                if (!(bean.getValue().equals("诵读") || bean.getValue().equals("视频"))) {
+                if (!bean.getValue().equals("视频")) {
+                    if (position != 0) {
+                        showTip("请从第1题开始做");
+                        return;
+                    }
                     ActivityUtils.startActivity(bundle, SjdDetailActivity.class);
                 }
+
             }
         });
     }

@@ -203,8 +203,8 @@ public class SPUtils {
         return IMSI;
     }
 
-    public static String getString(String key) {
-        return (String) get(key, "");
+    public static String getString(String key, String defaultVal) {
+        return (String) get(key, defaultVal);
     }
 
     public static boolean getBoolean(String key) {
@@ -263,7 +263,6 @@ public class SPUtils {
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
-     * @param context
      * @param key
      * @param object
      */

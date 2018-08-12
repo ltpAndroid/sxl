@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/md_white_1000">
+        android:layout_height="45dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/app_name"
+            android:text="@string/bottom_main"
             android:textColor="@color/main_color"
             android:textSize="20sp" />
 
@@ -27,13 +27,19 @@
             android:layout_centerVertical="true"
             android:padding="5dp"
             android:src="@drawable/search" />
+
+        <View
+            style="@style/title_line"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp120"
-        android:layout_margin="@dimen/dp10"
+        android:layout_height="@dimen/dp150"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
         app:image_scale_type="fit_xy"
         app:scroll_time="1000" />
 
@@ -108,38 +114,63 @@
 
     <View style="@style/d_w" />
 
-    <View
-        style="@style/title_line"
-        android:layout_marginTop="10dp" />
-
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/md_white_1000">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:text="——— • 日常练习 • ———"
-            android:textSize="@dimen/sp_16" />
-    </RelativeLayout>
-
-    <View style="@style/d_w" />
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_practise"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <View
+                style="@style/title_line"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_white_1000">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="——— • 日常练习 • ———"
+                    android:textSize="@dimen/sp_16" />
+            </RelativeLayout>
+
+            <View style="@style/d_w" />
+
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_practise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp40"
+                android:gravity="center"
+                android:text="查看更多练习" />
+
+            <View style="@style/d_w" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

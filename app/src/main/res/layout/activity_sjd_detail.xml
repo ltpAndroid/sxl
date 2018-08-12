@@ -91,56 +91,12 @@
                         android:text="分" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/difficult_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/topic_layout"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="难度："
-                        android:textColor="@color/md_grey_500"
-                        android:textSize="@dimen/sp12" />
-
-                    <TextView
-                        android:id="@+id/tv_topic_diff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/md_grey_500"
-                        android:textSize="@dimen/sp12" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/topic_layout"
-                    android:layout_marginLeft="@dimen/dp60"
-                    android:layout_toRightOf="@id/difficult_layout"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="知识点："
-                        android:textColor="@color/md_grey_500"
-                        android:textSize="@dimen/sp12" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/md_grey_500"
-                        android:textSize="@dimen/sp12" />
-                </LinearLayout>
             </RelativeLayout>
 
             <View style="@style/d_w" />
 
             <FrameLayout
+                android:id="@+id/detail_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -175,14 +131,20 @@
                 android:textSize="@dimen/sp12" />
         </LinearLayout>
 
-        <ProgressBar
+        <SeekBar
             android:id="@+id/countdown_progress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp5"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:max="300"
-            android:progress="80"
-            android:progressDrawable="@drawable/bg_progress" />
+            android:thumb="@drawable/bomb" />
+        <!--<com.dofun.sxl.view.SnailBar
+            android:id="@+id/countdown_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/snailanim" />-->
     </LinearLayout>
 
     <RelativeLayout
@@ -191,6 +153,7 @@
         android:padding="@dimen/dp5">
 
         <Button
+            android:id="@+id/btn_restart"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="200dp"
             android:layout_height="@dimen/dp30"

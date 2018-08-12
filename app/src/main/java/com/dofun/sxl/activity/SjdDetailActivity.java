@@ -1,11 +1,18 @@
 package com.dofun.sxl.activity;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -15,6 +22,11 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.bean.TopicDetail;
+import com.dofun.sxl.fragment.sjd.ChooseFragment;
+import com.dofun.sxl.fragment.sjd.GapFillFragment;
+import com.dofun.sxl.fragment.sjd.JudgeFragment;
+import com.dofun.sxl.fragment.sjd.LigatureFragment;
+import com.dofun.sxl.fragment.sjd.SpellFragment;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.view.DialogWaiting;
@@ -23,6 +35,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,37 +54,45 @@ public class SjdDetailActivity extends BaseActivity {
     TextView topicName;
     @BindView(R.id.tv_topic_score)
     TextView topicScore;
-    @BindView(R.id.tv_topic_diff)
-    TextView topicDiff;
     @BindView(R.id.tv_previous)
     TextView tvPrevious;
     @BindView(R.id.tv_next)
     TextView tvNext;
     @BindView(R.id.countdown_progress)
-    ProgressBar countdownProgress;
+    SeekBar countdownProgress;
     @BindView(R.id.tv_surplus)
     TextView tvSurplus;
     @BindView(R.id.iv_next)
     ImageView ivNext;
+    @BindView(R.id.detail_container)
+    FrameLayout detailContainer;
+    @BindView(R.id.btn_restart)
+    Button btnRestart;
 
     private int i = 0;
     private MyTimer myTimer;
 
-    private String type;
     private int position;
     private int[] sjd00 = new int[]{R.string.jwth00, R.string.sckl00, R.string.ggxs00, R.string.sqxm00, R.string.mbsf00, R.string.ryss00, R.string.syzy00};
     private int[] sjd = new int[]{R.string.jwth, R.string.sckl, R.string.ggxs, R.string.sqxm, R.string.mbsf, R.string.ryss, R.string.syzy};
     private String[] str = new String[]{"一、", "二、", "三、", "四、", "五、", "六、", "七、"};
     private int[] lys = new int[]{R.string.lys_tk, R.string.lys_lx, R.string.lys_pd, R.string.lys_xz, R.string.lys_js, R.string.lys_yy, R.string.lys_ht};
     private int[] xhz = new int[]{R.string.xhz_tk, R.string.xhz_lm};
-    private final String TYPE_SJD = "question_types";
-    private final String TYPE_XHZ = "characters_type";
-    private final String TYPE_LYS = "operation_type";
+    //    private final String TYPE_SJD = "question_types";
+    //    private final String TYPE_XHZ = "characters_type";
+    //    private final String TYPE_LYS = "operation_type";
 
-    private List<TopicDetail> topicDetails = new ArrayList<>();
-    private int[] kinds;
+    public ArrayList<TopicDetail> topicDetails = new ArrayList<>();
+    private int[] kinds = new int[]{101, 102, 103, 104, 105, 106, 107};
     private int homeworkId;
     private int fkId;
+
+    GapFillFragment gapFillFragment;
+    LigatureFragment ligatureFragment;
+    SpellFragment spellFragment;
+    ChooseFragment chooseFragment;
+    JudgeFragment judgeFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,17 +103,91 @@ public class SjdDetailActivity extends BaseActivity {
 
         initData();
         initView();
+        //initFragment();
     }
 
+    private void initFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        hideAllFragment(ft);
+        switch (position) {
+            case 0:
+                if (gapFillFragment == null) {
+                    gapFillFragment = GapFillFragment.newInstance(topicDetails);
+                    ft.add(R.id.detail_container, gapFillFragment);
+                } else {
+                    ft.show(gapFillFragment);
+                }
+                break;
+            case 1:
+                if (ligatureFragment == null) {
+                    ligatureFragment = LigatureFragment.newInstance(topicDetails);
+                    ft.add(R.id.detail_container, ligatureFragment);
+                } else {
+                    ft.show(ligatureFragment);
+                }
+                break;
+            case 2:
+                if (spellFragment == null) {
+                    spellFragment = SpellFragment.newInstance(topicDetails);
+                    ft.add(R.id.detail_container, spellFragment);
+                } else {
+                    ft.show(spellFragment);
+                }
+                break;
+            case 3:
+                if (chooseFragment == null) {
+                    chooseFragment = ChooseFragment.newInstance(topicDetails);
+                    ft.add(R.id.detail_container, chooseFragment);
+                } else {
+                    ft.show(chooseFragment);
+                }
+                break;
+            case 4:
+                if (judgeFragment == null) {
+                    judgeFragment = JudgeFragment.newInstance(topicDetails);
+                    ft.add(R.id.detail_container, judgeFragment);
+                } else {
+                    ft.show(judgeFragment);
+                }
+                break;
+        }
+        ft.commit();
+    }
+
+    private void hideAllFragment(FragmentTransaction transaction) {
+        if (gapFillFragment != null) {
+            transaction.hide(gapFillFragment);
+        }
+        if (ligatureFragment != null) {
+            transaction.hide(ligatureFragment);
+        }
+        if (spellFragment != null) {
+            transaction.hide(spellFragment);
+        }
+        if (chooseFragment != null) {
+            transaction.hide(chooseFragment);
+        }
+        if (judgeFragment != null) {
+            transaction.hide(judgeFragment);
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     private void initView() {
         countdownProgress.setProgress(300);
+        countdownProgress.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
         myTimer = new MyTimer(5 * 60 * 1000, 1000);
         myTimer.start();
     }
 
     private void initData() {
         position = getIntent().getIntExtra("position", 0);
-        type = getIntent().getStringExtra("type");
         changeViews(position);
 
         homeworkId = getIntent().getIntExtra("homeworkId", 0);
@@ -109,12 +205,12 @@ public class SjdDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
-                topicDetails = JSONArray.parseArray(info.getData(), TopicDetail.class);
+                topicDetails = (ArrayList<TopicDetail>) JSONArray.parseArray(info.getData(), TopicDetail.class);
                 if (topicDetails.size() > 0) {
                     bindView(topicDetails);
+                    initFragment();
                 } else {
                     showTip("没有布置该题型");
-                    topicDiff.setText("");
                     topicScore.setText("");
                 }
             }
@@ -128,16 +224,13 @@ public class SjdDetailActivity extends BaseActivity {
     }
 
     private void bindView(List<TopicDetail> topicList) {
-        TopicDetail topicDetail = topicList.get(position);
-        topicDiff.setText(topicDetail.getDifficultyDegree() + "");
+        TopicDetail topicDetail = topicList.get(0);
         topicScore.setText(topicDetail.getFraction() + "");
     }
 
     private void changeViews(int num) {
         setTopicText(num);
-        if ((type.equals(TYPE_SJD) && num == 4)
-                || (type.equals(TYPE_XHZ) && num == 1)
-                || (type.equals(TYPE_LYS) && num == 6)) {
+        if (num == 5) {
             tvNext.setText("提交");
             ivNext.setVisibility(View.GONE);
         } else {
@@ -152,29 +245,13 @@ public class SjdDetailActivity extends BaseActivity {
     }
 
     private void setTopicText(int num) {
-        switch (type) {
-            case TYPE_SJD:
-                topicType.setText(sjd00[num]);
-                topicNum.setText(str[num]);
-                topicName.setText(sjd[num]);
-                kinds = new int[]{101, 102, 103, 104, 105, 106, 107};
-                break;
-            case TYPE_XHZ:
-                topicType.setText(xhz[num]);
-                topicNum.setText(str[num]);
-                topicName.setText(xhz[num]);
-                kinds = new int[]{111, 112};
-                break;
-            case TYPE_LYS:
-                topicType.setText(lys[num]);
-                topicNum.setText(str[num]);
-                topicName.setText(lys[num]);
-                kinds = new int[]{121, 122, 123, 124, 125, 126, 127};
-                break;
-        }
+        topicType.setText(sjd00[num]);
+        topicNum.setText(str[num]);
+        topicName.setText(sjd[num]);
+
     }
 
-    @OnClick({R.id.tv_back_sjd, R.id.tv_previous, R.id.tv_next})
+    @OnClick({R.id.tv_back_sjd, R.id.tv_previous, R.id.tv_next, R.id.btn_restart})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_sjd:
@@ -210,7 +287,51 @@ public class SjdDetailActivity extends BaseActivity {
                     }
                 }, 500);
                 break;
+            case R.id.btn_restart:
+                showMyDialog(R.string.do_again, null, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        recreateFragment(position);
+                    }
+                });
+                break;
         }
+    }
+
+    private void recreateFragment(int position) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        switch (position) {
+            case 0:
+                ft.remove(gapFillFragment);
+                gapFillFragment = null;
+                break;
+            case 1:
+                ft.remove(ligatureFragment);
+                ligatureFragment = null;
+                break;
+            case 2:
+                ft.remove(spellFragment);
+                spellFragment = null;
+                break;
+            case 3:
+                ft.remove(chooseFragment);
+                chooseFragment = null;
+                break;
+            case 4:
+                ft.remove(judgeFragment);
+                judgeFragment = null;
+                break;
+        }
+        ft.commit();
+        final DialogWaiting dialog = DialogWaiting.build(this);
+        dialog.show();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                queryTopic();
+                dialog.dimiss();
+            }
+        }, 100);
     }
 
     private void commitAnswer() {
@@ -250,5 +371,13 @@ public class SjdDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         myTimer.cancel();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            showMyDialog(R.string.content_topic);
+        }
+        return true;
     }
 }

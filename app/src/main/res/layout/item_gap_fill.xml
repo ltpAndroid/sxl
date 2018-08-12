@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp5">
+
+    <TextView
+        android:id="@+id/item_gap_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1、" />
+
+    <TextView
+        android:id="@+id/item_gap_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp2"
+        android:lineSpacingMultiplier="1.2"
+        android:text="慈母手中(  )，游子身上衣。" />
+</LinearLayout>

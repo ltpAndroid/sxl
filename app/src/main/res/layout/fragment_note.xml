@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/title_bar_height"
         android:background="@color/white">
 
         <TextView
@@ -15,6 +15,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="5dp"
+            android:layout_centerHorizontal="true"
             android:text="错题本"
             android:textColor="@color/main_color"
             android:textSize="20sp" />
@@ -29,6 +30,10 @@
             android:padding="5dp"
             android:text="筛选"
             android:textColor="@color/main_color" />
+
+        <View
+            style="@style/title_line"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
     <LinearLayout
