@@ -125,7 +125,7 @@ public class CircleProgress extends View {
         float textWidth = paint.measureText(percent + "分");   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
 
         if (textIsDisplayable && percent != 0 && style == STROKE) {
-            canvas.drawText(percent + "分", centre - textWidth / 2, centre + textSize / 2, paint); //画出进度百分比
+            canvas.drawText(percent + "分", centre - textWidth / 2, centre + textSize / 4, paint); //画出进度百分比
         }
 
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">诵习练</string>
+    <string name="app_name">诵习练学生</string>
     <string name="bottom_main">首页</string>
     <string name="bottom_lesson">微课</string>
     <string name="bottom_note">错题本</string>
@@ -36,13 +36,18 @@
     <string name="eight">八、想一想，填一填</string>
     <string name="nine">九、选一选</string>
 
-    <string name="lys_tk">填空</string>
+    <!--<string name="lys_tk">填空</string>
     <string name="lys_lx">连线</string>
     <string name="lys_pd">判断</string>
     <string name="lys_xz">选择</string>
     <string name="lys_js">计算题</string>
     <string name="lys_yy">应用题</string>
-    <string name="lys_ht">画图题</string>
+    <string name="lys_ht">画图题</string>-->
+
+    <string name="lys_ks">口算</string>
+    <string name="lys_js">计算</string>
+    <string name="lys_tk">填空</string>
+    <string name="lys_xz">选择</string>
 
     <!--习汉字选题-->
     <string name="xhz_tk">填空</string>
@@ -93,6 +98,7 @@
 
     <!--dialog-->
     <string name="content_topic">注意：退出当前界面将重新开始做题与计时，请确认后退出！</string>
+    <string name="final_toast">注意：是否提交本次习题？</string>
 
     <!--个人中心-->
     <string name="feedback">用户反馈</string>
@@ -113,4 +119,18 @@
 
     <!--题目详情-->
     <string name="do_again">是否重做该题？</string>
+
+    <!--诵读例子-->
+    <string name="recite_content">五月的槐乡，连风儿打的漩涡都香气扑鼻，整个槐乡都浸在香海中。</string>
+    <string name="fluency">流畅度</string>
+    <string name="integrity">完整度</string>
+    <string name="accuracy">准确度</string>
+    <string name="standard">标准度</string>
+
+    <!--通知-->
+    <string name="notice_list">通知列表</string>
+    <string name="notice_detail">通知详情</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

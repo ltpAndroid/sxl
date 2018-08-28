@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.DailyPraciseActivity">
+    tools:context=".activity.DailyPractiseActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,11 +28,18 @@
             android:textSize="@dimen/sp18" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_daily"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_daily"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadingEdge="none"
-        android:overScrollMode="never"
-        android:scrollbars="none" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_daily"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </LinearLayout>

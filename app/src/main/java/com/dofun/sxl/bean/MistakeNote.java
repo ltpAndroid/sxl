@@ -2,22 +2,25 @@ package com.dofun.sxl.bean;
 
 public class MistakeNote extends BaseBean {
 
+
     /**
-     * answer : 22
-     * answerUser : 234
-     * count : 1
-     * createTime : 1533008499000
-     * detail : 1.杂交育种依据的主要遗传学原理是（   ）
-     * homeworkId : 555
-     * homeworkName : 1
-     * id : 7
-     * kind : 104
-     * num : 3
-     * topicId : 55
-     * totalScore : 13
-     * totalTime : 12
-     * userId : 1
-     * username : aplus
+     * answer : 2
+     * answerUser : 2
+     * count : 2
+     * createTime : 1533798463000
+     * detail : 空山不见人，但闻人语响。《尚书》,光披四表，格于上下。《鹿柴》,小时不识月，呼作白玉盘。《所见》,牧童骑黄牛，歌声振林樾。《古朗月行》
+     * endTime : 1533555117000
+     * fkId : 10
+     * homeworkId : 560
+     * id : 5
+     * kind : 102
+     * nickname : 徐老师
+     * num : 2
+     * studentNum : 1
+     * topicId : 565
+     * totalScore : 2
+     * totalTime : 2
+     * userId : 2
      */
 
     private String answer;
@@ -25,18 +28,18 @@ public class MistakeNote extends BaseBean {
     private int count;
     private long createTime;
     private String detail;
+    private long endTime;
+    private int fkId;
     private int homeworkId;
-    private String homeworkName;
     private int id;
     private int kind;
+    private String nickname;
     private int num;
+    private int studentNum;
     private int topicId;
     private int totalScore;
     private int totalTime;
     private int userId;
-    private String username;
-    //自己添加，用于标记区分诵、习、练
-    private String courseId;
 
     public String getAnswer() {
         return answer;
@@ -78,20 +81,28 @@ public class MistakeNote extends BaseBean {
         this.detail = detail;
     }
 
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getFkId() {
+        return fkId;
+    }
+
+    public void setFkId(int fkId) {
+        this.fkId = fkId;
+    }
+
     public int getHomeworkId() {
         return homeworkId;
     }
 
     public void setHomeworkId(int homeworkId) {
         this.homeworkId = homeworkId;
-    }
-
-    public String getHomeworkName() {
-        return homeworkName;
-    }
-
-    public void setHomeworkName(String homeworkName) {
-        this.homeworkName = homeworkName;
     }
 
     public int getId() {
@@ -110,12 +121,28 @@ public class MistakeNote extends BaseBean {
         this.kind = kind;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public int getNum() {
         return num;
     }
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public int getStudentNum() {
+        return studentNum;
+    }
+
+    public void setStudentNum(int studentNum) {
+        this.studentNum = studentNum;
     }
 
     public int getTopicId() {
@@ -148,21 +175,5 @@ public class MistakeNote extends BaseBean {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
     }
 }

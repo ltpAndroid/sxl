@@ -1,38 +1,45 @@
 package com.dofun.sxl.bean;
 
+import java.util.List;
+
 public class DailyPractise extends BaseBean {
     /**
      * 日常练习
      */
 
+
     /**
-     * autoGenerate : 1
+     * autoGenerate : 0
      * classId : 1
-     * className : 201701
+     * className : 1602
      * courseId : 10
      * courseName : 诵经典
-     * endTime : 1533225600000
+     * endTime : 1534694400000
      * fkId : 0
      * homeworkTemplateID : 0
-     * id : 555
-     * materialId : 168
-     * materialName : 教材名称01
-     * name : 咿呀吗咿呀呦
-     * resultTime : 1531213320000
-     * startTime : 1533183797000
+     * id : 663
+     * materialId : 183
+     * materialName : 20180811
+     * name : 2018-08-20日常练习
+     * note :
+     * resultTime : 1534694400000
+     * schoolId : 26
+     * schoolName : 武汉市江汉区红领巾学校
+     * startTime : 1534694400000
      * status : 2
-     * teacherName : 老师
+     * teacherName : 练运算老师
      * termGrade : 1
      * termId : 21
      * termName : 一年级上半学期
      * termSchooltype : 0
      * termSemester : 1
-     * totalScore : 20
-     * totalSubject : 1
+     * topiclist : [614,619,585]
+     * totalScore : 0
+     * totalSubject : 0
      * type : 1
-     * unitId : 144
-     * unitName : 单元名称01
-     * userId : 1
+     * unitId : 374
+     * unitName : 20180811
+     * userId : 12
      */
 
     private int autoGenerate;
@@ -47,7 +54,10 @@ public class DailyPractise extends BaseBean {
     private int materialId;
     private String materialName;
     private String name;
+    private String note;
     private long resultTime;
+    private int schoolId;
+    private String schoolName;
     private long startTime;
     private int status;
     private String teacherName;
@@ -62,6 +72,7 @@ public class DailyPractise extends BaseBean {
     private int unitId;
     private String unitName;
     private int userId;
+    private List<Integer> topiclist;
 
     public int getAutoGenerate() {
         return autoGenerate;
@@ -159,12 +170,36 @@ public class DailyPractise extends BaseBean {
         this.name = name;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public long getResultTime() {
         return resultTime;
     }
 
     public void setResultTime(long resultTime) {
         this.resultTime = resultTime;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 
     public long getStartTime() {
@@ -278,4 +313,15 @@ public class DailyPractise extends BaseBean {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public List<Integer> getTopiclist() {
+        return topiclist;
+    }
+
+    public void setTopiclist(List<Integer> topiclist) {
+        this.topiclist = topiclist;
+    }
+
+
+
 }

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.xhz.FillWordActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/main_color">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="习汉字"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+
+        <TextView
+            android:id="@+id/tv_back_xhz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:text="@string/go_back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:padding="@dimen/dp10">
+
+        <LinearLayout
+            android:id="@+id/topic_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一、" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="填空" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分值：" />
+
+            <TextView
+                android:id="@+id/tv_topic_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/md_red_500" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View style="@style/d_w" />
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp10" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:padding="@dimen/dp10" />
+
+    <View style="@style/separate_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp10">
+
+        <TextView
+            android:id="@+id/tv_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="答案："
+            android:textColor="@color/main_color" />
+
+        <LinearLayout
+            android:id="@+id/gap_answer_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1、"
+                android:textColor="@color/main_color" />
+
+            <EditText
+                android:id="@+id/et_answer_1"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLength="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="；"
+                android:textColor="@color/main_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gap_answer_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2、"
+                android:textColor="@color/main_color" />
+
+            <EditText
+                android:id="@+id/et_answer_2"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLength="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="；"
+                android:textColor="@color/main_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gap_answer_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3、"
+                android:textColor="@color/main_color" />
+
+            <EditText
+                android:id="@+id/et_answer_3"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLength="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="；"
+                android:textColor="@color/main_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gap_answer_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4、"
+                android:textColor="@color/main_color" />
+
+            <EditText
+                android:id="@+id/et_answer_4"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLength="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="；"
+                android:textColor="@color/main_color" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

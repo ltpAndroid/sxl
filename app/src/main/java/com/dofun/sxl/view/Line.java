@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.ConvertUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class Line extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawLine(pointList.get(0)[0] - 10, pointList.get(0)[1], pointList.get(1)[0] - 10, pointList.get(1)[1], paint);
+        canvas.drawLine(pointList.get(0)[0] - ConvertUtils.dp2px(10), pointList.get(0)[1], pointList.get(1)[0] - ConvertUtils.dp2px(10), pointList.get(1)[1], paint);
     }
 
     public List<int[]> getPointList() {

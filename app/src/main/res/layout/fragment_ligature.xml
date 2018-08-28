@@ -17,8 +17,9 @@
             android:id="@+id/left_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="空山不见人，但闻人语响"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/right_1"
@@ -26,18 +27,21 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/right_4"
             android:layout_marginRight="5dp"
-            android:text="《尚书》"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/left_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/right_2"
             android:layout_below="@id/left_1"
             android:layout_marginTop="10dp"
-            android:text="光披四表，格于上下"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/right_2"
@@ -47,18 +51,21 @@
             android:layout_below="@id/right_1"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:text="《鹿柴》"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/left_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/right_3"
             android:layout_below="@id/left_2"
             android:layout_marginTop="10dp"
-            android:text="小时不识月，呼作白玉盘"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/right_3"
@@ -68,18 +75,21 @@
             android:layout_below="@id/right_2"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:text="《所见》"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/left_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/right_4"
             android:layout_below="@id/left_3"
             android:layout_marginTop="10dp"
-            android:text="牧童骑黄牛，歌声振林樾"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/right_4"
@@ -90,8 +100,9 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:singleLine="true"
-            android:text="《古朗月行》"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="@color/md_grey_600"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 

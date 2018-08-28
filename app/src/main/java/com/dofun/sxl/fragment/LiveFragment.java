@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.dofun.sxl.R;
 import com.dofun.sxl.adapter.LiveAdapter;
 import com.dofun.sxl.adapter.LiveTeacherAdapter;
-import com.dofun.sxl.bean.LiveList;
+import com.dofun.sxl.bean.LiveBean;
 import com.dofun.sxl.bean.LiveTeacher;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class LiveFragment extends BaseFragment {
     private List<LiveTeacher> teacherList = new ArrayList<>();
 
     private LiveAdapter adapter;
-    private List<LiveList> listList = new ArrayList<>();
+    private List<LiveBean> listList = new ArrayList<>();
 
     public LiveFragment() {
         // Required empty public constructor
@@ -86,9 +86,9 @@ public class LiveFragment extends BaseFragment {
         }
 
 
-        listList.add(new LiveList("今天给大家讲一下勾股定理", "2018-07-05", "true", "00:13:58"));
-        listList.add(new LiveList("今天给大家讲一下勾股定理", "2018-07-05", "false", "00:23:58"));
-        listList.add(new LiveList("今天给大家讲一下勾股定理", "2018-07-05", "true", "00:13:50"));
+        listList.add(new LiveBean("今天给大家讲一下勾股定理", "2018-07-05", "true", "00:13:58"));
+        listList.add(new LiveBean("今天给大家讲一下勾股定理", "2018-07-05", "false", "00:23:58"));
+        listList.add(new LiveBean("今天给大家讲一下勾股定理", "2018-07-05", "true", "00:13:50"));
         if (adapter == null) {
             adapter = new LiveAdapter(R.layout.item_live_list, listList);
             rvLive.setAdapter(adapter);

@@ -11,9 +11,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
+import com.dofun.sxl.adapter.ListBeanAdapter;
+import com.dofun.sxl.bean.ListBean;
 import com.dofun.sxl.bean.MistakeNote;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +30,9 @@ public class MistakeListActivity extends BaseActivity {
     ImageView ivBack;
     @BindView(R.id.rv_sjd_list)
     RecyclerView rvMistake;
+
+    private ListBeanAdapter adapter;
+    private List<ListBean> beanList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +59,11 @@ public class MistakeListActivity extends BaseActivity {
 
         JSONObject param = new JSONObject();
         param.put("homeworkId", note.getHomeworkId());
-        param.put("userId", note.getUserId());
-        param.put("courseId", note.getCourseId());
         HttpUs.send(Deploy.getCurrentWrongBook(), param, new HttpUs.CallBackImp() {
             @Override
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
+
             }
 
             @Override

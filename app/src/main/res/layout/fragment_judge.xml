@@ -9,5 +9,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_judge"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 </LinearLayout>

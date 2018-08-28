@@ -19,12 +19,13 @@ import com.dofun.sxl.R;
 import com.dofun.sxl.bean.TermBean;
 import com.dofun.sxl.bean.UserInfo;
 import com.dofun.sxl.util.SPUtils;
+import com.tandong.sa.eventbus.EventBus;
 
 import java.util.List;
 
 public class BaseActivity extends AppCompatActivity {
     public Context mContext;
-    public Activity mActivity;
+    public BaseActivity mActivity;
     protected Typeface mTfLight;
 
     public List<Activity> activityList = MyApplication.activityList;
@@ -33,6 +34,9 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (hasEventBus()) {
+            EventBus.getDefault().register(this);
+        }
         mContext = this;
         mActivity = this;
         activityList.add(mActivity);
@@ -158,4 +162,19 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * 使用EventBus必须重写此方法，返回true
+     */
+    public boolean hasEventBus() {
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (hasEventBus()) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
 }

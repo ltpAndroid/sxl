@@ -21,102 +21,22 @@
             android:textSize="20sp" />
 
         <ImageView
+            android:id="@+id/iv_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp5"
             android:padding="5dp"
-            android:src="@drawable/search" />
+            android:src="@drawable/notice" />
 
-        <View
-            style="@style/title_line"
-            android:layout_alignParentBottom="true" />
     </RelativeLayout>
-
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp150"
-        android:layout_marginLeft="@dimen/dp10"
-        android:layout_marginRight="@dimen/dp10"
-        android:layout_marginTop="@dimen/dp10"
-        app:image_scale_type="fit_xy"
-        app:scroll_time="1000" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/md_white_1000"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_10">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/go_next" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/wycg" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/grade_report"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_10">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/score_report" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/cjbg" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/study_tool"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_10">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/study_tool" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/xxgj" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <View style="@style/d_w" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         android:scrollbars="none">
 
         <LinearLayout
@@ -124,10 +44,89 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                style="@style/title_line"
-                android:layout_marginTop="10dp"
-                android:visibility="gone" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp150"
+                android:layout_margin="@dimen/dp5"
+                app:cardCornerRadius="@dimen/dp15">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp150"
+                    app:banner_default_image="@drawable/banner_main"
+                    app:image_scale_type="fit_xy"
+                    app:scroll_time="1000" />
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_white_1000"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/go_next" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/wycg" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/grade_report"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/score_report" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/cjbg" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/study_tool"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/study_tool" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/xxgj" />
+                </LinearLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -150,7 +149,7 @@
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:scrollbars="none">
 
                 <android.support.v7.widget.RecyclerView
@@ -162,6 +161,15 @@
                     android:scrollbars="none" />
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/tv_more"
                 android:layout_width="match_parent"
@@ -170,6 +178,149 @@
                 android:text="查看更多练习" />
 
             <View style="@style/d_w" />
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/dp2"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:background="@color/main_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/tj_homework"
+                        android:textSize="@dimen/sp16" />
+
+                </LinearLayout>
+
+                <View style="@style/d_w" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp20"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.dofun.sxl.view.CircleProgress
+                            android:id="@+id/score_full"
+                            android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
+                            app:max="100"
+                            app:roundColor="@color/md_grey_300"
+                            app:roundProgressColor="@color/md_green_500"
+                            app:textColor="@color/md_green_500"
+                            app:textIsDisplayable="true"
+                            app:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:text="@string/full_score" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.dofun.sxl.view.CircleProgress
+                            android:id="@+id/score_high"
+                            android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
+                            app:max="100"
+                            app:roundColor="@color/md_grey_300"
+                            app:roundProgressColor="@color/md_red_500"
+                            app:textColor="@color/md_red_500"
+                            app:textIsDisplayable="true"
+                            app:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:text="@string/high_score" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.dofun.sxl.view.CircleProgress
+                            android:id="@+id/score_low"
+                            android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
+                            app:max="100"
+                            app:roundColor="@color/md_grey_300"
+                            app:roundProgressColor="@color/main_color"
+                            app:textColor="@color/main_color"
+                            app:textIsDisplayable="true"
+                            app:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:text="@string/low_score" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.dofun.sxl.view.CircleProgress
+                            android:id="@+id/score_average"
+                            android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
+                            app:max="100"
+                            app:roundColor="@color/md_grey_300"
+                            app:roundProgressColor="@color/md_orange_500"
+                            app:textColor="@color/md_orange_500"
+                            app:textIsDisplayable="true"
+                            app:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp5"
+                            android:text="@string/average_score" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

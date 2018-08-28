@@ -9,7 +9,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_gap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 
     <View style="@style/separate_line" />
 
@@ -21,6 +24,7 @@
         android:padding="@dimen/dp10">
 
         <TextView
+            android:id="@+id/tv_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="答案："
@@ -40,6 +44,7 @@
                 android:textColor="@color/main_color" />
 
             <EditText
+                android:id="@+id/et_answer_1"
                 android:layout_width="@dimen/dp40"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -66,6 +71,7 @@
                 android:textColor="@color/main_color" />
 
             <EditText
+                android:id="@+id/et_answer_2"
                 android:layout_width="@dimen/dp40"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -92,6 +98,7 @@
                 android:textColor="@color/main_color" />
 
             <EditText
+                android:id="@+id/et_answer_3"
                 android:layout_width="@dimen/dp40"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -118,6 +125,7 @@
                 android:textColor="@color/main_color" />
 
             <EditText
+                android:id="@+id/et_answer_4"
                 android:layout_width="@dimen/dp40"
                 android:layout_height="wrap_content"
                 android:gravity="center"

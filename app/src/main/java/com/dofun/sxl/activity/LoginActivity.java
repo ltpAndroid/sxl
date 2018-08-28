@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.http.HttpUs;
@@ -42,11 +43,14 @@ public class LoginActivity extends BaseActivity {
         setStateBarColor();
         btnToRegister.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
 
-        //调试用
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         etPhone.setText(SPUtils.getString(SPUtils.UserName, ""));
         etPassword.setText(SPUtils.getString(SPUtils.UserPwd, ""));
     }
-
 
     @OnClick({R.id.btn_login, R.id.btn_to_register})
     public void onViewClicked(View view) {
@@ -54,6 +58,10 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 final String phone = etPhone.getText().toString().trim();
                 final String password = etPassword.getText().toString().trim();
+                if (StringUtils.isEmpty(phone) || StringUtils.isEmpty(password)) {
+                    showTip("账号或密码为空");
+                    return;
+                }
                 JSONObject params = new JSONObject();
                 params.put("username", phone);
                 params.put("password", password);
@@ -79,7 +87,7 @@ public class LoginActivity extends BaseActivity {
                         LogUtils.i(info.toString());
                         showTip(info.getMsg());
                     }
-                }, mContext, "正在加载");
+                }, mContext, "正在登录");
 
                 break;
             case R.id.btn_to_register:

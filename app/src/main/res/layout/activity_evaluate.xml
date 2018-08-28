@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.sjd.EvaluateActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/main_color">
+
+        <TextView
+            android:id="@+id/tv_back_evaluate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="@string/go_back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="评测结果"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="报告"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+    </RelativeLayout>
+
+    <View style="@style/d_w" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp20">
+
+                <com.dofun.sxl.view.CircleProgress
+                    android:id="@+id/final_score"
+                    android:layout_width="@dimen/dp100"
+                    android:layout_height="@dimen/dp100"
+                    android:layout_gravity="center_horizontal"
+                    app:max="100"
+                    app:roundColor="@color/md_grey_200"
+                    app:roundProgressColor="@color/main_color"
+                    app:roundWidth="@dimen/dp5"
+                    app:textColor="@color/main_color"
+                    app:textSize="@dimen/sp22" />
+
+                <TextView
+                    android:id="@+id/tv_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="@dimen/dp24"
+                    android:text="评分等级：甲"
+                    android:textSize="@dimen/sp12" />
+            </FrameLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dp10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp2"
+                    android:background="@color/md_grey_600" />
+
+                <View
+                    android:layout_width="@dimen/dp_4"
+                    android:layout_height="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:background="@drawable/dot_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="各维度评分" />
+
+                <View
+                    android:layout_width="@dimen/dp_4"
+                    android:layout_height="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:background="@drawable/dot_grey" />
+
+                <View
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp2"
+                    android:background="@color/md_grey_600" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:background="@drawable/square_green"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp1"
+                        android:background="@drawable/corner_layout_green"
+                        android:padding="@dimen/dp2">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fluency" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp2"
+                        android:text="@string/fluency" />
+
+                    <TextView
+                        android:id="@+id/tv_fluency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="78分"
+                        android:textColor="@color/md_green_500" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:background="@drawable/square_red"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp1"
+                        android:background="@drawable/corner_layout_red"
+                        android:padding="@dimen/dp2">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/integrity" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp2"
+                        android:text="@string/integrity" />
+
+                    <TextView
+                        android:id="@+id/tv_integrity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="78分"
+                        android:textColor="@color/md_red_500" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:background="@drawable/square_main_color"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp1"
+                        android:background="@drawable/corner_layout_main_color"
+                        android:padding="@dimen/dp2">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/accuracy" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp2"
+                        android:text="@string/accuracy" />
+
+                    <TextView
+                        android:id="@+id/tv_accuracy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="78分"
+                        android:textColor="@color/main_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:background="@drawable/square_orange"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp1"
+                        android:background="@drawable/corner_layout_orange"
+                        android:padding="@dimen/dp2">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/standard" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp2"
+                        android:text="@string/standard" />
+
+                    <TextView
+                        android:id="@+id/tv_standard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="78分"
+                        android:textColor="@color/md_orange_500" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/separate_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp10">
+
+                <ImageView
+                    android:id="@+id/iv_play_or_pause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/play" />
+
+                <TextView
+                    android:id="@+id/tv_current_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:text="00:00" />
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_total_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:20" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_recite_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp10"
+                android:text="@string/recite_content" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_again"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:layout_margin="@dimen/dp10"
+        android:background="@color/main_color"
+        android:text="重新录制"
+        android:textColor="@color/white" />
+</LinearLayout>

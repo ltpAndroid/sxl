@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:text="X"
+            android:text="×"
             android:textColor="@color/md_grey_600"
-            android:textSize="@dimen/sp20" />
+            android:textSize="@dimen/sp24" />
     </RadioGroup>
 </LinearLayout>

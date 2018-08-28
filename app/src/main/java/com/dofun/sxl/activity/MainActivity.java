@@ -2,10 +2,13 @@ package com.dofun.sxl.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.dofun.sxl.MyApplication;
 import com.dofun.sxl.R;
 import com.dofun.sxl.fragment.LessonFragment;
 import com.dofun.sxl.fragment.MainFragment;
@@ -59,39 +62,47 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //开启事务
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                hideAllFragment(ft);
+                //hideAllFragment(ft);
                 switch (checkedId) {
                     case R.id.rb_main:
-                        if (mainFragment == null) {
-                            mainFragment = new MainFragment();
-                            ft.add(R.id.container, mainFragment);
-                        } else {
-                            ft.show(mainFragment);
-                        }
+                        //                        if (mainFragment == null) {
+                        //                            mainFragment = new MainFragment();
+                        //                            ft.add(R.id.container, mainFragment);
+                        //                        } else {
+                        //                            ft.show(mainFragment);
+                        //                        }
+                        mainFragment = new MainFragment();
+                        ft.replace(R.id.container, mainFragment);
                         break;
                     case R.id.rb_lesson:
-                        if (lessonFragment == null) {
-                            lessonFragment = new LessonFragment();
-                            ft.add(R.id.container, lessonFragment);
-                        } else {
-                            ft.show(lessonFragment);
-                        }
+                        //                        if (lessonFragment == null) {
+                        //                            lessonFragment = new LessonFragment();
+                        //                            ft.add(R.id.container, lessonFragment);
+                        //                        } else {
+                        //                            ft.show(lessonFragment);
+                        //                        }
+                        lessonFragment = new LessonFragment();
+                        ft.replace(R.id.container, lessonFragment);
                         break;
                     case R.id.rb_note:
-                        if (noteFragment == null) {
-                            noteFragment = new NoteFragment();
-                            ft.add(R.id.container, noteFragment);
-                        } else {
-                            ft.show(noteFragment);
-                        }
+                        //                        if (noteFragment == null) {
+                        //                            noteFragment = new NoteFragment();
+                        //                            ft.add(R.id.container, noteFragment);
+                        //                        } else {
+                        //                            ft.show(noteFragment);
+                        //                        }
+                        noteFragment = new NoteFragment();
+                        ft.replace(R.id.container, noteFragment);
                         break;
                     case R.id.rb_me:
-                        if (meFragment == null) {
-                            meFragment = new MeFragment();
-                            ft.add(R.id.container, meFragment);
-                        } else {
-                            ft.show(meFragment);
-                        }
+                        //                        if (meFragment == null) {
+                        //                            meFragment = new MeFragment();
+                        //                            ft.add(R.id.container, meFragment);
+                        //                        } else {
+                        //                            ft.show(meFragment);
+                        //                        }
+                        meFragment = new MeFragment();
+                        ft.replace(R.id.container, meFragment);
                         break;
                 }
                 ft.commit();
@@ -114,4 +125,22 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    long exitTime = 0L;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            if ((System.currentTimeMillis() - exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
+            {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                MyApplication.exitApp();//System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

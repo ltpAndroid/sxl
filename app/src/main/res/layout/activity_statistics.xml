@@ -93,7 +93,7 @@
                             app:roundProgressColor="@color/md_green_500"
                             app:textColor="@color/md_green_500"
                             app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp18" />
+                            app:textSize="@dimen/sp16" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                             app:roundProgressColor="@color/md_red_500"
                             app:textColor="@color/md_red_500"
                             app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp18" />
+                            app:textSize="@dimen/sp16" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
                             app:roundProgressColor="@color/main_color"
                             app:textColor="@color/main_color"
                             app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp18" />
+                            app:textSize="@dimen/sp16" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                             app:roundProgressColor="@color/md_orange_500"
                             app:textColor="@color/md_orange_500"
                             app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp18" />
+                            app:textSize="@dimen/sp16" />
 
                         <TextView
                             android:layout_width="wrap_content"

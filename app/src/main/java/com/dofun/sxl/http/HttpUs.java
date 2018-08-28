@@ -170,7 +170,8 @@ class MyCallBack extends RequestCallBack<String> {
                 ResInfo info = JSON.parseObject(arg0.result, ResInfo.class);
                 if (info.getStatus().equals("200")) {
                     _RequestCallBackImp.onSuccess(info);
-                } else if (info.getStatus().equals("404")) {
+                } else if (info.getStatus().equals("404")
+                        || info.getStatus().equals("401")) {
                     //退出登录，当前用户未登录
                     //                    SPUtils.setString(SPUtils.UserName, "");
                     //                    SPUtils.setString(SPUtils.UserPwd, "");

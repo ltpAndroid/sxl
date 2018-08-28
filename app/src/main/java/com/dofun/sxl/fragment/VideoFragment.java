@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.dofun.sxl.R;
 import com.dofun.sxl.adapter.VideoAdapter;
-import com.dofun.sxl.bean.Video;
+import com.dofun.sxl.bean.VideoBean;
 import com.dofun.sxl.util.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -38,7 +38,7 @@ public class VideoFragment extends BaseFragment {
     Unbinder unbinder;
 
     private VideoAdapter adapter;
-    private List<Video> videoList = new ArrayList<>();
+    private List<VideoBean> videoList = new ArrayList<>();
 
     public VideoFragment() {
         // Required empty public constructor
@@ -81,10 +81,10 @@ public class VideoFragment extends BaseFragment {
         bannerVideo.start();
 
 
-        videoList.add(new Video("00:13:59", "07月10日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
-        videoList.add(new Video("00:15:59", "07月11日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
-        videoList.add(new Video("00:18:30", "07月11日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
-        videoList.add(new Video("00:22:20", "07月12日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
+        videoList.add(new VideoBean("00:13:59", "07月10日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
+        videoList.add(new VideoBean("00:15:59", "07月11日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
+        videoList.add(new VideoBean("00:18:30", "07月11日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
+        videoList.add(new VideoBean("00:22:20", "07月12日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
 
         if (adapter == null) {
             adapter = new VideoAdapter(R.layout.item_video_list, videoList);

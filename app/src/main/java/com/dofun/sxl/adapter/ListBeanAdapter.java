@@ -77,29 +77,16 @@ public class ListBeanAdapter extends BaseQuickAdapter<ListBean, BaseViewHolder> 
                     break;
             }
 
-            //            switch (value) {
-            //                case "填空":
-            //                    value = setValueName(R.string.lys_tk);
-            //                    break;
-            //                case "连线":
-            //                    value = setValueName(R.string.lys_lx);
-            //                    break;
-            //                case "判断":
-            //                    value = setValueName(R.string.lys_pd);
-            //                    break;
-            //                case "选择":
-            //                    value = setValueName(R.string.lys_xz);
-            //                    break;
-            //                case "计算题":
-            //                    value = setValueName(R.string.lys_js);
-            //                    break;
-            //                case "应用题":
-            //                    value = setValueName(R.string.lys_yy);
-            //                    break;
-            //                case "画图题":
-            //                    value = setValueName(R.string.lys_ht);
-            //                    break;
-            //            }
+
+        } else {
+            switch (helper.getLayoutPosition()) {
+                case 0:
+                    iconId = R.drawable.jwth;
+                    break;
+                case 1:
+                    iconId = R.drawable.ggxs;
+                    break;
+            }
         }
 
         helper.setText(R.id.item_sjd_name, value);

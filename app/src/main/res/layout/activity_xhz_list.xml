@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.XhzListActivity">
+    tools:context=".activity.xhz.XhzListActivity">
 
     <RelativeLayout
         android:id="@+id/rl_lys_bar"
@@ -30,10 +30,6 @@
             android:src="@drawable/back" />
     </RelativeLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh_xhz"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_xhz"
@@ -42,5 +38,4 @@
             android:scrollbars="none"
             android:overScrollMode="never"
             android:fadingEdge="none" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

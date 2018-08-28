@@ -42,7 +42,7 @@
         android:layout_margin="@dimen/dp60"
         android:src="@drawable/rank_header"
         app:border_color="@color/main_color"
-        app:border_width="@dimen/dp2" />
+        app:border_width="@dimen/dp1" />
 
     <RelativeLayout
         android:id="@+id/nickname_layout"

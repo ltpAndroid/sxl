@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.bumptech.glide.Glide;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.personal.ContactActivity;
 import com.dofun.sxl.activity.personal.FeedbackActivity;
@@ -16,6 +17,9 @@ import com.dofun.sxl.activity.personal.PersonRewardActivity;
 import com.dofun.sxl.activity.personal.PersonalLevelActivity;
 import com.dofun.sxl.activity.personal.SettingActivity;
 import com.dofun.sxl.activity.personal.UserInfoActivity;
+import com.dofun.sxl.bean.TermBean;
+import com.dofun.sxl.bean.UserInfo;
+import com.dofun.sxl.util.SPUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +44,12 @@ public class MeFragment extends BaseFragment {
     TextView tvJoin;
     @BindView(R.id.iv_header)
     ImageView ivHeader;
+    @BindView(R.id.tv_nickname)
+    TextView tvNickname;
+    @BindView(R.id.iv_gender)
+    ImageView ivGender;
+    @BindView(R.id.tv_term_grade)
+    TextView tvTermGrade;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,10 +97,22 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void onLazyLoad(View view) {
         super.onLazyLoad(view);
+        //getUserUI();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getUserUI();
     }
 
     private void getUserUI() {
-        showTip("233");
+        UserInfo userInfo = (UserInfo) SPUtils.getBaseBean(SPUtils.USER, UserInfo.class);
+        Glide.with(this).load(userInfo.getAvatarUrl()).error(R.drawable.rank_header).into(ivHeader);
+        tvNickname.setText(userInfo.getNickname());
+        int resId = userInfo.getSexStr().equals("男") ? R.drawable.male : R.drawable.female;
+        ivGender.setImageResource(resId);
+        TermBean termBean = (TermBean) SPUtils.getBaseBean(SPUtils.TERM, TermBean.class);
+        tvTermGrade.setText(termBean.getName());
     }
 }

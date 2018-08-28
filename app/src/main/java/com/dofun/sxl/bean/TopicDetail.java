@@ -1,25 +1,28 @@
 package com.dofun.sxl.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class TopicDetail extends BaseBean {
 
 
     /**
-     * analysis : 线
-     * answer : 2639
-     * createTime : 1533279265000
-     * detail : 慈母手中（ ）,游子身上衣。
-     * difficultyDegree : 16
+     * analysis : 答案解析：B.陆游
+     * answer : 2714
+     * createTime : 1534835227000
+     * detail : 1.“山重水复疑无路，柳暗花明又一村。”这句诗是（ ）写的。
+     * difficultyDegree : 1
      * fkId : 10
-     * fkType : 2
-     * fraction : 16
-     * id : 564
-     * kind : 101
-     * optionList : [{"detail":"线","id":2639,"status":0,"topicId":564}]
+     * fkType : 1
+     * fraction : 1
+     * id : 623
+     * kind : 104
+     * lessonId : 376
+     * name : 课程名称（小学一年级上学期 ）
+     * optionList : [{"detail":"A辛弃疾","id":2713,"status":0,"topicId":623},{"detail":"B.陆游","id":2714,"status":0,"topicId":623},{"detail":"C.杜甫","id":2715,"status":0,"topicId":623}]
      * status : 0
      * type : 1
-     * userId : 1
+     * userId : 7
      */
 
     private String analysis;
@@ -32,6 +35,8 @@ public class TopicDetail extends BaseBean {
     private int fraction;
     private int id;
     private int kind;
+    private int lessonId;
+    private String name;
     private int status;
     private int type;
     private int userId;
@@ -117,6 +122,22 @@ public class TopicDetail extends BaseBean {
         this.kind = kind;
     }
 
+    public int getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(int lessonId) {
+        this.lessonId = lessonId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -149,12 +170,12 @@ public class TopicDetail extends BaseBean {
         this.optionList = optionList;
     }
 
-    public static class OptionListBean {
+    public static class OptionListBean implements Serializable {
         /**
-         * detail : 线
-         * id : 2639
+         * detail : A辛弃疾
+         * id : 2713
          * status : 0
-         * topicId : 564
+         * topicId : 623
          */
 
         private String detail;

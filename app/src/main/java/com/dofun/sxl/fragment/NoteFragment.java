@@ -28,7 +28,6 @@ import com.dofun.sxl.bean.MistakeNote;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.SPUtils;
-import com.dofun.sxl.view.DialogWaiting;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -180,12 +179,16 @@ public class NoteFragment extends BaseFragment {
                         switch (s) {
                             case "近一周":
                                 timeType = "1";
+                                break;
                             case "近一月":
                                 timeType = "2";
+                                break;
                             case "近半年":
                                 timeType = "3";
+                                break;
                             case "近一年":
                                 timeType = "4";
+                                break;
                         }
                         SPUtils.setString("timeType", timeType);
                         tDialog.dismiss();
@@ -196,8 +199,8 @@ public class NoteFragment extends BaseFragment {
     }
 
     private void changeData(final String courseId) {
-        final DialogWaiting dialog = DialogWaiting.build(mActivity);
-        dialog.show();
+        //        final DialogWaiting dialog = DialogWaiting.build(mActivity);
+        //        dialog.show();
 
         JSONObject param = new JSONObject();
         param.put("courseId", courseId);
@@ -207,12 +210,9 @@ public class NoteFragment extends BaseFragment {
             @Override
             public void onSuccess(ResInfo info) {
                 Log.i("onSuccess", info + "");
-                dialog.dimiss();
+                //                dialog.dimiss();
 
                 mistakeList = JSONArray.parseArray(info.getData(), MistakeNote.class);
-                for (MistakeNote note : mistakeList) {
-                    note.setCourseId(courseId);
-                }
                 if (adapter == null) {
                     adapter = new MistakeNoteAdapter(R.layout.item_mistake_note, mistakeList);
                     rvMistake.setAdapter(adapter);
@@ -226,6 +226,7 @@ public class NoteFragment extends BaseFragment {
             @Override
             public void onFailure(ResInfo info) {
                 Log.i("onFailure", info + "");
+                rvMistake.setVisibility(View.GONE);
                 showTip(info.getMsg());
             }
         });
@@ -239,8 +240,14 @@ public class NoteFragment extends BaseFragment {
                 MistakeNote mistakeNote = (MistakeNote) adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("mistakeNote", mistakeNote);
-                if (mistakeNote.getCourseId().equals("10")) {
+                if (mistakeNote.getFkId() == 10) {
                     ActivityUtils.startActivity(bundle, MistakeListActivity.class);
+                }
+                if (mistakeNote.getFkId() == 11) {
+                    //ActivityUtils.startActivity(bundle, MistakeListActivity.class);
+                }
+                if (mistakeNote.getFkId() == 12) {
+                    //ActivityUtils.startActivity(bundle, MistakeListActivity.class);
                 }
             }
         });

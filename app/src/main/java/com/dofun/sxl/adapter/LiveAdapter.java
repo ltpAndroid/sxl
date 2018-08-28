@@ -7,17 +7,17 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.dofun.sxl.R;
-import com.dofun.sxl.bean.LiveList;
+import com.dofun.sxl.bean.LiveBean;
 
 import java.util.List;
 
-public class LiveAdapter extends BaseQuickAdapter<LiveList, BaseViewHolder> {
-    public LiveAdapter(int layoutResId, @Nullable List<LiveList> data) {
+public class LiveAdapter extends BaseQuickAdapter<LiveBean, BaseViewHolder> {
+    public LiveAdapter(int layoutResId, @Nullable List<LiveBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LiveList item) {
+    protected void convert(BaseViewHolder helper, LiveBean item) {
         helper.setText(R.id.item_live_title, item.getLiveTitle())
                 .setText(R.id.item_live_time, item.getLiveTime())
                 .setText(R.id.item_live_duration, item.getLiveDuration());

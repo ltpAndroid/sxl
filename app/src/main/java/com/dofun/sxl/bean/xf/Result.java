@@ -3,6 +3,8 @@
  */
 package com.dofun.sxl.bean.xf;
 
+import com.dofun.sxl.bean.BaseBean;
+
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  * @author iflytek
  * @date 2015年1月12日 下午4:58:38
  */
-public class Result {
+public class Result extends BaseBean {
     /**
      * 评测语种：en（英文）、cn（中文）
      */
@@ -54,4 +56,8 @@ public class Result {
      * xml结果中的sentence标签
      */
     public ArrayList<Sentence> sentences;
+    /**
+     * 完整度分
+     */
+    public float integrity_score;
 }

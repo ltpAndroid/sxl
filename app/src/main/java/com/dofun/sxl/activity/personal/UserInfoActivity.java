@@ -1,7 +1,6 @@
 package com.dofun.sxl.activity.personal;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,23 +15,19 @@ import com.bumptech.glide.Glide;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
+import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.UserInfo;
+import com.dofun.sxl.constant.EventConstants;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.HintDiaUtils;
 import com.dofun.sxl.util.SPUtils;
-import com.dofun.sxl.util.UserImgUtils;
+import com.dofun.sxl.util.UploadHeaderHelper;
 import com.dofun.sxl.view.CircleImageView;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.tools.PictureFileUtils;
 import com.timmy.tdialog.TDialog;
 import com.timmy.tdialog.base.BindViewHolder;
 import com.timmy.tdialog.listener.OnViewClickListener;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,6 +52,8 @@ public class UserInfoActivity extends BaseActivity {
     @BindView(R.id.tv_save)
     TextView tvSave;
 
+    private UploadHeaderHelper helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +61,7 @@ public class UserInfoActivity extends BaseActivity {
         ButterKnife.bind(this);
         setStateBarColor();
 
+        helper = new UploadHeaderHelper(mActivity, userHeader);
     }
 
     @OnClick({R.id.tv_back_userInfo, R.id.user_header, R.id.nickname_layout, R.id.gender_layout, R.id.tv_save})
@@ -73,7 +71,7 @@ public class UserInfoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.user_header:
-                choosePic();
+                helper.showSelectDialog();
                 break;
             case R.id.nickname_layout:
                 showMyDialog(tvNickname);
@@ -126,80 +124,15 @@ public class UserInfoActivity extends BaseActivity {
         });
     }
 
-    private void choosePic() {
-        PictureSelector.create(this)
-                .openGallery(PictureMimeType.ofImage())
-                .maxSelectNum(1)
-                .imageSpanCount(4)
-                .previewImage(true)
-                .isCamera(true)
-                .imageFormat(PictureMimeType.JPEG)
-                .compress(true)
-                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
-            switch (requestCode) {
-
-                case PictureConfig.CHOOSE_REQUEST:
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    Glide.with(this).load(selectList.get(0).getPath()).into(userHeader);
-
-                    upLoadImg(selectList.get(0));
-            }
+            helper.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void upLoadImg(LocalMedia localMedia) {
-        Bitmap bitmap = UserImgUtils.getBitmapFromPath(localMedia.getPath());
-        if (bitmap == null) {
-            showTip("选择上传照片");
-            return;
-        }
-        JSONObject param = new JSONObject();
-        param.put("type", "jpg");
-        param.put("file", UserImgUtils.Bitmap2StrByBase64(bitmap));
-        HttpUs.send(Deploy.getUploadFile(), param, new HttpUs.CallBackImp() {
-            @Override
-            public void onSuccess(ResInfo info) {
-                LogUtils.i(info.toString());
-                PictureFileUtils.deleteCacheDirFile(mContext);
-
-                JSONObject params = JSON.parseObject(info.getData());
-                if (params.containsKey("fileName")) {
-                    params.put("avatarUrl", params.getString("fileName"));
-                    params.remove("fileName");
-                    HttpUs.send(Deploy.getModify(), params, new HttpUs.CallBackImp() {
-                        @Override
-                        public void onSuccess(ResInfo info) {
-                            LogUtils.i(info.toString());
-                            showTip("头像修改成功");
-                            JSONObject data = new JSONObject();
-                            data.put("user", JSON.parseObject(info.getData()));
-                            setUserInfo(data);
-                            initUserInfo();
-                        }
-
-                        @Override
-                        public void onFailure(ResInfo info) {
-                            LogUtils.i(info.toString());
-                            showTip(info.getMsg());
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(ResInfo info) {
-                LogUtils.i(info.toString());
-                showTip(info.getMsg());
-            }
-        }, mContext, "正在上传图片");
-    }
 
     private void initUserInfo() {
         UserInfo userInfo = (UserInfo) SPUtils.getBaseBean(SPUtils.USER, UserInfo.class);
@@ -211,7 +144,7 @@ public class UserInfoActivity extends BaseActivity {
         tvNickname.setText(nickname);
 
         if (!StringUtils.isEmpty(userInfo.getAvatarUrl())) {
-            Glide.with(this).load(userInfo.getAvatarUrl()).into(userHeader);
+            Glide.with(this).load(userInfo.getAvatarUrl()).error(R.drawable.rank_header).into(userHeader);
         } else {
             Glide.with(this).load(R.drawable.rank_header).into(userHeader);
         }
@@ -252,5 +185,18 @@ public class UserInfoActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         initUserInfo();
+    }
+
+    @Override
+    public boolean hasEventBus() {
+        return true;
+    }
+
+    public void onEventMainThread(EventBusBean bean) {
+        switch (bean.getCode()) {
+            case EventConstants.USER_IMG:
+                initUserInfo();
+                break;
+        }
     }
 }

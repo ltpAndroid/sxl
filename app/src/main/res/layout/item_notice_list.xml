@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp5">
+
+        <View
+            android:id="@+id/item_notice_state"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_margin="@dimen/dp5"
+            android:background="@drawable/dot_main_color" />
+
+        <TextView
+            android:id="@+id/item_notice_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="步步清风，步步你" />
+
+        <TextView
+            android:id="@+id/item_notice_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018-08-15" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp24"
+        android:ellipsize="end"
+        android:padding="@dimen/dp5"
+        android:maxLines="2"
+        android:lineSpacingExtra="@dimen/dp2"
+        android:lineSpacingMultiplier="1.2"
+        android:text="杨紫邓伦倾情演绎，八月仙人来袭。清清流水，青色月"
+        android:textColor="@color/md_grey_500"
+        android:textSize="@dimen/sp12" />
+</LinearLayout>

@@ -16,7 +16,9 @@ public class Deploy {
     //public static String U = "http://app.aoshiapp.com/";
     //public static String U = "http://10.168.1.147:8080/";
     public static String U = "http://116.255.145.242:8801/";
+    public static String ImgURL = "http://116.255.145.242:8801/funny/";
     public static String URL = U + "funny/api/" /*"http://192.168.0.1/:8080/aplus/api/"*/;
+    //    public static String URL = "http://172.30.14.1:8080/aplus/api/";
 
     // 学趣部落使用条款及隐私
     public static String SERVICEPROTOCOL_URL = U + "funny/serviceProtocol.html";
@@ -42,23 +44,23 @@ public class Deploy {
         String ret[] = {"login", "logout"};
         return ret;
     }
-    //
-    //    /**
-    //     * 发送验证码 { "method": "sendCode", "params": { "mobile": "13800138000" } }
-    //     */
-    //    public static String[] getSendCode() {
-    //        String ret[] = {"login", "sendCode"};
-    //        return ret;
-    //    }
-    //
-    //    /**
-    //     * 校验验证码，完成注册 { "method": "register", "params": { "mobile": "18901780827"，
-    //     * "verifyCode": "1234" } }
-    //     */
-    //    public static String[] getRegister() {
-    //        String ret[] = {"login", "register"};
-    //        return ret;
-    //    }
+
+    /**
+     * 发送验证码 { "method": "sendCode", "params": { "mobile": "13800138000" } }
+     */
+    public static String[] getSendCode() {
+        String ret[] = {"login", "sendCode"};
+        return ret;
+    }
+
+    /**
+     * 校验验证码，完成注册 { "method": "register", "params": { "mobile": "18901780827"，
+     * "verifyCode": "1234" } }
+     */
+    public static String[] getRegister() {
+        String ret[] = {"login", "register"};
+        return ret;
+    }
     //
     //    /**
     //     * 设置密码 { "method": "setPassword",
@@ -460,6 +462,48 @@ public class Deploy {
      */
     public static String[] sendFeedback() {
         String ret[] = {"user", "feedback"};
+        return ret;
+    }
+
+    /**
+     * 首页轮播图
+     *
+     * @return
+     */
+    public static String[] queryBroadcastImages() {
+        String ret[] = {"broadcastImages", "queryBroadcastImages"};
+        return ret;
+    }
+
+    /**
+     * 通知列表
+     */
+    public static String[] queryNoticeList() {
+        String ret[] = {"notice", "queryNoticeList"};
+        return ret;
+    }
+
+    /**
+     * 通知详情
+     */
+    public static String[] queryNoticeDetail() {
+        String ret[] = {"notice", "queryNoticeDetail"};
+        return ret;
+    }
+
+    /**
+     * 练运算
+     */
+    public static String[] queryDetailImgs() {
+        String ret[] = {"detailImgs", "queryDetailImgs"};
+        return ret;
+    }
+
+    /**
+     * 提交作业
+     */
+    public static String[] subHomework() {
+        String ret[] = {"homework", "subHomework"};
         return ret;
     }
 }

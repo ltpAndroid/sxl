@@ -6,7 +6,10 @@ import android.content.Intent;
 
 import com.blankj.utilcode.util.Utils;
 import com.dofun.sxl.activity.LoginActivity;
+import com.dofun.sxl.constant.AnswerConstants;
 import com.dofun.sxl.util.SPUtils;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +29,20 @@ public class MyApplication extends Application {
         myApp = this;
         //初始化AndroidUtilCode
         Utils.init(this);
-
+        //初始化SP
         SPUtils.setSP(myApp);
+        //初始化讯飞SDK
+        initSpeech();
+    }
+
+    private void initSpeech() {
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5b2cc6ed");
     }
 
     //退出应用
     public static void exitApp() {
         try {
+            AnswerConstants.sjdMap.clear();
             for (Activity ac : activityList) {
                 ac.finish();
             }

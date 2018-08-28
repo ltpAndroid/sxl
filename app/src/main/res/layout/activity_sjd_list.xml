@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rl_sjd_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height">
 
@@ -45,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="@dimen/dp2"
-            android:lineSpacingMultiplier="1.2"
+            android:lineSpacingMultiplier="1.5"
             android:text="@string/homework_toast"
             android:textSize="@dimen/sp12" />
     </LinearLayout>

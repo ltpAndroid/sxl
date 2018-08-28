@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.lys.FillFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp5">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="题数：" />
+
+            <TextView
+                android:id="@+id/current_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="@dimen/sp16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:textSize="@dimen/sp16" />
+
+            <TextView
+                android:id="@+id/total_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="@dimen/sp16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分值：" />
+
+            <TextView
+                android:id="@+id/topic_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/md_red_500" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View style="@style/d_w" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="请输入答案"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/sp20" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/topic_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.2+0.2="
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/sp24"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp40"
+                android:gravity="center_vertical"
+                android:text="("
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/sp22" />
+
+            <TextView
+                android:id="@+id/topic_result"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp30"
+                android:layout_margin="@dimen/dp5"
+                android:gravity="center"
+                android:maxLength="1"
+                android:background="@drawable/bg_textview"
+                android:minWidth="@dimen/dp40"
+                android:paddingBottom="@dimen/dp2"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5"
+                android:paddingTop="@dimen/dp2"
+                android:singleLine="true"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/sp22"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <com.dofun.sxl.view.FractionView
+                android:id="@+id/fraction_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp40"
+                android:gravity="center_vertical"
+                android:text=")"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/sp22" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_calculator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp10"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <Button
+        android:id="@+id/btn_next"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="@dimen/dp40"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@drawable/bg_btn_quit"
+        android:text="下一道"
+        android:textColor="@color/white" />
+</LinearLayout>

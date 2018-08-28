@@ -29,7 +29,7 @@ public class PractiseAdapter extends BaseQuickAdapter<DailyPractise, BaseViewHol
         helper.setText(R.id.tv_pt_title, item.getCourseName());
         helper.setText(R.id.tv_pt_start_time, startTime);
         helper.setText(R.id.tv_pt_teacher, item.getTeacherName());
-        helper.setText(R.id.tv_pt_type, item.getMaterialName());
+        helper.setText(R.id.tv_pt_type, "每日练习");
         helper.setText(R.id.tv_pt_end_time, endTime);
         int iconId = 0;
         String title = item.getCourseName();

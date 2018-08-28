@@ -17,6 +17,8 @@ public class JudgeAdapter extends BaseQuickAdapter<TopicDetail, BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, TopicDetail item) {
         helper.setText(R.id.item_judge_position, (helper.getLayoutPosition() + 1) + "、")
-                .setText(R.id.item_judge_detail, item.getDetail());
+                .setText(R.id.item_judge_detail, item.getDetail())
+                .addOnClickListener(R.id.item_judge_right)
+                .addOnClickListener(R.id.item_judge_wrong);
     }
 }
