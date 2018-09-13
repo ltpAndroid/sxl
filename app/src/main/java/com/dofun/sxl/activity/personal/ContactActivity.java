@@ -31,7 +31,8 @@ public class ContactActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         ButterKnife.bind(this);
-        setStateBarColor();
+
+        //checkPer(Permission.READ_CONTACTS);
     }
 
     @OnClick({R.id.tv_back_contact, R.id.btn_wx, R.id.btn_phone})
@@ -51,7 +52,7 @@ public class ContactActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        PhoneUtils.dial("025-50458112");
+                        PhoneUtils.dial("027-85418630");
                     }
                 });
                 break;

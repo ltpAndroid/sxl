@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
+import com.dofun.sxl.bean.Answer;
 import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.TopicDetail;
 import com.dofun.sxl.constant.AnswerConstants;
@@ -30,12 +31,15 @@ import com.dofun.sxl.fragment.lys.FillFragment;
 import com.dofun.sxl.fragment.lys.PickFragment;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
+import com.dofun.sxl.util.HintDiaUtils;
 import com.dofun.sxl.view.DialogWaiting;
 import com.tandong.sa.eventbus.EventBus;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,7 +84,6 @@ public class LysDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lys_detail);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initView();
         initData();
@@ -88,6 +91,7 @@ public class LysDetailActivity extends BaseActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
+
         countdownProgress.setProgress(300);
         countdownProgress.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -177,8 +181,8 @@ public class LysDetailActivity extends BaseActivity {
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
                 topicDetails = (ArrayList<TopicDetail>) JSONObject.parseArray(info.getData(), TopicDetail.class);
-                //                if (topicDetails.size() == 0) {
-                //                    showTip("没有布置该题型");
+                //                if (topicDetails.size() > 1) {
+                //                    rlNext.setEnabled(false);
                 //                }
                 initFragment();
             }
@@ -203,12 +207,19 @@ public class LysDetailActivity extends BaseActivity {
         }
     }
 
+    int num = 1;
 
     @OnClick({R.id.tv_back_lys, R.id.rl_previous, R.id.rl_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_lys:
-                showMyDialog(R.string.content_topic);
+                showMyDialog(R.string.content_topic, null, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AnswerConstants.lysMap.clear();
+                        finish();
+                    }
+                });
                 break;
             case R.id.rl_previous:
                 if (position == 0) {
@@ -227,17 +238,18 @@ public class LysDetailActivity extends BaseActivity {
                         queryTopic();
                     }
                 }, 500);
+                num = topicDetails.size();
                 break;
             case R.id.rl_next:
+                if (num < topicDetails.size() && topicDetails.size() > 1) {
+                    showTip("请先做完当前题型");
+                    return;
+                }
+
                 sendEvent(position);
 
                 if (position == 3) {
-                    showMyDialog(R.string.final_toast, null, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            commitAnswer();
-                        }
-                    });
+                    commitAnswer();
                     return;
                 }
 
@@ -252,6 +264,7 @@ public class LysDetailActivity extends BaseActivity {
                         queryTopic();
                     }
                 }, 500);
+                num = 1;
                 break;
         }
     }
@@ -274,7 +287,49 @@ public class LysDetailActivity extends BaseActivity {
     }
 
     private void commitAnswer() {
-        //TODO
+        showMyDialog(R.string.final_toast, null, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                commit();
+            }
+        });
+    }
+
+    private void commit() {
+        String total = "";
+        List<Answer> object = new ArrayList<>();
+        for (Map.Entry<Object, Object> entry :
+                AnswerConstants.lysMap.entrySet()) {
+            object.addAll((List<Answer>) entry.getValue());
+        }
+        for (int i = 0; i < object.size(); i++) {
+            total += object.get(i).getTopicId() + "\n";
+        }
+        //showTip(total.substring(0, total.length() - 1));
+        JSONObject params = new JSONObject();
+        params.put("workId", String.valueOf(homeworkId));
+        params.put("topicList", object);
+        HttpUs.send(Deploy.subHomework(), params, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtils.i(info.toString());
+                AnswerConstants.lysMap.clear();
+                EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.FINISH, ""));
+                HintDiaUtils.createDialog(mContext).showSucceedDialog("提交成功");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.toString());
+                showTip(info.getMsg());
+            }
+        });
     }
 
     class MyTimer extends CountDownTimer {
@@ -302,7 +357,7 @@ public class LysDetailActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            finish();
+            commit();
         }
     }
 
@@ -324,5 +379,19 @@ public class LysDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         myTimer.cancel();
+    }
+
+
+    @Override
+    public boolean hasEventBus() {
+        return true;
+    }
+
+    public void onEventMainThread(EventBusBean bean) {
+        switch (bean.getCode()) {
+            case EventConstants.LYS_POSITION:
+                num = (int) bean.getData();
+                break;
+        }
     }
 }

@@ -125,6 +125,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp15"
         android:background="@drawable/bg_btn_quit"
-        android:text="下一道"
+        android:text="下一小题"
         android:textColor="@color/white" />
 </LinearLayout>

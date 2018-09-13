@@ -9,10 +9,18 @@ import android.telephony.TelephonyManager;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dofun.sxl.bean.BaseBean;
+import com.tandong.sa.json.Gson;
+import com.tandong.sa.json.JsonArray;
+import com.tandong.sa.json.JsonElement;
+import com.tandong.sa.json.JsonParser;
 import com.tandong.sa.zUImageLoader.utils.L;
+
+import org.json.JSONArray;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class SPUtils {
@@ -22,6 +30,13 @@ public class SPUtils {
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = "aboutus";
+
+    //学校名称、id
+    public static final String SCHOOL_NAME = "schoolName";
+    public static final String SCHOOL_ID = "school_Id";
+    //班级名称、id
+    public static final String CLASS_NAME = "className";
+    public static final String CLASS_ID = "class_Id";
 
     // 手机信息
     public static final String IMEI = "imei"; // 手机IMEI号
@@ -303,7 +318,6 @@ public class SPUtils {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      *
-     * @param context
      * @param key
      * @param defaultObject
      * @return
@@ -343,7 +357,6 @@ public class SPUtils {
     /**
      * 移除某个key值已经对应的值
      *
-     * @param context
      * @param key
      */
     public static void remove(String key) {
@@ -357,7 +370,6 @@ public class SPUtils {
     /**
      * 清除所有数据
      *
-     * @param context
      */
     public static void clear() {
         SharedPreferences sp = _this.getSharedPreferences(FILE_NAME,
@@ -370,7 +382,6 @@ public class SPUtils {
     /**
      * 查询某个key是否已经存在
      *
-     * @param context
      * @param key
      * @return
      */
@@ -383,7 +394,6 @@ public class SPUtils {
     /**
      * 返回所有的键值对
      *
-     * @param context
      * @return
      */
     public static Map<String, ?> getAll() {
@@ -435,4 +445,85 @@ public class SPUtils {
         }
     }
 
+    /**
+     * 用于保存集合
+     *
+     * @param key  key
+     * @param list 集合数据
+     * @return 保存结果
+     */
+    public static <T> boolean putListData(String key, List<T> list) {
+        SharedPreferences sp = _this.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        boolean result;
+        String type = list.get(0).getClass().getSimpleName();
+        SharedPreferences.Editor editor = sp.edit();
+        JSONArray array = new JSONArray();
+        try {
+            switch (type) {
+                case "Boolean":
+                    for (int i = 0; i < list.size(); i++) {
+                        array.put((Boolean) list.get(i));
+                    }
+                    break;
+                case "Long":
+                    for (int i = 0; i < list.size(); i++) {
+                        array.put((Long) list.get(i));
+                    }
+                    break;
+                case "Float":
+                    for (int i = 0; i < list.size(); i++) {
+                        array.put((Float) list.get(i));
+                    }
+                    break;
+                case "String":
+                    for (int i = 0; i < list.size(); i++) {
+                        array.put((String) list.get(i));
+                    }
+                    break;
+                case "Integer":
+                    for (int i = 0; i < list.size(); i++) {
+                        array.put((Integer) list.get(i));
+                    }
+                    break;
+                default:
+                    Gson gson = new Gson();
+                    for (int i = 0; i < list.size(); i++) {
+                        JsonElement obj = gson.toJsonTree(list.get(i));
+                        array.put(obj);
+                    }
+                    break;
+            }
+            editor.putString(key, array.toString());
+            result = true;
+        } catch (Exception e) {
+            result = false;
+            e.printStackTrace();
+        }
+        editor.apply();
+        return result;
+    }
+
+    /**
+     * 获取保存的List
+     *
+     * @param key key
+     * @return 对应的Lis集合
+     */
+    public static <T> List<T> getListData(String key, Class<T> cls) {
+        SharedPreferences sp = _this.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        List<T> list = new ArrayList<>();
+        String json = sp.getString(key, "");
+        if (!json.equals("") && json.length() > 0) {
+            Gson gson = new Gson();
+            JsonArray array = new JsonParser().parse(json).getAsJsonArray();
+            for (JsonElement elem : array) {
+                list.add(gson.fromJson(elem, cls));
+            }
+        }
+        return list;
+    }
 }

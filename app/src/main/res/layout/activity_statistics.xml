@@ -13,6 +13,7 @@
         android:background="@color/main_color">
 
         <TextView
+            android:id="@+id/tv_back_statistics"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -81,6 +82,7 @@
                         android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 

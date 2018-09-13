@@ -31,12 +31,13 @@
             android:textSize="@dimen/sp18" />
 
         <TextView
+            android:id="@+id/tv_detail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:padding="@dimen/dp5"
-            android:text="报告"
+            android:text="详情"
             android:textColor="@color/white"
             android:textSize="@dimen/sp16" />
     </RelativeLayout>
@@ -74,6 +75,7 @@
                     app:textSize="@dimen/sp22" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,7 +170,7 @@
                         android:id="@+id/tv_fluency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="78分"
+                        android:text="暂无"
                         android:textColor="@color/md_green_500" />
                 </LinearLayout>
 
@@ -246,7 +248,7 @@
                         android:id="@+id/tv_accuracy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="78分"
+                        android:text="暂无"
                         android:textColor="@color/main_color" />
                 </LinearLayout>
 
@@ -285,7 +287,7 @@
                         android:id="@+id/tv_standard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="78分"
+                        android:text="暂无"
                         android:textColor="@color/md_orange_500" />
                 </LinearLayout>
             </LinearLayout>
@@ -331,7 +333,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp10"
-                android:text="@string/recite_content" />
+                android:lineSpacingMultiplier="1.5"
+                android:lineSpacingExtra="@dimen/dp2"
+                android:textSize="@dimen/sp18"
+                android:text="" />
         </LinearLayout>
     </ScrollView>
 

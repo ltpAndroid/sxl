@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="@dimen/title_bar_height">
 
         <TextView
             android:layout_width="match_parent"
@@ -47,8 +47,10 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp150"
-                android:layout_margin="@dimen/dp5"
-                app:cardCornerRadius="@dimen/dp15">
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginLeft="@dimen/dp12"
+                android:layout_marginRight="@dimen/dp12"
+                app:cardCornerRadius="@dimen/dp10">
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
@@ -62,265 +64,294 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/md_white_1000"
-                android:orientation="horizontal">
+                android:layout_margin="7dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <LinearLayout
+                    android:id="@+id/ll_sjd"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_margin="@dimen/dp5"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/go_next" />
+                    android:background="@drawable/sjd_null"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:text="@string/wycg" />
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/sjd"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:text="国学经典朗诵"
+                        android:textColor="@color/md_grey_100" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/grade_report"
+                    android:id="@+id/ll_xhz"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_margin="@dimen/dp5"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/score_report" />
+                    android:background="@drawable/xhz_null"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:text="@string/cjbg" />
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/xhz"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:text="练习汉字笔画"
+                        android:textColor="@color/md_grey_100" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/study_tool"
+                    android:id="@+id/ll_lys"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_margin="@dimen/dp5"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/study_tool" />
+                    android:background="@drawable/lys_null"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:text="@string/xxgj" />
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/lys"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:text="运算能力练习"
+                        android:textColor="@color/md_grey_100" />
                 </LinearLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/md_white_1000">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="——— • 日常练习 • ———"
-                    android:textSize="@dimen/sp_16" />
-            </RelativeLayout>
-
-            <View style="@style/d_w" />
-
-
-            <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/refresh_main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_practise"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fadingEdge="none"
-                    android:overScrollMode="never"
-                    android:scrollbars="none" />
-            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fadingEdge="none"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tv_more"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp40"
-                android:gravity="center"
-                android:text="查看更多练习" />
-
-            <View style="@style/d_w" />
-
-            <View style="@style/separate_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp12"
+                android:layout_marginRight="@dimen/dp12"
+                android:layout_marginTop="@dimen/dp10"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="@dimen/dp2"
-                        android:layout_height="@dimen/dp30"
-                        android:layout_marginBottom="@dimen/dp5"
-                        android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp5"
-                        android:background="@color/main_color" />
+                    <LinearLayout
+                        android:id="@+id/ll_rush"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp150"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_weight="1"
+                        android:background="@drawable/rush_chanel"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/tj_homework"
-                        android:textSize="@dimen/sp16" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:text="我要闯关"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:text="一起来大冒险吧！"
+                            android:textColor="@color/md_grey_100"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="@dimen/dp80"
+                            android:layout_height="@dimen/dp30"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp50"
+                            android:background="@drawable/bg_text_circle"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="点击进入"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_report"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp150"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_weight="1"
+                        android:background="@drawable/grade_report"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:text="成绩报告"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:text="AI*智能成绩分析"
+                            android:textColor="@color/md_grey_100"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="@dimen/dp80"
+                            android:layout_height="@dimen/dp30"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp50"
+                            android:background="@drawable/bg_text_circle"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="点击进入"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
                 </LinearLayout>
-
-                <View style="@style/d_w" />
 
                 <LinearLayout
+                    android:id="@+id/ll_tool"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp20"
-                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp150"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp10"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/study_tool"
                         android:orientation="vertical">
-
-                        <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_full"
-                            android:layout_width="@dimen/dp60"
-                            android:layout_height="@dimen/dp60"
-                            app:max="100"
-                            app:roundColor="@color/md_grey_300"
-                            app:roundProgressColor="@color/md_green_500"
-                            app:textColor="@color/md_green_500"
-                            app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp16" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:text="学习工具"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/full_score" />
+                            android:text="汉字笔顺、作文"
+                            android:textColor="@color/md_grey_100"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:text="学习资料"
+                            android:textColor="@color/md_grey_100"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="@dimen/dp80"
+                            android:layout_height="@dimen/dp30"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp24"
+                            android:background="@drawable/bg_text_circle"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="点击进入"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_interact"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp150"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_marginTop="@dimen/dp10"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/ts_interact"
                         android:orientation="vertical">
-
-                        <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_high"
-                            android:layout_width="@dimen/dp60"
-                            android:layout_height="@dimen/dp60"
-                            app:max="100"
-                            app:roundColor="@color/md_grey_300"
-                            app:roundProgressColor="@color/md_red_500"
-                            app:textColor="@color/md_red_500"
-                            app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp16" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/high_score" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_low"
-                            android:layout_width="@dimen/dp60"
-                            android:layout_height="@dimen/dp60"
-                            app:max="100"
-                            app:roundColor="@color/md_grey_300"
-                            app:roundProgressColor="@color/main_color"
-                            app:textColor="@color/main_color"
-                            app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp16" />
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:text="师生互动"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
                             android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/low_score" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_average"
-                            android:layout_width="@dimen/dp60"
-                            android:layout_height="@dimen/dp60"
-                            app:max="100"
-                            app:roundColor="@color/md_grey_300"
-                            app:roundProgressColor="@color/md_orange_500"
-                            app:textColor="@color/md_orange_500"
-                            app:textIsDisplayable="true"
-                            app:textSize="@dimen/sp16" />
+                            android:text="融洽师生关系"
+                            android:textColor="@color/md_grey_100"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/average_score" />
-                    </LinearLayout>
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:text="提高教学效果"
+                            android:textColor="@color/md_grey_100"
+                            android:textSize="14sp" />
 
+                        <TextView
+                            android:layout_width="@dimen/dp80"
+                            android:layout_height="@dimen/dp30"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp24"
+                            android:background="@drawable/bg_text_circle"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="点击进入"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

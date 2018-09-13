@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dofun.sxl">
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- 获取网络信息状态，如当前的网络连接是否有效 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -28,21 +34,36 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 唤醒 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.dofun.sxl.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleTask">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,32 +72,95 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".activity.sjd.SjdListActivity" />
-        <activity android:name=".activity.lys.LysListActivity" />
-        <activity android:name=".activity.xhz.XhzListActivity" />
-        <activity android:name=".activity.personal.PersonRewardActivity" />
-        <activity android:name=".activity.personal.PersonalLevelActivity" />
-        <activity android:name=".activity.StudyToolActivity" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.xhz.XhzListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.PersonRewardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.PersonalLevelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.StudyToolActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".activity.StatisticsActivity" />
-        <activity android:name=".activity.sjd.SjdDetailActivity" />
-        <activity android:name=".activity.MistakeListActivity" />
-        <activity android:name=".activity.personal.FeedbackActivity" />
-        <activity android:name=".activity.personal.ContactActivity" />
-        <activity android:name=".activity.personal.JoinActivity" />
-        <activity android:name=".activity.personal.SettingActivity" />
-        <activity android:name=".activity.personal.ChangeNetActivity" />
-        <activity android:name=".activity.personal.UserInfoActivity" />
-        <activity android:name=".activity.DailyPractiseActivity" />
-        <activity android:name=".activity.lys.LysDetailActivity" />
-        <activity android:name=".activity.sjd.ReciteActivity" />
-        <activity android:name=".activity.NoticeListActivity" />
-        <activity android:name=".activity.NoticeDetailActivity" />
+        <activity
+            android:name=".activity.sjd.SjdDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mistake.MistakeSjdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.ContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.JoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.ChangeNetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.personal.UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DailyPractiseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.lys.LysDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.sjd.ReciteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NoticeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NoticeDetailActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.sjd.EvaluateActivity" />
-        <activity android:name=".activity.xhz.FillWordActivity" />
-        <activity android:name=".activity.xhz.WriteWordActivity" />
-        <activity android:name=".activity.xhz.RecognizeActivity"></activity>
+        <activity
+            android:name=".activity.sjd.EvaluateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.xhz.FillWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.xhz.WriteWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.xhz.RecognizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.sjd.SjdKindActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.lys.LysKindActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mistake.MistakeLysActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VideoDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.sjd.EvaluateDetailActivity" />
+        <activity android:name=".activity.sjd.VideoRecordActivity" />
+        <activity android:name=".activity.personal.term.PerfectInfoActivity" />
+        <activity android:name=".activity.personal.term.SchoolListActivity" />
+        <activity android:name=".activity.personal.term.GradeListActivity" />
+        <activity android:name=".activity.personal.term.TermListActivity" />
+        <activity android:name=".activity.personal.term.ClassListActivity" />
+        <activity android:name=".activity.BookDetailActivity" />
+        <activity android:name=".activity.InteractListActivity" />
+        <activity android:name=".activity.InteractDetailActivity"></activity>
     </application>
 
 </manifest>

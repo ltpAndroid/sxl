@@ -11,12 +11,14 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textSize="@dimen/sp18"
             android:id="@+id/item_judge_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1、" />
 
         <TextView
+            android:textSize="@dimen/sp18"
             android:id="@+id/item_judge_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

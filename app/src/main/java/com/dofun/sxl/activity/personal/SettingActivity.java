@@ -14,6 +14,7 @@ import com.dofun.sxl.Deploy;
 import com.dofun.sxl.MyApplication;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
+import com.dofun.sxl.activity.personal.term.PerfectInfoActivity;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.CacheUtil;
@@ -43,7 +44,6 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         new Thread(new Runnable() {
             @Override
@@ -61,6 +61,7 @@ public class SettingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.change_term:
+                ActivityUtils.startActivity(PerfectInfoActivity.class);
                 break;
             case R.id.net_setting:
                 ActivityUtils.startActivity(ChangeNetActivity.class);

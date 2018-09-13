@@ -7,7 +7,7 @@ public class TopicDetail extends BaseBean {
 
 
     /**
-     * analysis : 答案解析：B.陆游
+     * analysis : B.陆游
      * answer : 2714
      * createTime : 1534835227000
      * detail : 1.“山重水复疑无路，柳暗花明又一村。”这句诗是（ ）写的。

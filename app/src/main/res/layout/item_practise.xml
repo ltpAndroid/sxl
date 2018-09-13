@@ -49,8 +49,8 @@
                 android:id="@+id/tv_pt_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018-07-06"
                 android:layout_marginLeft="@dimen/dp5"
+                android:text="2018-07-06"
                 android:textColor="@color/md_black_1000"
                 android:textSize="@dimen/sp16" />
 
@@ -67,32 +67,47 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="2dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="发送老师:" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp2">
 
-            <TextView
-                android:id="@+id/tv_pt_teacher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="张慧敏" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="发送老师:" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="作业类型:" />
+                <TextView
+                    android:id="@+id/tv_pt_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="张慧敏" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_pt_type"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="口语评测" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="作业类型:" />
+
+                <TextView
+                    android:id="@+id/tv_pt_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="口语评测" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <LinearLayout

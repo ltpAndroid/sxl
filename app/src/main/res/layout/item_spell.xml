@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="柳"
-        android:padding="@dimen/dp15"
+        android:padding="@dimen/dp20"
         android:textSize="@dimen/sp18" />
 </RelativeLayout>

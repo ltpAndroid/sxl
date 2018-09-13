@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sjd_last">
+
+    <ImageView
+        android:id="@+id/iv_sjd_kind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp5"
+        android:src="@drawable/back" />
+
+    <View
+        android:id="@+id/view_1"
+        android:layout_width="@dimen/dp150"
+        android:layout_height="@dimen/dp150"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="80dp" />
+
+    <View
+        android:id="@+id/view_2"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp150"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="75dp"
+        android:layout_marginStart="14dp" />
+
+    <View
+        android:id="@+id/view_3"
+        android:layout_width="@dimen/dp150"
+        android:layout_height="@dimen/dp150"
+        android:layout_alignTop="@+id/view_4"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_toEndOf="@+id/view_2" />
+
+    <View
+        android:id="@+id/view_4"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp120"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
+
+    <View
+        android:id="@+id/view_5"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp150"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="184dp" />
+
+    <View
+        android:id="@+id/view_6"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp150"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="130dp" />
+
+    <View
+        android:id="@+id/view_7"
+        android:layout_width="@dimen/dp150"
+        android:layout_height="@dimen/dp150"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/view_2" />
+</RelativeLayout>

@@ -28,7 +28,6 @@ public class ChangeNetActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_net);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initView();
         setListener();

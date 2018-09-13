@@ -108,8 +108,15 @@ public class SpellFragment extends BaseFragment {
 
         if (detailList.size() == 0) {
             answerLayout.setVisibility(View.GONE);
+            showTip("没有布置该题型");
+            return;
         } else {
             answerLayout.setVisibility(View.VISIBLE);
+        }
+        int length = detailList.get(0).getAnalysis().length();
+        if (length == 5) {
+            spell6.setVisibility(View.GONE);
+            spell7.setVisibility(View.GONE);
         }
     }
 
@@ -119,7 +126,7 @@ public class SpellFragment extends BaseFragment {
 
         List<String> words = new ArrayList<>();
         if (detailList.size() == 0) {
-            showTip("没有布置该题型");
+            //showTip("没有布置该题型");
             return;
         }
         String[] str = detailList.get(0).getDetail().split(",");
@@ -133,14 +140,15 @@ public class SpellFragment extends BaseFragment {
             adapter.replaceData(words);
         }
 
+        final int length = detailList.get(0).getAnalysis().length();
         final List<String> txtList = new ArrayList<>();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView word = (TextView) view;
                 String txt = word.getText().toString();
-                if (txtList.size() == 7) {
-                    showTip("只能选取7个字组成诗句");
+                if (txtList.size() == length) {
+                    showTip("只能选取" + length + "个字组成诗句");
                     return;
                 }
                 word.setTextColor(setColor(R.color.md_red_500));
@@ -181,10 +189,10 @@ public class SpellFragment extends BaseFragment {
                 answerBean.setAnswerU(answer);
                 answerBean.setScore(topicDetail.getFraction() + "");
                 if (topicDetail.getAnalysis().equals(answer)) {
-                    showTip("正确");
+                    //showTip("正确");
                     answerBean.setIsRight("1");
                 } else {
-                    showTip("错误");
+                    //showTip("错误");
                     answerBean.setIsRight("0");
                 }
                 list.add(answerBean);

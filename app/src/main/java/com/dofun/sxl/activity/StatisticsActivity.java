@@ -2,8 +2,15 @@ package com.dofun.sxl.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.LogUtils;
+import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
+import com.dofun.sxl.bean.Statistics;
+import com.dofun.sxl.http.HttpUs;
+import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.view.CircleProgress;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -17,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class StatisticsActivity extends BaseActivity {
 
@@ -31,6 +39,18 @@ public class StatisticsActivity extends BaseActivity {
     CircleProgress scoreAverage;
     @BindView(R.id.pieChart)
     PieChart mChart;
+    @BindView(R.id.tv_back_statistics)
+    TextView tvBack;
+
+    private int highScore;
+    private int lowScore;
+    private int averageScore;
+
+    private float first;
+    private float second;
+    private float third;
+    private float fourth;
+    private float total;
 
     private List<Float> data = new ArrayList<>();
     private int[] colorIds = new int[]{R.color.md_red_500, R.color.md_green_500, R.color.main_color, R.color.md_orange_500};
@@ -40,16 +60,42 @@ public class StatisticsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         ButterKnife.bind(this);
-        setStateBarColor();
 
-        initView();
+        initData();
+        //initView();
+    }
+
+    private void initData() {
+        HttpUs.send(Deploy.queryStatistics(), null, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtils.i(info.toString());
+                Statistics statistics = JSONObject.parseObject(info.getData(), Statistics.class);
+                highScore = statistics.getMaxScore();
+                lowScore = statistics.getMinScore();
+                averageScore = (int) statistics.getAverageScore();
+
+                first = statistics.getOneLevel();
+                second = statistics.getTwoLevel();
+                third = statistics.getThreeLevel();
+                fourth = statistics.getFourLevel();
+                total = statistics.getTotalCount();
+
+                initView();
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.toString());
+                showTip("没有已提交的作业，无统计结果");
+            }
+        });
     }
 
     private void initView() {
-        scoreFull.setProgress(100);
-        scoreHigh.setProgress(90);
-        scoreLow.setProgress(80);
-        scoreAverage.setProgress(85);
+        scoreHigh.setProgress(highScore);
+        scoreLow.setProgress(lowScore);
+        scoreAverage.setProgress(averageScore);
 
         initPieChart();
     }
@@ -70,10 +116,10 @@ public class StatisticsActivity extends BaseActivity {
         mChart.setRotationEnabled(false);
         mChart.setHighlightPerTapEnabled(false);
 
-        data.add(50f);
-        data.add(25f);
-        data.add(15f);
-        data.add(10f);
+        data.add(first * 100 / total);
+        data.add(second * 100 / total);
+        data.add(third * 100 / total);
+        data.add(fourth * 100 / total);
         setData(4, 100);
 
         Legend l = mChart.getLegend();
@@ -118,5 +164,10 @@ public class StatisticsActivity extends BaseActivity {
         mChart.highlightValues(null);
 
         mChart.invalidate();
+    }
+
+    @OnClick(R.id.tv_back_statistics)
+    public void onViewClicked() {
+        finish();
     }
 }

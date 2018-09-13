@@ -1,10 +1,10 @@
 package com.dofun.sxl.activity;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -32,6 +32,8 @@ public class LoginActivity extends BaseActivity {
     EditText etPhone;
     @BindView(R.id.et_password)
     EditText etPassword;
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        setStateBarColor();
-        btnToRegister.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
-
+        //btnToRegister.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
     }
 
     @Override

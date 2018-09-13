@@ -35,8 +35,8 @@ public class MyApplication extends Application {
         initSpeech();
     }
 
-    private void initSpeech() {
-        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5b2cc6ed");
+    private void initSpeech() {//5b2cc6ed
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5b84ced1");
     }
 
     //退出应用
@@ -47,6 +47,8 @@ public class MyApplication extends Application {
                 ac.finish();
             }
             activityList.clear();
+            AnswerConstants.lysMap.clear();
+            AnswerConstants.sjdMap.clear();
             System.gc();
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,4 +66,5 @@ public class MyApplication extends Application {
             e.printStackTrace();
         }
     }
+
 }

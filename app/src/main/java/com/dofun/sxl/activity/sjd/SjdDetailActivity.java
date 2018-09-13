@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -34,6 +36,7 @@ import com.dofun.sxl.fragment.sjd.LigatureFragment;
 import com.dofun.sxl.fragment.sjd.SpellFragment;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
+import com.dofun.sxl.util.HintDiaUtils;
 import com.dofun.sxl.view.DialogWaiting;
 import com.tandong.sa.eventbus.EventBus;
 
@@ -75,6 +78,8 @@ public class SjdDetailActivity extends BaseActivity {
     FrameLayout detailContainer;
     @BindView(R.id.btn_restart)
     Button btnRestart;
+    @BindView(R.id.iv_animation)
+    ImageView ivAnimation;
 
     private int i = 0;
     private MyTimer myTimer;
@@ -100,11 +105,9 @@ public class SjdDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sjd_detail);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initData();
         initView();
-        //initFragment();
     }
 
     private void initFragment() {
@@ -227,8 +230,12 @@ public class SjdDetailActivity extends BaseActivity {
     }
 
     private void bindView(List<TopicDetail> topicList) {
-        TopicDetail topicDetail = topicList.get(0);
-        topicScore.setText(topicDetail.getFraction() + "");
+        int score = 0;
+        for (TopicDetail topicDetail :
+                topicList) {
+            score += topicDetail.getFraction();
+        }
+        topicScore.setText(String.valueOf(score));
     }
 
     private void changeViews(int num) {
@@ -258,15 +265,21 @@ public class SjdDetailActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_sjd:
-                showMyDialog(R.string.content_topic);
+                showMyDialog(R.string.content_topic, null, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AnswerConstants.sjdMap.clear();
+                        finish();
+                    }
+                });
                 break;
             case R.id.tv_previous:
-                final DialogWaiting dialog = DialogWaiting.build(this);
-                dialog.show();
+                //                final DialogWaiting dialog = DialogWaiting.build(this);
+                //                dialog.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        dialog.dimiss();
+                        //                        dialog.dimiss();
                         position--;
                         changeViews(position);
                         queryTopic();
@@ -280,12 +293,39 @@ public class SjdDetailActivity extends BaseActivity {
                     commitAnswer();
                     return;
                 }
-                final DialogWaiting dialogNext = DialogWaiting.build(this);
-                dialogNext.show();
+                ivAnimation.setVisibility(View.VISIBLE);
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.topic_finish);
+                animation.setFillBefore(true);
+                animation.setDuration(1500);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ivAnimation.setVisibility(View.GONE);
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                ivAnimation.setAnimation(animation);
+
+                //                final DialogWaiting dialogNext = DialogWaiting.build(this);
+                //                dialogNext.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        dialogNext.dimiss();
+                        //                        dialogNext.dimiss();
                         position++;
                         changeViews(position);
                         queryTopic();
@@ -367,35 +407,44 @@ public class SjdDetailActivity extends BaseActivity {
         showMyDialog(R.string.final_toast, null, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String total = "";
-                List<Answer> object = new ArrayList<>();
-                for (Map.Entry<Object, Object> entry :
-                        AnswerConstants.sjdMap.entrySet()) {
-                    object.addAll((List<Answer>) entry.getValue());
-                }
-                for (int i = 0; i < object.size(); i++) {
-                    total += object.get(i).getTopicId() + "\n";
-                }
-                showTip(total.substring(0, total.length() - 1));
-                JSONObject params = new JSONObject();
-                params.put("workId", String.valueOf(homeworkId));
-                params.put("topicList", object);
-                HttpUs.send(Deploy.subHomework(), params, new HttpUs.CallBackImp() {
+                commit();
+            }
+        });
+    }
+
+    private void commit() {
+        String total = "";
+        List<Answer> object = new ArrayList<>();
+        for (Map.Entry<Object, Object> entry :
+                AnswerConstants.sjdMap.entrySet()) {
+            object.addAll((List<Answer>) entry.getValue());
+        }
+        for (int i = 0; i < object.size(); i++) {
+            total += object.get(i).getTopicId() + "\n";
+        }
+        //showTip(total.substring(0, total.length() - 1));
+        JSONObject params = new JSONObject();
+        params.put("workId", String.valueOf(homeworkId));
+        params.put("topicList", object);
+        HttpUs.send(Deploy.subHomework(), params, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtils.i(info.toString());
+                AnswerConstants.sjdMap.clear();
+                EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.FINISH, ""));
+                HintDiaUtils.createDialog(mContext).showSucceedDialog("提交成功");
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onSuccess(ResInfo info) {
-                        LogUtils.i(info.toString());
-                        AnswerConstants.sjdMap.clear();
-                        EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.FINISH, ""));
+                    public void run() {
                         finish();
                     }
+                }, 1000);
+            }
 
-                    @Override
-                    public void onFailure(ResInfo info) {
-                        LogUtils.i(info.toString());
-                        showTip(info.getMsg());
-                    }
-                });
-
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.toString());
+                showTip(info.getMsg());
             }
         });
     }
@@ -425,7 +474,7 @@ public class SjdDetailActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            finish();
+            commit();
         }
     }
 

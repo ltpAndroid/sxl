@@ -1,7 +1,6 @@
 package com.dofun.sxl.activity.xhz;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +27,8 @@ import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.FileUtil;
 import com.dofun.sxl.util.HttpUtil;
 import com.dofun.sxl.util.MD5Util;
+import com.dofun.sxl.view.DialogWaiting;
+import com.hjq.permissions.Permission;
 
 import org.apache.commons.codec.binary.Base64;
 import org.json.JSONException;
@@ -52,36 +53,30 @@ public class WriteWordActivity extends BaseActivity {
     TextView tvBack;
     @BindView(R.id.tv_topic_score)
     TextView tvScore;
-    @BindView(R.id.iv_work)
-    ImageView ivWork;
     @BindView(R.id.tv_recognize)
     TextView tvRecognize;
-    @BindView(R.id.tv1)
-    TextView tv1;
-    @BindView(R.id.tv2)
-    TextView tv2;
 
     private List<TopicDetail> topicDetails = new ArrayList<>();
     private UploadWorkImg helper;
+    private int topicId;
+    private DialogWaiting dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_word);
         ButterKnife.bind(this);
-        setStateBarColor();
 
-        helper = new UploadWorkImg(mActivity, ivWork);
+        helper = new UploadWorkImg(mActivity);
         initData();
         initView();
+        checkPer(Permission.CAMERA);
+        checkPer(Permission.WRITE_EXTERNAL_STORAGE);
+        //checkPer(Permission.READ_EXTERNAL_STORAGE);
     }
 
     private void initView() {
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/song.ttf");
-        tv1.setText("习字指导");
-        tv1.setTypeface(typeface);
-        tv2.setText("我的临摹");
-        tv2.setTypeface(typeface);
+
     }
 
     private void initData() {
@@ -99,6 +94,7 @@ public class WriteWordActivity extends BaseActivity {
                 String imgPath = Deploy.ImgURL + topicDetails.get(0).getDetail();
                 Glide.with(mContext).load(imgPath).into(ivDetail);
                 tvScore.setText(topicDetails.get(0).getFraction() + "");
+                topicId = topicDetails.get(0).getId();
             }
 
             @Override
@@ -120,6 +116,7 @@ public class WriteWordActivity extends BaseActivity {
                 tvRecognize.setVisibility(View.INVISIBLE);
                 break;
             case R.id.tv_recognize:
+                dialog = DialogWaiting.build(this);
                 getOCR();
                 break;
         }
@@ -136,7 +133,6 @@ public class WriteWordActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Glide.with(mContext).load(AnswerConstants.workImg).into(ivWork);
         if (EmptyUtils.isNotEmpty(AnswerConstants.workImg)) {
             tvRecognize.setVisibility(View.VISIBLE);
         } else {
@@ -168,6 +164,8 @@ public class WriteWordActivity extends BaseActivity {
                     result = (String) msg.obj;
                     Bundle bundle = new Bundle();
                     bundle.putString("result", result);
+                    bundle.putString("filePath", helper.filePath);
+                    bundle.putString("topicId", String.valueOf(topicId));
                     ActivityUtils.startActivity(bundle, RecognizeActivity.class);
                     break;
                 case 1:
@@ -175,6 +173,7 @@ public class WriteWordActivity extends BaseActivity {
                     showTip("识别出错");
                     break;
             }
+            dialog.dismiss();
             //            //上传成功后删掉图片
             //            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures";
             //            FileUtil.delete(dirPath);
@@ -205,6 +204,14 @@ public class WriteWordActivity extends BaseActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.setTitle("识别中...");
+                            dialog.show();
+                        }
+                    });
+
                     String result = HttpUtil.doPost1(BASE_URL, header, "image=" + urlEncode);
                     Log.i("OCR WebAPI 接口调用结果：", result);
                     try {

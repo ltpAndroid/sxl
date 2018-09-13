@@ -17,8 +17,8 @@ public class Deploy {
     //public static String U = "http://10.168.1.147:8080/";
     public static String U = "http://116.255.145.242:8801/";
     public static String ImgURL = "http://116.255.145.242:8801/funny/";
-    public static String URL = U + "funny/api/" /*"http://192.168.0.1/:8080/aplus/api/"*/;
-    //    public static String URL = "http://172.30.14.1:8080/aplus/api/";
+    //    public static String URL = U + "funny/api/";
+    public static String URL = "http://192.168.0.125:8080/funny/api/";
 
     // 学趣部落使用条款及隐私
     public static String SERVICEPROTOCOL_URL = U + "funny/serviceProtocol.html";
@@ -61,16 +61,16 @@ public class Deploy {
         String ret[] = {"login", "register"};
         return ret;
     }
-    //
-    //    /**
-    //     * 设置密码 { "method": "setPassword",
-    //     * "token":"Klzt03rdn6snk1vcnfD3asp9TjanPLU1", "params": { "password":
-    //     * "password" } }
-    //     */
-    //    public static String[] getSetPassword() {
-    //        String ret[] = {"login", "setPassword"};
-    //        return ret;
-    //    }
+
+    /**
+     * 设置密码 { "method": "setPassword",
+     * "token":"Klzt03rdn6snk1vcnfD3asp9TjanPLU1", "params": { "password":
+     * "password" } }
+     */
+    public static String[] getSetPassword() {
+        String ret[] = {"login", "setPassword"};
+        return ret;
+    }
     //
     //    /**
     //     * 找回密码 { "method": "forgotPassword", "params": { "mobile": "18901780827",
@@ -431,14 +431,14 @@ public class Deploy {
         return ret;
     }
 
-    //错题本，错题详情接口（学生端，老师端） //"type"有无都可，似乎默认为"1"，设为"2"的时候报500错误
+    //错题本列表接口（学生端，老师端）
     public static String[] getWrongBook() {
         String ret[] = {"answerWrongBook", "getAnswerWrongBookList"};
         return ret;
     }
 
-    //学生端-学生端-当次作业下的错题列表
-    public static String[] getCurrentWrongBook() { //报错400
+    //学生端-学生端-当次作业下的错题详情
+    public static String[] getCurrentWrongBook() {
         String ret[] = {"answerWrongBook", "getCurrentWrongList"};
         return ret;
     }
@@ -504,6 +504,106 @@ public class Deploy {
      */
     public static String[] subHomework() {
         String ret[] = {"homework", "subHomework"};
+        return ret;
+    }
+
+
+    /**
+     * 对比图片  {"topicId":"题目id","filePath":"图片地址"}
+     */
+    public static String[] evaluationPicture() {
+        String ret[] = {"homework", "evaluationPicture"};
+        return ret;
+    }
+
+    /**
+     * 提交错题本
+     */
+    public static String[] newAnswerWrongBook() {
+        String ret[] = {"answerWrongBook", "newAnswerWrongBook"};
+        return ret;
+    }
+
+    /**
+     * 视频列表
+     */
+    public static String[] getItemPage() {
+        String ret[] = {"item", "getItemPage"};
+        return ret;
+    }
+
+    /**
+     * 查看评论
+     */
+    public static String[] queryItemCommentList() {
+        String ret[] = {"itemComment", "queryItemCommentList"};
+        return ret;
+    }
+
+    /**
+     * 发表评论
+     */
+    public static String[] addItemComment() {
+        String ret[] = {"itemComment", "addItemComment"};
+        return ret;
+    }
+
+    /**
+     * 点赞或收藏
+     */
+    public static String[] addItemInteract() {
+        String ret[] = {"itemInteract", "addItemInteract"};
+        return ret;
+    }
+
+    /**
+     * 作业统计/成绩报告
+     */
+    public static String[] queryStatistics() {
+        String ret[] = {"homework", "homeworkStatistics"};
+        return ret;
+    }
+
+    /**
+     * 学习工具studytool
+     * params:{ "status":"1","type":"1" }
+     * 说明：发布状态status为 1
+     * Type工具类型：1汉字笔顺、2作文辅导、3国学精粹、4经典绘本、5科普乐园、6常规考点
+     */
+    public static String[] studyTool() {
+        String ret[] = {"studytool", "studyTool"};
+        return ret;
+    }
+
+    /**
+     * 查询学校等信息
+     */
+    public static String[] querySchoolClass() {
+        String ret[] = {"user", "querySchoolClass"};
+        return ret;
+    }
+
+    /**
+     * 设置学校年级学期
+     */
+    public static String[] setSchoolGradeClass() {
+        String ret[] = {"user", "setSchoolGradeClass"};
+        return ret;
+    }
+
+    /**
+     * 师生互动列表接口
+     */
+    public static String[] queryDataList() {
+        String ret[] = {"interaction", "queryDataList"};
+        return ret;
+    }
+
+    /**
+     * 师生互动详情接口
+     */
+    public static String[] queryByMapDataList() {
+        String ret[] = {"interaction", "queryByMapDataList"};
         return ret;
     }
 }

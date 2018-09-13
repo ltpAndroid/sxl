@@ -49,7 +49,6 @@ public class NoticeListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_list);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initView();
     }

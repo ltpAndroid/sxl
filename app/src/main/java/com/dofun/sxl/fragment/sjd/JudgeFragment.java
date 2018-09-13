@@ -164,7 +164,7 @@ public class JudgeFragment extends BaseFragment {
                     list.add(answerBean);
                 }
                 AnswerConstants.setSjdAnswer(105, list);
-                showTip(toasts);
+                //showTip(toasts);
 
                 String str = "";
                 for (Map.Entry<Integer, Integer> entry : answerMap.entrySet()) {

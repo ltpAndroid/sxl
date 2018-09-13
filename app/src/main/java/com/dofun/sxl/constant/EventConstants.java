@@ -20,9 +20,13 @@ public class EventConstants {
     public static final int LYS_TK = 113;//填空
     public static final int LYS_XZ = 114;//选择
 
+    public static final int LYS_POSITION = 110;//练运算小题的位置
+
     //更换头像
     public static final int USER_IMG = 1001;
 
     //finish界面
     public static final int FINISH = 10000;
+
+
 }

@@ -18,11 +18,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.adapter.StrAdapter;
+import com.dofun.sxl.bean.Answer;
 import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.TopicDetail;
 import com.dofun.sxl.constant.AnswerConstants;
 import com.dofun.sxl.constant.EventConstants;
 import com.dofun.sxl.fragment.BaseFragment;
+import com.tandong.sa.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +65,7 @@ public class FastFragment extends BaseFragment {
     List<String> topic = new ArrayList<>();
 
     private List<TopicDetail> detailList = new ArrayList<>();
-    private Map<Integer, String> answerMap = new HashMap<>();
+    int current;
 
     public FastFragment() {
         // Required empty public constructor
@@ -100,7 +102,7 @@ public class FastFragment extends BaseFragment {
     }
 
     private void initView() {
-
+        current = Integer.parseInt(tvCurrent.getText().toString());
         disableShowInput(etResult);
         GridLayoutManager manager = new GridLayoutManager(mActivity, 4);
         rvCalculator.setLayoutManager(manager);
@@ -172,16 +174,20 @@ public class FastFragment extends BaseFragment {
         });
     }
 
+    private Map<Integer, String> answerMap = new HashMap<>();
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
-        int current = Integer.parseInt(tvCurrent.getText().toString());
+
         if (current < topic.size()) {
             Glide.with(mActivity).load(topic.get(current)).into(ivDetail);
             tvScore.setText(detailList.get(current).getFraction() + "");
+            int topicId = detailList.get(current - 1).getId();
+            String answerContent = etResult.getText().toString();
+            answerMap.put(topicId, answerContent);
+
             tvCurrent.setText(String.valueOf(++current));
-
-
+            EventBus.getDefault().post(new EventBusBean<Integer>(1, EventConstants.LYS_POSITION, current));
             etResult.setText("");
             result = "";
         } else {
@@ -203,9 +209,31 @@ public class FastFragment extends BaseFragment {
 
     public void onEventMainThread(EventBusBean bean) {
         switch (bean.getCode()) {
-            case EventConstants.LYS_TK:
-                AnswerConstants.setLysAnswer(121, "");
-                showTip(AnswerConstants.lysMap.get(121) + "");
+            case EventConstants.LYS_KS:
+                answerMap.put(detailList.get(current - 1).getId(), etResult.getText().toString());
+
+                List<Answer> list = new ArrayList<>();
+                String toasts = "";
+                for (int i = 0; i < detailList.size(); i++) {
+                    TopicDetail topicDetail = detailList.get(i);
+                    int topicId = topicDetail.getId();
+                    String answer = answerMap.get(topicId);
+                    Answer answerBean = new Answer();
+                    answerBean.setTopicId(topicDetail.getId() + "");
+                    answerBean.setAnswerU(answer);
+                    answerBean.setAnswer(topicDetail.getAnalysis());
+                    answerBean.setScore(topicDetail.getFraction() + "");
+                    if (answer.equals(topicDetail.getAnalysis())) {
+                        answerBean.setIsRight("1");
+                        toasts += "正确";
+                    } else {
+                        answerBean.setIsRight("0");
+                        toasts += "错误";
+                    }
+                    list.add(answerBean);
+                }
+                AnswerConstants.setLysAnswer(121, list);
+                //showTip(toasts);
                 break;
         }
     }

@@ -14,6 +14,10 @@ public class UserInfo extends BaseBean {
      * status : 1
      * subject : 0
      * username : 13112345678
+     * "classId":1
+     * "className":"1602"
+     * "schoolId":1
+     * "schoolName":"武汉市江汉区大兴路小学"
      */
 
     private String avatarUrl;
@@ -27,6 +31,42 @@ public class UserInfo extends BaseBean {
     private int status;
     private int subject;
     private String username;
+    private String className;
+    private int classId;
+    private String schoolName;
+    private int schoolId;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
 
     public String getAvatarUrl() {
         return avatarUrl;

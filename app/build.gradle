@@ -61,4 +61,10 @@ dependencies {
     //消息处理机制
 //    implementation 'org.greenrobot:eventbus:3.0.0'//快速开发框架中有
     implementation 'com.android.support:cardview-v7:27.1.1'
+    //视频播放器
+    implementation 'com.github.tcking:giraffeplayer2:0.1.19-lazyLoad'
+    //动态权限
+    implementation 'com.hjq:xxpermissions:5.0'
+    //录制视频
+    implementation 'cjt.library.wheel:camera:1.1.9'
 }

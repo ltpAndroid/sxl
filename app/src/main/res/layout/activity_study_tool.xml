@@ -39,11 +39,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp5"
-                android:background="@null"
                 android:layout_toLeftOf="@id/iv_search"
+                android:background="@null"
                 android:hint="@string/key_word"
-                android:textColorHint="@color/md_grey_500"
                 android:paddingLeft="@dimen/dp5"
+                android:textColorHint="@color/md_grey_500"
                 android:textSize="@dimen/sp12" />
 
             <ImageView
@@ -57,117 +57,14 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <LinearLayout
-            android:id="@+id/book_gxjd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="39dp"
-                android:src="@drawable/book_type" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/gxjd" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/book_gs"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/book_type" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/gs" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/book_kp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/book_type" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/kp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/book_gnwx"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/book_type" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/gnwx" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/book_wgwx"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/book_type" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/wgwx" />
-        </LinearLayout>
-    </LinearLayout>
+        android:fadingEdge="none"
+        android:paddingLeft="@dimen/dp5"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 
     <View style="@style/d_w" />
 
@@ -176,6 +73,7 @@
     <View style="@style/d_w" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_book"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

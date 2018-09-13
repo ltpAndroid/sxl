@@ -87,24 +87,30 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0.5"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp40">
+            android:layout_height="@dimen/dp40"
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10">
 
             <View
                 android:id="@+id/line_center"
                 android:layout_width="@dimen/dp0.5"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/rl_previous"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/line_center">
+                android:layout_toLeftOf="@id/line_center"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,8 +128,8 @@
                 android:id="@+id/rl_next"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/line_center">
-
+                android:background="@drawable/bg_btn_quit">
+                <!--android:layout_toRightOf="@id/line_center"-->
                 <TextView
                     android:id="@+id/tv_next_one"
                     android:layout_width="wrap_content"

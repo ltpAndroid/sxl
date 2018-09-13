@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
@@ -22,6 +23,7 @@ import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.TimeTool;
 import com.dofun.sxl.util.xf.XmlResultParser;
+import com.hjq.permissions.Permission;
 import com.iflytek.cloud.EvaluatorListener;
 import com.iflytek.cloud.EvaluatorResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -59,17 +61,19 @@ public class ReciteActivity extends BaseActivity {
     private SpeechEvaluator evaluator;
     private String content = "";
     private String mLastResult;
-    public static int count = 2;//此题总计做3次
+    public static int count = 3;//此题总计做3次
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recite);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initData();
         initView();
+        checkPer(Permission.RECORD_AUDIO);
+        checkPer(Permission.WRITE_EXTERNAL_STORAGE);
+        //checkPer(Permission.READ_EXTERNAL_STORAGE);
     }
 
     private void initData() {
@@ -90,7 +94,8 @@ public class ReciteActivity extends BaseActivity {
                 }
                 String detail = detailList.get(0).getDetail();
                 tvContent.setText(detail);
-                tvScore.setText(detailList.get(0).getFraction());
+                tvScore.setText(detailList.get(0).getFraction() + "");
+                content = tvContent.getText().toString();
             }
 
             @Override
@@ -104,7 +109,7 @@ public class ReciteActivity extends BaseActivity {
 
     private void initView() {
         evaluator = SpeechEvaluator.createEvaluator(ReciteActivity.this, null);
-        content = tvContent.getText().toString();
+
     }
 
     @SuppressLint("HandlerLeak")
@@ -130,6 +135,11 @@ public class ReciteActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.start_record:
+                if (EmptyUtils.isEmpty(content)) {
+                    showTip("无朗诵内容");
+                    return;
+                }
+
                 if (count == 0) {
                     showTip("重录次数已用尽");
                     return;
@@ -169,13 +179,18 @@ public class ReciteActivity extends BaseActivity {
                     if (null != result) {
                         //String evaluateResult = result.toString();
                         String duration = tvDuration.getText().toString();
-                        float totalScore = result.total_score;
-                        float integrityScore = result.integrity_score;
+                        if (result.is_rejected) {
+                            result.total_score = 0;
+                        }
                         Bundle bundle = new Bundle();
-                        bundle.putFloat("totalScore", totalScore);
-                        bundle.putFloat("integrityScore", integrityScore);
+                        bundle.putFloat("totalScore", result.total_score);
+                        bundle.putFloat("integrityScore", result.integrity_score);
+                        bundle.putFloat("phone_score", result.phone_score);
+                        bundle.putFloat("fluency_score", result.fluency_score);
+                        bundle.putFloat("tone_score", result.tone_score);
                         bundle.putString("content", content);
                         bundle.putString("duration", duration);
+                        bundle.putString("result", result.toString());
                         ActivityUtils.startActivity(bundle, EvaluateActivity.class);
                     } else {
                         showTip("解析结果为空");
@@ -200,6 +215,7 @@ public class ReciteActivity extends BaseActivity {
     }
 
     private void setParams() {
+        evaluator.setParameter("plev", "0");
         evaluator.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
         evaluator.setParameter(SpeechConstant.ISE_CATEGORY, "read_sentence");
         evaluator.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
@@ -287,6 +303,14 @@ public class ReciteActivity extends BaseActivity {
         if (null != evaluator) {
             evaluator.destroy();
             evaluator = null;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (count != 3) {
+            tvEvaluate.setVisibility(View.INVISIBLE);
         }
     }
 }

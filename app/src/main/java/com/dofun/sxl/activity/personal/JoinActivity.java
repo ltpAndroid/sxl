@@ -20,7 +20,6 @@ public class JoinActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
         ButterKnife.bind(this);
-        setStateBarColor();
     }
 
     @OnClick(R.id.tv_back_join)

@@ -183,6 +183,9 @@ public class XmlResultParser {
         result.except_info = getExceptInfo(pullParser);
         result.is_rejected = getIsRejected(pullParser);
         result.integrity_score = getFloat(pullParser, "integrity_score");
+        result.phone_score = getFloat(pullParser, "phone_score");
+        result.fluency_score = getFloat(pullParser, "fluency_score");
+        result.tone_score = getFloat(pullParser, "tone_score");
     }
 
     private Phone createPhone(XmlPullParser pullParser) {

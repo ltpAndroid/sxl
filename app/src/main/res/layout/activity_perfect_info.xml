@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.personal.term.PerfectInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/main_color">
+
+        <ImageView
+            android:id="@+id/iv_back_perfect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="修改个人信息"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_school"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="学校"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="请选择学校"
+            android:padding="@dimen/dp5"
+            android:textSize="@dimen/sp16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/go_to" />
+    </LinearLayout>
+
+    <View style="@style/d_w" />
+
+    <LinearLayout
+        android:id="@+id/ll_grade"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="年级"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/tv_grade"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="请选择年级"
+            android:padding="@dimen/dp5"
+            android:textSize="@dimen/sp16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/go_to" />
+    </LinearLayout>
+
+    <View style="@style/d_w" />
+
+    <LinearLayout
+        android:id="@+id/ll_term"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="学期"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/tv_term"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="请选择学期"
+            android:padding="@dimen/dp5"
+            android:textSize="@dimen/sp16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/go_to" />
+    </LinearLayout>
+
+    <View style="@style/d_w" />
+
+    <LinearLayout
+        android:id="@+id/ll_class"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="班级"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/tv_class"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="请选择班级"
+            android:padding="@dimen/dp5"
+            android:textSize="@dimen/sp16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/go_to" />
+    </LinearLayout>
+
+    <View style="@style/d_w" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_complete"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/dp200"
+        android:layout_height="@dimen/dp40"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp20"
+        android:background="@drawable/bg_btn_quit"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp16" />
+</LinearLayout>

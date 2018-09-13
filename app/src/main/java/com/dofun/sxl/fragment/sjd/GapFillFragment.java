@@ -172,7 +172,7 @@ public class GapFillFragment extends BaseFragment {
                     answerList.add(answer);
                 }
                 AnswerConstants.setSjdAnswer(101, list);
-                showTip(toasts);
+                //showTip(toasts);
 
                 String str = "";
                 for (String answer : answerList) {

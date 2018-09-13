@@ -9,7 +9,8 @@
         android:id="@+id/item_gap_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1、" />
+        android:text="1、"
+        android:textSize="@dimen/sp18" />
 
     <TextView
         android:id="@+id/item_gap_detail"
@@ -17,5 +18,6 @@
         android:layout_height="wrap_content"
         android:lineSpacingExtra="@dimen/dp2"
         android:lineSpacingMultiplier="1.2"
-        android:text="慈母手中(  )，游子身上衣。" />
+        android:text="慈母手中(  )，游子身上衣。"
+        android:textSize="@dimen/sp18" />
 </LinearLayout>

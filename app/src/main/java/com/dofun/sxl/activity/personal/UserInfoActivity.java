@@ -24,6 +24,7 @@ import com.dofun.sxl.util.HintDiaUtils;
 import com.dofun.sxl.util.SPUtils;
 import com.dofun.sxl.util.UploadHeaderHelper;
 import com.dofun.sxl.view.CircleImageView;
+import com.hjq.permissions.Permission;
 import com.timmy.tdialog.TDialog;
 import com.timmy.tdialog.base.BindViewHolder;
 import com.timmy.tdialog.listener.OnViewClickListener;
@@ -59,8 +60,10 @@ public class UserInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         ButterKnife.bind(this);
-        setStateBarColor();
 
+        checkPer(Permission.CAMERA);
+        checkPer(Permission.WRITE_EXTERNAL_STORAGE);
+        //checkPer(Permission.READ_EXTERNAL_STORAGE);
         helper = new UploadHeaderHelper(mActivity, userHeader);
     }
 
@@ -97,6 +100,7 @@ public class UserInfoActivity extends BaseActivity {
         JSONObject params = new JSONObject();
         params.put("sex", sex);
         params.put("nickname", nickname);
+        params.put("roleType", "1");
         HttpUs.send(Deploy.getModify(), params, new HttpUs.CallBackImp() {
             @Override
             public void onSuccess(ResInfo info) {

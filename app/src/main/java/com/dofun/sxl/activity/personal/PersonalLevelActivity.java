@@ -27,7 +27,6 @@ public class PersonalLevelActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_level);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         titles.add("练运算(85)");
         titles.add("习汉字(55)");

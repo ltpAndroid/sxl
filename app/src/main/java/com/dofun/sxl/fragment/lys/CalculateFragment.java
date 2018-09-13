@@ -19,11 +19,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.adapter.StrAdapter;
+import com.dofun.sxl.bean.Answer;
+import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.TopicDetail;
+import com.dofun.sxl.constant.AnswerConstants;
+import com.dofun.sxl.constant.EventConstants;
 import com.dofun.sxl.fragment.BaseFragment;
+import com.tandong.sa.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +65,7 @@ public class CalculateFragment extends BaseFragment {
     List<String> topic = new ArrayList<>();
 
     private List<TopicDetail> detailList = new ArrayList<>();
+    int current;
 
     public CalculateFragment() {
         // Required empty public constructor
@@ -94,7 +102,7 @@ public class CalculateFragment extends BaseFragment {
     }
 
     private void initView() {
-
+        current = Integer.parseInt(tvCurrent.getText().toString());
         disableShowInput(etResult);
         GridLayoutManager manager = new GridLayoutManager(mActivity, 4);
         rvCalculator.setLayoutManager(manager);
@@ -166,14 +174,18 @@ public class CalculateFragment extends BaseFragment {
         });
     }
 
+    private Map<Integer, String> answerMap = new HashMap<>();
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
-        int current = Integer.parseInt(tvCurrent.getText().toString());
         if (current < topic.size()) {
             Glide.with(mActivity).load(topic.get(current)).into(ivDetail);
             tvScore.setText(detailList.get(current).getFraction() + "");
-            tvCurrent.setText(String.valueOf(++current));
+            int topicId = detailList.get(current - 1).getId();
+            String answerContent = etResult.getText().toString();
+            answerMap.put(topicId, answerContent);
 
+            tvCurrent.setText(String.valueOf(++current));
+            EventBus.getDefault().post(new EventBusBean<Integer>(1, EventConstants.LYS_POSITION, current));
             etResult.setText("");
             result = "";
         } else {
@@ -185,5 +197,42 @@ public class CalculateFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+
+    @Override
+    public boolean hasEventBus() {
+        return true;
+    }
+
+    public void onEventMainThread(EventBusBean bean) {
+        switch (bean.getCode()) {
+            case EventConstants.LYS_JS:
+                answerMap.put(detailList.get(current - 1).getId(), etResult.getText().toString());
+
+                List<Answer> list = new ArrayList<>();
+                String toasts = "";
+                for (int i = 0; i < detailList.size(); i++) {
+                    TopicDetail topicDetail = detailList.get(i);
+                    int topicId = topicDetail.getId();
+                    String answer = answerMap.get(topicId);
+                    Answer answerBean = new Answer();
+                    answerBean.setTopicId(topicDetail.getId() + "");
+                    answerBean.setAnswerU(answer);
+                    answerBean.setAnswer(topicDetail.getAnalysis());
+                    answerBean.setScore(topicDetail.getFraction() + "");
+                    if (answer.equals(topicDetail.getAnalysis())) {
+                        answerBean.setIsRight("1");
+                        toasts += "正确";
+                    } else {
+                        answerBean.setIsRight("0");
+                        toasts += "错误";
+                    }
+                    list.add(answerBean);
+                }
+                AnswerConstants.setLysAnswer(122, list);
+                //showTip(toasts);
+                break;
+        }
     }
 }

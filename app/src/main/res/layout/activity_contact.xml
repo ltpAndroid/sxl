@@ -94,6 +94,7 @@
                 android:layout_width="@dimen/dp0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -129,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp10"
-                    android:text="电话客服" />
+                    android:text="联系电话" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

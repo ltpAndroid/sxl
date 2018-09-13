@@ -1,12 +1,16 @@
 package com.dofun.sxl.activity.xhz;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -59,10 +63,9 @@ public class UploadWorkImg {
     public static final int Photo_PICTURE = 98;
     public static final int Photo_ZOOM = 100;
 
-    public UploadWorkImg(BaseActivity mContext, ImageView mImgHeader) {
+    public UploadWorkImg(BaseActivity mContext) {
         super();
         this.mActivity = mContext;
-        this.mImgHeader = mImgHeader;
     }
 
 
@@ -117,6 +120,37 @@ public class UploadWorkImg {
     }
 
 
+    /**
+     * 7.0以上获取裁剪 Uri
+     *
+     * @param imageFile
+     * @return
+     */
+    private Uri getImageContentUri(File imageFile) {
+        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = mActivity.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[]{MediaStore.Images.Media._ID},
+                MediaStore.Images.Media.DATA + "=? ",
+                new String[]{filePath}, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+            if (imageFile.exists()) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.DATA, filePath);
+                return mActivity.getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            } else {
+                return null;
+            }
+        }
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
 
@@ -124,7 +158,11 @@ public class UploadWorkImg {
             case TAKE_PICTURE:
                 if (resultCode == RESULT_OK) {
 
-                    startPhotoZoom(mActivity, Uri.fromFile(tempFile));
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        startPhotoZoom(mActivity, getImageContentUri(tempFile));
+                    } else {
+                        startPhotoZoom(mActivity, Uri.fromFile(tempFile));
+                    }
                 }
                 break;
             case Photo_PICTURE:
@@ -136,7 +174,11 @@ public class UploadWorkImg {
                 if (data == null || data.getData() == null) {
                     return;
                 }
+                //                if (Build.VERSION.SDK_INT>=24) {
+                //                    startPhotoZoom(mActivity,getImageContentUri(tempFile));
+                //                }else {
                 startPhotoZoom(mActivity, data.getData());
+                //                }
 
                 break;
             case Photo_ZOOM:
@@ -149,6 +191,7 @@ public class UploadWorkImg {
         }
     }
 
+    public String filePath = "";
     /**
      * 图片上传
      */
@@ -180,6 +223,7 @@ public class UploadWorkImg {
                 msg.what = 1;
                 mHandler.sendMessage(msg);
 
+                filePath = params.getString("fileName");
             } else {
                 mHandler.sendEmptyMessage(2);
             }
@@ -253,10 +297,22 @@ public class UploadWorkImg {
             tempFile.delete();
         }
         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(mActivity, tempFile));
         mActivity.startActivityForResult(openCameraIntent, TAKE_PICTURE);
     }
 
+    private Uri getUriForFile(Context context, File file) {
+        if (context == null || file == null) {
+            throw new NullPointerException();
+        }
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context.getApplicationContext(), "com.dofun.sxl.fileprovider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        return uri;
+    }
 
     /**
      * 打开相册，选择图片

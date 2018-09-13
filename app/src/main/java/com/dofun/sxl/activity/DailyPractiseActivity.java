@@ -1,7 +1,6 @@
 package com.dofun.sxl.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +13,13 @@ import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
-import com.dofun.sxl.activity.lys.LysListActivity;
-import com.dofun.sxl.activity.sjd.SjdListActivity;
+import com.dofun.sxl.activity.lys.LysKindActivity;
+import com.dofun.sxl.activity.sjd.SjdKindActivity;
 import com.dofun.sxl.activity.xhz.XhzListActivity;
 import com.dofun.sxl.adapter.PractiseAdapter;
 import com.dofun.sxl.bean.DailyPractise;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.List;
 
@@ -39,8 +33,6 @@ public class DailyPractiseActivity extends BaseActivity {
     ImageView ivBack;
     @BindView(R.id.rv_daily)
     RecyclerView rvDaily;
-    @BindView(R.id.refresh_daily)
-    SmartRefreshLayout refreshDaily;
 
     private PractiseAdapter adapter;
     List<DailyPractise> practiseList;
@@ -50,7 +42,6 @@ public class DailyPractiseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_pracise);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initView();
         initData();
@@ -62,8 +53,8 @@ public class DailyPractiseActivity extends BaseActivity {
         rvDaily.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         rvDaily.setLayoutManager(manager);
 
-        refreshDaily.setRefreshHeader(new ClassicsHeader(this))
-                .setRefreshFooter(new ClassicsFooter(this));
+        //        refreshDaily.setRefreshHeader(new ClassicsHeader(this))
+        //                .setRefreshFooter(new ClassicsFooter(this));
     }
 
     private void initData() {
@@ -86,28 +77,28 @@ public class DailyPractiseActivity extends BaseActivity {
                 bundle.putSerializable("dailyPractise", dailyPractise);
                 String title = dailyPractise.getCourseName();
                 if (title.equals("诵经典")) {
-                    ActivityUtils.startActivity(bundle, SjdListActivity.class);
+                    ActivityUtils.startActivity(bundle, SjdKindActivity.class);
                 } else if (title.equals("习汉字")) {
                     ActivityUtils.startActivity(bundle, XhzListActivity.class);
                 } else if (title.equals("练运算")) {
-                    ActivityUtils.startActivity(bundle, LysListActivity.class);
+                    ActivityUtils.startActivity(bundle, LysKindActivity.class);
                 }
             }
         });
 
-        refreshDaily.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                askData();
-                refreshLayout.finishLoadMore(1500);
-            }
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                askData();
-                refreshLayout.finishRefresh(1500);
-            }
-        });
+        //        refreshDaily.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        //            @Override
+        //            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        //                askData();
+        //                refreshLayout.finishLoadMore(1500);
+        //            }
+        //
+        //            @Override
+        //            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        //                askData();
+        //                refreshLayout.finishRefresh(1500);
+        //            }
+        //        });
     }
 
     private void askData() {

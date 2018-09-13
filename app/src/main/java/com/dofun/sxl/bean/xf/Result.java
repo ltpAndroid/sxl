@@ -37,10 +37,6 @@ public class Result extends BaseBean {
      */
     public String content;
     /**
-     * 总得分
-     */
-    public float total_score;
-    /**
      * 时长（cn）
      */
     public int time_len;
@@ -57,7 +53,23 @@ public class Result extends BaseBean {
      */
     public ArrayList<Sentence> sentences;
     /**
+     * 总得分
+     */
+    public float total_score;
+    /**
      * 完整度分
      */
     public float integrity_score;
+    /**
+     * 声韵分---准确度
+     */
+    public float phone_score;
+    /**
+     * 流畅度分
+     */
+    public float fluency_score;
+    /**
+     * 调型分---标准度
+     */
+    public float tone_score;
 }

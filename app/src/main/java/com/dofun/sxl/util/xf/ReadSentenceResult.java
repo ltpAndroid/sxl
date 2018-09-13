@@ -31,7 +31,10 @@ public class ReadSentenceResult extends Result {
                     .append("评测内容：" + content + "\n")
                     .append("朗读时长：" + save2digit((float) (time_len / 100.0)) + " 秒" + "\n")
                     .append("完整度分：" + floatToInt(integrity_score) + "\n")
-                    .append("总分：" + floatToInt(total_score * 20) + "\n\n")
+                    .append("声韵分" + floatToInt(phone_score) + "\n")
+                    .append("流畅度分" + floatToInt(fluency_score) + "\n")
+                    .append("调型分" + floatToInt(tone_score) + "\n")
+                    .append("总分：" + floatToInt(total_score) + "\n\n")
                     .append("[朗读详情]").append(ResultFormatUtil.formatDetails_CN(sentences));
         } else {
             if (is_rejected) {

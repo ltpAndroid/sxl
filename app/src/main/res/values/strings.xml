@@ -44,10 +44,10 @@
     <string name="lys_yy">应用题</string>
     <string name="lys_ht">画图题</string>-->
 
-    <string name="lys_ks">口算</string>
-    <string name="lys_js">计算</string>
-    <string name="lys_tk">填空</string>
-    <string name="lys_xz">选择</string>
+    <string name="lys_ks">口算题</string>
+    <string name="lys_js">计算题</string>
+    <string name="lys_tk">填空题</string>
+    <string name="lys_xz">选择题</string>
 
     <!--习汉字选题-->
     <string name="xhz_tk">填空</string>
@@ -80,11 +80,12 @@
     <string name="low_score">最低分</string>
     <string name="average_score">平均分</string>
     <!--学习工具-->
-    <string name="gxjd">国学经典</string>
-    <string name="gs">故事</string>
-    <string name="kp">科普</string>
-    <string name="gnwx">国内文学</string>
-    <string name="wgwx">外国文学</string>
+    <string name="gxjc">国学精粹</string>
+    <string name="zwfd">作文辅导</string>
+    <string name="kply">科普乐园</string>
+    <string name="cgkd">常规考点</string>
+    <string name="jdhb">经典绘本</string>
+    <string name="hzbs">汉字笔顺</string>
     <!--微课-->
     <string name="weike">微课</string>
     <string name="kzkt">空中课堂</string>
@@ -98,7 +99,7 @@
 
     <!--dialog-->
     <string name="content_topic">注意：退出当前界面将重新开始做题与计时，请确认后退出！</string>
-    <string name="final_toast">注意：是否提交本次习题？</string>
+    <string name="final_toast">注意：本次练习已完成，是否提交本次习题？</string>
 
     <!--个人中心-->
     <string name="feedback">用户反馈</string>
@@ -106,8 +107,8 @@
     <string name="join">加入我们</string>
     <string name="empty_content">内容不能为空！</string>
     <string name="clip_wx">客服微信号已复制，请打开微信并在搜索内粘贴即可添加客服</string>
-    <string name="contact_phone">联系诵习练的电话客服\n025-50458112</string>
-    <string name="join_us_1">&#160;&#160;&#160;&#160;&#160;&#160;诵习练APP由敦锋科技出品，提供辅助学习的服务，立志让知识变得生动，将学习变得充满乐趣。</string>
+    <string name="contact_phone">联系我们：\n027-85418630</string>
+    <string name="join_us_1">&#160;&#160;&#160;&#160;&#160;&#160;诵习练APP由江汉区教育局出品，提供辅助学习的服务，立志让知识变得生动，将学习变得充满乐趣。</string>
     <string name="join_us_2">&#160;&#160;&#160;&#160;&#160;&#160;如果你和我们一样，是拥有思想的潮人的话，快来猛烈的骚扰我们吧！</string>
     <string name="clean_cache">是否确定清理app缓存？</string>
     <string name="quit_app">是否退出当前账号？</string>
@@ -131,6 +132,9 @@
     <string name="notice_list">通知列表</string>
     <string name="notice_detail">通知详情</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- 权限设置 -->
+    <string name="go_permission">相关权限未被授予，功能将无法使用，是否去设置该应用权限？</string>
+
+    <!-- 新用户请完善学校信息 -->
+    <string name="perfect_information">新用户请完善学校等相关信息</string>
 </resources>

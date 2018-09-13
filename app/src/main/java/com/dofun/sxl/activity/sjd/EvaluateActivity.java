@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
@@ -50,6 +51,8 @@ public class EvaluateActivity extends BaseActivity {
     TextView tvReciteDetail;
     @BindView(R.id.btn_again)
     Button btnAgain;
+    @BindView(R.id.tv_detail)
+    TextView tvDetail;
 
     //private boolean isPlaying = false;
     private MediaPlayer player;
@@ -59,7 +62,6 @@ public class EvaluateActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initData();
         initView();
@@ -70,10 +72,17 @@ public class EvaluateActivity extends BaseActivity {
         tvTotalTime.setText(duration);
         String content = getIntent().getStringExtra("content");
         tvReciteDetail.setText(content);
+
         float totalScore = getIntent().getFloatExtra("totalScore", 0);
         float integrityScore = getIntent().getFloatExtra("integrityScore", 0);
-        finalScore.setProgress(floatToInt(totalScore * 20));
+        float phone_score = getIntent().getFloatExtra("phone_score", 0);
+        float fluency_score = getIntent().getFloatExtra("fluency_score", 0);
+        float tone_score = getIntent().getFloatExtra("tone_score", 0);
+        finalScore.setProgress(floatToInt(totalScore));
         tvIntegrity.setText(floatToInt(integrityScore) + "分");
+        tvFluency.setText(floatToInt(fluency_score) + "分");
+        tvAccuracy.setText(floatToInt(phone_score) + "分");
+        tvStandard.setText(floatToInt(tone_score) + "分");
     }
 
     private void initView() {
@@ -87,7 +96,7 @@ public class EvaluateActivity extends BaseActivity {
         return i;
     }
 
-    @OnClick({R.id.tv_back_evaluate, R.id.iv_play_or_pause})
+    @OnClick({R.id.tv_back_evaluate, R.id.iv_play_or_pause, R.id.btn_again, R.id.tv_detail})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_evaluate:
@@ -113,6 +122,12 @@ public class EvaluateActivity extends BaseActivity {
                 }
                 ReciteActivity.count--;
                 finish();
+                break;
+            case R.id.tv_detail:
+                String detail = getIntent().getStringExtra("result");
+                Bundle bundle = new Bundle();
+                bundle.putString("detail", detail);
+                ActivityUtils.startActivity(bundle, EvaluateDetailActivity.class);
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package com.dofun.sxl.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
@@ -8,12 +9,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.dofun.sxl.MyApplication;
 import com.dofun.sxl.R;
+import com.dofun.sxl.activity.personal.term.PerfectInfoActivity;
+import com.dofun.sxl.bean.UserInfo;
 import com.dofun.sxl.fragment.LessonFragment;
 import com.dofun.sxl.fragment.MainFragment;
 import com.dofun.sxl.fragment.MeFragment;
 import com.dofun.sxl.fragment.NoteFragment;
+import com.dofun.sxl.util.SPUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,8 +49,25 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        isFirstLogin();
         initView();
         initFragment();
+    }
+
+    private void isFirstLogin() {
+        UserInfo userInfo = (UserInfo) SPUtils.getBaseBean(SPUtils.USER, UserInfo.class);
+        if (userInfo.getSchoolId() == 0) {
+            showSureDialog(R.string.perfect_information, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("main", true);
+                    ActivityUtils.startActivity(bundle, PerfectInfoActivity.class);
+                    return;
+                }
+            });
+        }
     }
 
     private void initView() {
@@ -71,7 +93,9 @@ public class MainActivity extends BaseActivity {
                         //                        } else {
                         //                            ft.show(mainFragment);
                         //                        }
-                        mainFragment = new MainFragment();
+                        if (mainFragment == null) {
+                            mainFragment = new MainFragment();
+                        }
                         ft.replace(R.id.container, mainFragment);
                         break;
                     case R.id.rb_lesson:

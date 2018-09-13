@@ -1,66 +1,200 @@
 package com.dofun.sxl.bean;
 
-public class VideoBean {
-    private String videoImg;
-    private String videoTime;
-    private String videoTitle;
-    private String sender;
-    private String receiver;
-    private String sendTime;
+public class VideoBean extends BaseBean {
+    private String videoUrl;
+    private String name;
+    private String teacherName;
+    private String second;
+    private long createTime;
+    private String imageUrl;
+    private int id;
+    private Teacher teacher;
 
-    public String getVideoImg() {
-        return videoImg;
+    public static class Teacher extends BaseBean {
+        /**
+         * avatarUrl : img/teacher.png
+         * course : {"favorited":0,"id":10,"status":0,"subject":0}
+         * courseId : 10
+         * description : 从教三十年的好老师
+         * id : 1
+         * name : 宋小宝
+         * status : 0
+         */
+
+        private String avatarUrl;
+        private CourseBean course;
+        private int courseId;
+        private String description;
+        private int id;
+        private String name;
+        private int status;
+
+        public String getAvatarUrl() {
+            return avatarUrl;
+        }
+
+        public void setAvatarUrl(String avatarUrl) {
+            this.avatarUrl = avatarUrl;
+        }
+
+        public CourseBean getCourse() {
+            return course;
+        }
+
+        public void setCourse(CourseBean course) {
+            this.course = course;
+        }
+
+        public int getCourseId() {
+            return courseId;
+        }
+
+        public void setCourseId(int courseId) {
+            this.courseId = courseId;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public static class CourseBean extends BaseBean {
+            /**
+             * favorited : 0
+             * id : 10
+             * status : 0
+             * subject : 0
+             */
+
+            private int favorited;
+            private int id;
+            private int status;
+            private int subject;
+
+            public int getFavorited() {
+                return favorited;
+            }
+
+            public void setFavorited(int favorited) {
+                this.favorited = favorited;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public int getSubject() {
+                return subject;
+            }
+
+            public void setSubject(int subject) {
+                this.subject = subject;
+            }
+        }
     }
 
-    public void setVideoImg(String videoImg) {
-        this.videoImg = videoImg;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public String getVideoTime() {
-        return videoTime;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public void setVideoTime(String videoTime) {
-        this.videoTime = videoTime;
+    public int getId() {
+        return id;
     }
 
-    public String getVideoTitle() {
-        return videoTitle;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setVideoTitle(String videoTitle) {
-        this.videoTitle = videoTitle;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public String getSender() {
-        return sender;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+
+    public String getName() {
+        return name;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public String getSendTime() {
-        return sendTime;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
+
+    public long getCreateTime() {
+        return createTime;
     }
 
-    public VideoBean(String videoTime, String videoTitle, String sender, String receiver, String sendTime) {
-        this.videoTime = videoTime;
-        this.videoTitle = videoTitle;
-        this.sender = sender;
-        this.receiver = receiver;
-        this.sendTime = sendTime;
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getSecond() {
+        return second;
+    }
+
+    public void setSecond(String second) {
+        this.second = second;
     }
 }

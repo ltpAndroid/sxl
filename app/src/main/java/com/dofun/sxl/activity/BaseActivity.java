@@ -19,6 +19,8 @@ import com.dofun.sxl.R;
 import com.dofun.sxl.bean.TermBean;
 import com.dofun.sxl.bean.UserInfo;
 import com.dofun.sxl.util.SPUtils;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.tandong.sa.eventbus.EventBus;
 
 import java.util.List;
@@ -42,6 +44,7 @@ public class BaseActivity extends AppCompatActivity {
         activityList.add(mActivity);
         //隐藏标题栏
         getSupportActionBar().hide();
+        setStateBarColor();
 
         mTfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }
@@ -146,6 +149,18 @@ public class BaseActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * 只能选择确认
+     *
+     * @param resId
+     */
+    public void showSureDialog(int resId, DialogInterface.OnClickListener positiveListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(resId)
+                .setCancelable(false)
+                .setPositiveButton("去完善", positiveListener).show();
+    }
+
     /*---------------------------------------------*/
     // 设置用户信息缓存
     public void setUserInfo(JSONObject data) {
@@ -155,6 +170,20 @@ public class BaseActivity extends AppCompatActivity {
 
             TermBean term = data.getJSONObject("user").getObject("term",
                     TermBean.class);
+            SPUtils.setBaseBean(SPUtils.TERM, term);
+            //SPUtils.setBoolean(SPUtils.ISSUBJECT, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTermInfo(String data) {
+        try {
+            UserInfo userInfo = JSONObject.parseObject(data, UserInfo.class);
+            SPUtils.setBaseBean(SPUtils.USER, userInfo);
+
+            String termStr = JSONObject.parseObject(data).getString("term");
+            TermBean term = JSONObject.parseObject(termStr, TermBean.class);
             SPUtils.setBaseBean(SPUtils.TERM, term);
             //SPUtils.setBoolean(SPUtils.ISSUBJECT, true);
         } catch (Exception e) {
@@ -175,6 +204,34 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         if (hasEventBus()) {
             EventBus.getDefault().unregister(this);
+        }
+    }
+
+    /**
+     * 权限申请
+     */
+    public void checkPer(String permission) {
+        if (!XXPermissions.isHasPermission(this, permission)) {
+            XXPermissions.with(this)
+                    .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
+                    .permission(permission) //
+                    .request(new OnPermission() {
+
+                        @Override
+                        public void hasPermission(List<String> granted, boolean isAll) {
+
+                        }
+
+                        @Override
+                        public void noPermission(List<String> denied, boolean quick) {
+                            showMyDialog(R.string.go_permission, null, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    XXPermissions.gotoPermissionSettings(mContext);
+                                }
+                            });
+                        }
+                    });
         }
     }
 }

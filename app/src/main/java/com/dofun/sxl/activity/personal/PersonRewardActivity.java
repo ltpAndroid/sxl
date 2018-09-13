@@ -38,7 +38,6 @@ public class PersonRewardActivity extends BaseActivity {
         setContentView(R.layout.activity_person_reward);
         ButterKnife.bind(this);
 
-        setStateBarColor();
         initView();
         initData();
     }

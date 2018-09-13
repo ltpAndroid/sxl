@@ -40,7 +40,6 @@ public class NoticeDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_detail);
         ButterKnife.bind(this);
-        setStateBarColor();
 
         initData();
         initView();

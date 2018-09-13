@@ -163,7 +163,7 @@ public class ChooseFragment extends BaseFragment {
                     list.add(answerBean);
                 }
                 AnswerConstants.setSjdAnswer(104, list);
-                showTip(toasts);
+                //showTip(toasts);
 
                 break;
         }

@@ -371,10 +371,10 @@ public class LigatureFragment extends BaseFragment {
                 answerBean.setAnswerU(answer);
                 answerBean.setScore(topicDetail.getFraction() + "");
                 if (topicDetail.getAnalysis().equals(answer)) {
-                    showTip("正确");
+                    //showTip("正确");
                     answerBean.setIsRight("1");
                 } else {
-                    showTip("错误");
+                    //showTip("错误");
                     answerBean.setIsRight("0");
                 }
                 list.add(answerBean);

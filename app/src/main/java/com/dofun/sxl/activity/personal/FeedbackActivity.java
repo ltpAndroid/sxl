@@ -35,7 +35,6 @@ public class FeedbackActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         ButterKnife.bind(this);
-        setStateBarColor();
     }
 
     @OnClick({R.id.tv_back_feedback, R.id.tv_send_feedback})

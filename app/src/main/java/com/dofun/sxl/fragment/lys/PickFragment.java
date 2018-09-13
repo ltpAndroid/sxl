@@ -10,16 +10,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
+import com.dofun.sxl.bean.Answer;
+import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.TopicDetail;
+import com.dofun.sxl.constant.AnswerConstants;
+import com.dofun.sxl.constant.EventConstants;
 import com.dofun.sxl.fragment.BaseFragment;
+import com.tandong.sa.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,9 +58,12 @@ public class PickFragment extends BaseFragment {
     LinearLayout numLayout;
     @BindView(R.id.topic_score)
     TextView tvScore;
+    @BindView(R.id.rg_pick)
+    RadioGroup rgPick;
 
     private List<TopicDetail> detailList = new ArrayList<>();
     List<String> topic = new ArrayList<>();
+    int current;
 
     public PickFragment() {
         // Required empty public constructor
@@ -89,7 +100,7 @@ public class PickFragment extends BaseFragment {
     }
 
     private void initView() {
-
+        current = Integer.parseInt(tvCurrent.getText().toString());
     }
 
     @Override
@@ -97,6 +108,8 @@ public class PickFragment extends BaseFragment {
         super.onLazyLoad(view);
         if (detailList.size() == 0) {
             numLayout.setVisibility(View.GONE);
+            rgPick.setVisibility(View.GONE);
+            btnNext.setVisibility(View.GONE);
             showTip("没有布置该题型");
             return;
         }
@@ -115,20 +128,82 @@ public class PickFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.btn_next)
-    public void onViewClicked() {
-        int current = Integer.parseInt(tvCurrent.getText().toString());
-        if (current < topic.size()) {
-            Glide.with(mActivity).load(topic.get(current)).into(ivDetail);
-            tvScore.setText(detailList.get(current).getFraction() + "");
-            tvCurrent.setText(String.valueOf(++current));
+    private Map<Integer, String> answerMap = new HashMap<>();
 
-            rbA.setChecked(false);
-            rbB.setChecked(false);
-            rbC.setChecked(false);
+    @OnClick({R.id.btn_next, R.id.rb_A, R.id.rb_B, R.id.rb_C})
+    public void onViewClicked(View view) {
+        int topicId = detailList.get(current - 1).getId();
+        String answerContent = "";
+        switch (view.getId()) {
+            case R.id.btn_next:
+                if (current < topic.size()) {
+                    Glide.with(mActivity).load(topic.get(current)).into(ivDetail);
+                    tvScore.setText(detailList.get(current).getFraction() + "");
 
-        } else {
-            showTip("本题型已做完");
+                    tvCurrent.setText(String.valueOf(++current));
+                    rbA.setChecked(false);
+                    rbB.setChecked(false);
+                    rbC.setChecked(false);
+                    EventBus.getDefault().post(new EventBusBean<Integer>(1, EventConstants.LYS_POSITION, current));
+                } else {
+                    showTip("本题型已做完");
+                }
+                break;
+            case R.id.rb_A:
+                answerContent = rbA.getText().toString();
+                break;
+            case R.id.rb_B:
+                answerContent = rbB.getText().toString();
+                break;
+            case R.id.rb_C:
+                answerContent = rbC.getText().toString();
+                break;
+        }
+        answerMap.put(topicId, answerContent);
+    }
+
+
+    @Override
+    public boolean hasEventBus() {
+        return true;
+    }
+
+    public void onEventMainThread(EventBusBean bean) {
+        switch (bean.getCode()) {
+            case EventConstants.LYS_XZ:
+                List<Integer> idList = new ArrayList<>();
+                for (int i = 0; i < detailList.size(); i++) {
+                    idList.add(detailList.get(i).getId());
+                }
+                for (Integer topicId : idList) {
+                    if (!answerMap.containsKey(topicId)) {
+                        answerMap.put(topicId, "");
+                    }
+                }
+
+                List<Answer> list = new ArrayList<>();
+                String toasts = "";
+                for (int i = 0; i < detailList.size(); i++) {
+                    TopicDetail topicDetail = detailList.get(i);
+                    int topicId = topicDetail.getId();
+                    String answer = answerMap.get(topicId);
+                    Answer answerBean = new Answer();
+                    answerBean.setTopicId(topicDetail.getId() + "");
+                    answerBean.setAnswerU(answer);
+                    answerBean.setAnswer(topicDetail.getAnalysis());
+                    answerBean.setScore(topicDetail.getFraction() + "");
+                    if (answer.equals(topicDetail.getAnalysis())) {
+                        answerBean.setIsRight("1");
+                        toasts += "正确";
+                    } else {
+                        answerBean.setIsRight("0");
+                        toasts += "错误";
+                    }
+                    list.add(answerBean);
+                }
+                AnswerConstants.setLysAnswer(124, list);
+                //showTip(toasts);
+                break;
         }
     }
 }

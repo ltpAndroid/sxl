@@ -2,6 +2,7 @@ package com.dofun.sxl.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,10 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSONArray;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
+import com.dofun.sxl.activity.VideoDetailActivity;
 import com.dofun.sxl.adapter.VideoAdapter;
 import com.dofun.sxl.bean.VideoBean;
+import com.dofun.sxl.http.HttpUs;
+import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.GlideImageLoader;
+import com.dofun.sxl.util.LogUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -36,6 +51,8 @@ public class VideoFragment extends BaseFragment {
     @BindView(R.id.rv_video)
     RecyclerView rvVideo;
     Unbinder unbinder;
+    @BindView(R.id.refresh_video)
+    SmartRefreshLayout refreshVideo;
 
     private VideoAdapter adapter;
     private List<VideoBean> videoList = new ArrayList<>();
@@ -63,9 +80,11 @@ public class VideoFragment extends BaseFragment {
         DividerItemDecoration divider = new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(mActivity, R.drawable.divider_height));
         rvVideo.addItemDecoration(divider);
-    }
 
-    private void initData() {
+        refreshVideo.setRefreshHeader(new ClassicsHeader(mActivity))
+                .setRefreshFooter(new ClassicsFooter(mActivity));
+
+
         //设置图片加载器
         bannerVideo.setImageLoader(new GlideImageLoader());
         bannerVideo.setIndicatorGravity(BannerConfig.CENTER);
@@ -79,19 +98,61 @@ public class VideoFragment extends BaseFragment {
         bannerVideo.setDelayTime(3000);
         //banner设置方法全部调用完毕时最后调用
         bannerVideo.start();
+    }
+
+    private void initData() {
+
+        HttpUs.send(Deploy.getItemPage(), null, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtil.i("过长信息", info.getData());
+                videoList = JSONArray.parseArray(info.getData(), VideoBean.class);
+                if (videoList.size() == 0) {
+                    showTip("暂无微课视频");
+                    return;
+                }
+                if (adapter == null) {
+                    adapter = new VideoAdapter(R.layout.item_video_list, videoList);
+                    rvVideo.setAdapter(adapter);
+                    setListener();
+                } else {
+                    adapter.replaceData(videoList);
+                }
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.toString());
+                showTip(info.getMsg());
+            }
+        });
+    }
+
+    private void setListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                VideoBean videoBean = (VideoBean) adapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("videoBean", videoBean);
+                ActivityUtils.startActivity(bundle, VideoDetailActivity.class);
+            }
+        });
 
 
-        videoList.add(new VideoBean("00:13:59", "07月10日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
-        videoList.add(new VideoBean("00:15:59", "07月11日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
-        videoList.add(new VideoBean("00:18:30", "07月11日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
-        videoList.add(new VideoBean("00:22:20", "07月12日语文作业", "语文老师", "培优组、进步组", "2018-07-09 12:16"));
+        refreshVideo.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore();
+                initData();
+            }
 
-        if (adapter == null) {
-            adapter = new VideoAdapter(R.layout.item_video_list, videoList);
-            rvVideo.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                initData();
+                refreshLayout.finishRefresh();
+            }
+        });
     }
 
     @Override

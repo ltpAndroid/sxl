@@ -50,6 +50,10 @@ public class MeFragment extends BaseFragment {
     ImageView ivGender;
     @BindView(R.id.tv_term_grade)
     TextView tvTermGrade;
+    @BindView(R.id.tv_school_name)
+    TextView tvSchoolName;
+    @BindView(R.id.tv_class_name)
+    TextView tvClassName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,11 +112,13 @@ public class MeFragment extends BaseFragment {
 
     private void getUserUI() {
         UserInfo userInfo = (UserInfo) SPUtils.getBaseBean(SPUtils.USER, UserInfo.class);
-        Glide.with(this).load(userInfo.getAvatarUrl()).error(R.drawable.rank_header).into(ivHeader);
+        Glide.with(mActivity).load(userInfo.getAvatarUrl()).error(R.drawable.rank_header).into(ivHeader);
         tvNickname.setText(userInfo.getNickname());
         int resId = userInfo.getSexStr().equals("男") ? R.drawable.male : R.drawable.female;
         ivGender.setImageResource(resId);
         TermBean termBean = (TermBean) SPUtils.getBaseBean(SPUtils.TERM, TermBean.class);
         tvTermGrade.setText(termBean.getName());
+        tvSchoolName.setText(userInfo.getSchoolName());
+        tvClassName.setText(userInfo.getClassName() + "班");
     }
 }
