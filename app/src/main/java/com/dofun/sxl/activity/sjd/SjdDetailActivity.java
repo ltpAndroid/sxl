@@ -1,16 +1,16 @@
 package com.dofun.sxl.activity.sjd;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,25 +19,33 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
 import com.dofun.sxl.bean.Answer;
 import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.TopicDetail;
+import com.dofun.sxl.bean.xf.Result;
 import com.dofun.sxl.constant.AnswerConstants;
 import com.dofun.sxl.constant.EventConstants;
 import com.dofun.sxl.fragment.sjd.ChooseFragment;
 import com.dofun.sxl.fragment.sjd.GapFillFragment;
 import com.dofun.sxl.fragment.sjd.JudgeFragment;
 import com.dofun.sxl.fragment.sjd.LigatureFragment;
+import com.dofun.sxl.fragment.sjd.ReciteFragment;
 import com.dofun.sxl.fragment.sjd.SpellFragment;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.HintDiaUtils;
+import com.dofun.sxl.util.SPUtils;
+import com.dofun.sxl.util.xf.XmlResultParser;
 import com.dofun.sxl.view.DialogWaiting;
+import com.hjq.permissions.Permission;
 import com.tandong.sa.eventbus.EventBus;
 
 import java.text.DateFormat;
@@ -80,6 +88,8 @@ public class SjdDetailActivity extends BaseActivity {
     Button btnRestart;
     @BindView(R.id.iv_animation)
     ImageView ivAnimation;
+    @BindView(R.id.tv_evaluate)
+    TextView tvEvaluate;
 
     private int i = 0;
     private MyTimer myTimer;
@@ -99,6 +109,7 @@ public class SjdDetailActivity extends BaseActivity {
     SpellFragment spellFragment;
     ChooseFragment chooseFragment;
     JudgeFragment judgeFragment;
+    ReciteFragment reciteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +119,8 @@ public class SjdDetailActivity extends BaseActivity {
 
         initData();
         initView();
+        checkPer(Permission.RECORD_AUDIO);
+        checkPer(Permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void initFragment() {
@@ -154,6 +167,14 @@ public class SjdDetailActivity extends BaseActivity {
                     ft.show(judgeFragment);
                 }
                 break;
+            case 5:
+                if (reciteFragment == null) {
+                    reciteFragment = ReciteFragment.newInstance(topicDetails);
+                    ft.add(R.id.detail_container, reciteFragment);
+                } else {
+                    ft.show(reciteFragment);
+                }
+                break;
         }
         ft.commit();
     }
@@ -174,11 +195,14 @@ public class SjdDetailActivity extends BaseActivity {
         if (judgeFragment != null) {
             transaction.hide(judgeFragment);
         }
+        if (reciteFragment != null) {
+            transaction.hide(reciteFragment);
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
-        countdownProgress.setProgress(300);
+        countdownProgress.setProgress(20 * 60);
         countdownProgress.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -186,7 +210,7 @@ public class SjdDetailActivity extends BaseActivity {
             }
         });
 
-        myTimer = new MyTimer(5 * 60 * 1000, 1000);
+        myTimer = new MyTimer(20 * 60 * 1000, 1000);
         myTimer.start();
     }
 
@@ -240,7 +264,7 @@ public class SjdDetailActivity extends BaseActivity {
 
     private void changeViews(int num) {
         setTopicText(num);
-        if (num == 4) {
+        if (num == 5) {
             tvNext.setText("提交");
             ivNext.setVisibility(View.GONE);
         } else {
@@ -261,7 +285,7 @@ public class SjdDetailActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_back_sjd, R.id.tv_previous, R.id.tv_next, R.id.btn_restart})
+    @OnClick({R.id.tv_back_sjd, R.id.tv_previous, R.id.tv_next, R.id.btn_restart, R.id.tv_evaluate})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_sjd:
@@ -274,12 +298,10 @@ public class SjdDetailActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_previous:
-                //                final DialogWaiting dialog = DialogWaiting.build(this);
-                //                dialog.show();
+                tvEvaluate.setVisibility(View.INVISIBLE);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //                        dialog.dimiss();
                         position--;
                         changeViews(position);
                         queryTopic();
@@ -293,52 +315,74 @@ public class SjdDetailActivity extends BaseActivity {
                     commitAnswer();
                     return;
                 }
-                ivAnimation.setVisibility(View.VISIBLE);
-                Animation animation = AnimationUtils.loadAnimation(this, R.anim.topic_finish);
-                animation.setFillBefore(true);
-                animation.setDuration(1500);
-                animation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
 
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        new Handler().postDelayed(new Runnable() {
+                YoYo.with(Techniques.DropOut)
+                        .duration(1500)
+                        .withListener(new Animator.AnimatorListener() {
                             @Override
-                            public void run() {
-                                ivAnimation.setVisibility(View.GONE);
+                            public void onAnimationStart(Animator animation) {
+                                ivAnimation.setVisibility(View.VISIBLE);
+                                tvNext.setEnabled(false);
                             }
-                        }, 1000);
-                    }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                ivAnimation.setVisibility(View.GONE);
 
-                    }
-                });
-                ivAnimation.setAnimation(animation);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tvNext.setEnabled(true);
+                                        position++;
+                                        changeViews(position);
+                                        queryTopic();
+                                    }
+                                }, 500);
+                            }
 
-                //                final DialogWaiting dialogNext = DialogWaiting.build(this);
-                //                dialogNext.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //                        dialogNext.dimiss();
-                        position++;
-                        changeViews(position);
-                        queryTopic();
-                    }
-                }, 500);
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        })
+                        .playOn(ivAnimation);
+
+
                 break;
             case R.id.btn_restart:
-                showMyDialog(R.string.do_again, null, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        recreateFragment(position);
+                recreateFragment(position);
+                break;
+            case R.id.tv_evaluate:
+                // 解析最终结果
+                if (!TextUtils.isEmpty(mLastResult)) {
+                    XmlResultParser resultParser = new XmlResultParser();
+                    Result result = resultParser.parse(mLastResult);
+
+                    if (null != result) {
+                        //String evaluateResult = result.toString();
+                        String duration = SPUtils.getString("recordDuration", "");
+                        if (result.is_rejected) {
+                            result.total_score = 0;
+                        }
+                        Bundle bundle = new Bundle();
+                        bundle.putFloat("totalScore", result.total_score);
+                        bundle.putFloat("integrityScore", result.integrity_score);
+                        bundle.putFloat("phone_score", result.phone_score);
+                        bundle.putFloat("fluency_score", result.fluency_score);
+                        bundle.putFloat("tone_score", result.tone_score);
+                        bundle.putString("content", SPUtils.getString("reciteContent", ""));
+                        bundle.putString("duration", duration);
+                        bundle.putString("result", result.toString());
+                        ActivityUtils.startActivity(bundle, EvaluateActivity.class);
+                    } else {
+                        showTip("解析结果为空");
                     }
-                });
+                }
                 break;
         }
     }
@@ -362,6 +406,9 @@ public class SjdDetailActivity extends BaseActivity {
                 break;
             case 4:
                 EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.SJD_PD, ""));
+                break;
+            case 5:
+                EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.SJD_SD, ""));
                 break;
         }
     }
@@ -388,6 +435,11 @@ public class SjdDetailActivity extends BaseActivity {
             case 4:
                 ft.remove(judgeFragment);
                 judgeFragment = null;
+                break;
+            case 5:
+                ft.remove(reciteFragment);
+                reciteFragment = null;
+                tvEvaluate.setVisibility(View.INVISIBLE);
                 break;
         }
         ft.commit();
@@ -430,12 +482,16 @@ public class SjdDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
-                AnswerConstants.sjdMap.clear();
+                //AnswerConstants.sjdMap.clear();
                 EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.FINISH, ""));
                 HintDiaUtils.createDialog(mContext).showSucceedDialog("提交成功");
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("homeworkId", homeworkId);
+                        bundle.putInt("fkId", fkId);
+                        ActivityUtils.startActivity(bundle, SjdCheckActivity.class);
                         finish();
                     }
                 }, 1000);
@@ -465,7 +521,7 @@ public class SjdDetailActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             i++;
-            countdownProgress.setProgress(300 - i);
+            countdownProgress.setProgress(20 * 60 - i);
             DateFormat format = new SimpleDateFormat("mm:ss");
             String surplusTime = TimeUtils.millis2String(millisUntilFinished, format);
             String time[] = surplusTime.split(":");
@@ -496,5 +552,22 @@ public class SjdDetailActivity extends BaseActivity {
             });
         }
         return true;
+    }
+
+
+    @Override
+    public boolean hasEventBus() {
+        return true;
+    }
+
+    private String mLastResult = "";
+
+    public void onEventMainThread(EventBusBean bean) {
+        switch (bean.getCode()) {
+            case EventConstants.SD_FINISH:
+                tvEvaluate.setVisibility(View.VISIBLE);
+                mLastResult = (String) bean.getData();
+                break;
+        }
     }
 }

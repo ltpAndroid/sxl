@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.dofun.sxl.R;
-import com.dofun.sxl.bean.Interact;
+import com.dofun.sxl.bean.Announce;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InteractDetailActivity extends BaseActivity {
+public class AnnounceDetailActivity extends BaseActivity {
 
     @BindView(R.id.iv_back_interact_detail)
     ImageView ivBack;
@@ -38,12 +38,12 @@ public class InteractDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        Interact interact = (Interact) getIntent().getSerializableExtra("interact");
-        tvTitle.setText(interact.getTitle());
-        tvContent.setText(interact.getContext());
-        tvPublisher.setText(interact.getNickname());
+        Announce announce = (Announce) getIntent().getSerializableExtra("announce");
+        tvTitle.setText(announce.getTitle());
+        tvContent.setText(announce.getContext());
+        tvPublisher.setText(announce.getNickname());
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String time = TimeUtils.millis2String(interact.getCreateTime(), format);
+        String time = TimeUtils.millis2String(announce.getCreateTime(), format);
         tvTime.setText(time);
     }
 

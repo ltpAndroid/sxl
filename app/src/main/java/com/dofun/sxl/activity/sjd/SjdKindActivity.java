@@ -68,10 +68,9 @@ public class SjdKindActivity extends BaseActivity {
             case R.id.view_3:
             case R.id.view_4:
             case R.id.view_5:
-                showTip("请从第1题开始做");
-                break;
             case R.id.view_6:
-                ActivityUtils.startActivity(bundle, ReciteActivity.class);
+                showTip("请从第1题开始做");
+                //ActivityUtils.startActivity(bundle, ReciteActivity.class);
                 break;
             case R.id.view_7:
                 //showTip("暂无此题");

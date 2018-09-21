@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.dofun.sxl.Deploy;
@@ -122,7 +121,7 @@ public class PerfectInfoActivity extends BaseActivity {
             @Override
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
-                JSONObject data = JSON.parseObject(info.getData());
+                //                JSONObject data = JSON.parseObject(info.getData());
                 //                SPUtils.setString(SPUtils.SCHOOL_NAME,data.getString("schoolName"));
                 //                SPUtils.setString(SPUtils.CLASS_NAME,data.getString("className"));
                 //                SPUtils.setString(SPUtils.SCHOOL_ID,SPUtils.getString("schoolId", ""));

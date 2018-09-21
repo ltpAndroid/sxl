@@ -30,11 +30,43 @@
             android:text="@string/statistics_report"
             android:textColor="@color/white"
             android:textSize="@dimen/sp18" />
+
+        <LinearLayout
+            android:id="@+id/ll_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/dp5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp5"
+                android:text="本日"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+
+            <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="@dimen/dp18"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/more_down" />
+        </LinearLayout>
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         android:scrollbars="none">
 
         <LinearLayout
@@ -72,19 +104,27 @@
 
                 <View style="@style/d_w" />
 
+                <com.github.mikephil.charting.charts.RadarChart
+                    android:id="@+id/radar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <View style="@style/d_w" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp10"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:visibility="gone"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <com.dofun.sxl.view.CircleProgress
                             android:id="@+id/score_full"
@@ -125,8 +165,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/high_score" />
+                            android:layout_margin="@dimen/dp5"
+                            android:text="@string/sjd" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -150,8 +190,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/low_score" />
+                            android:layout_margin="@dimen/dp5"
+                            android:text="@string/xhz" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -175,8 +215,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp5"
-                            android:text="@string/average_score" />
+                            android:layout_margin="@dimen/dp5"
+                            android:text="@string/lys" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -186,7 +226,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/dp10"
-                    android:paddingRight="@dimen/dp10">
+                    android:paddingRight="@dimen/dp10"
+                    android:visibility="gone">
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/pieChart"
@@ -287,7 +328,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -306,13 +348,80 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="@string/tj_mistake"
                         android:textSize="@dimen/sp16" />
 
                 </LinearLayout>
 
                 <View style="@style/d_w" />
+
+                <RadioGroup
+                    android:id="@+id/rg_sxl"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/dp5"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_sjd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_sxl"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="诵经典"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp16" />
+
+                    <RadioButton
+                        android:id="@+id/rb_xhz"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_sxl"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="习汉字"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp16" />
+
+                    <RadioButton
+                        android:id="@+id/rb_lys"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_sxl"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="练运算"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp16" />
+
+                </RadioGroup>
+
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10" />
             </LinearLayout>
         </LinearLayout>
 

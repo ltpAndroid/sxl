@@ -12,6 +12,7 @@ public class EventConstants {
     public static final int SJD_SD = 106;//诵读
     public static final int SJD_SP = 107;//视频
 
+    public static final int SD_FINISH = 1060;//录音完成
     /**
      * 练运算 courseId:11
      */
@@ -27,6 +28,6 @@ public class EventConstants {
 
     //finish界面
     public static final int FINISH = 10000;
-
+    public static final int FINISH_CODE = 10001;
 
 }

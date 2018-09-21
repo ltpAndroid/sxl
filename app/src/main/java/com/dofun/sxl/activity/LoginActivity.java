@@ -1,5 +1,6 @@
 package com.dofun.sxl.activity;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,8 @@ public class LoginActivity extends BaseActivity {
     EditText etPassword;
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
+    @BindView(R.id.tv_reset)
+    TextView tvReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        //btnToRegister.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        tvReset.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
     }
 
     @Override
@@ -52,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         etPassword.setText(SPUtils.getString(SPUtils.UserPwd, ""));
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_to_register})
+    @OnClick({R.id.btn_login, R.id.btn_to_register, R.id.tv_reset})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -65,6 +68,7 @@ public class LoginActivity extends BaseActivity {
                 JSONObject params = new JSONObject();
                 params.put("username", phone);
                 params.put("password", password);
+                params.put("roleType", "1");
                 HttpUs.send(Deploy.getLogin(), params, new HttpUs.CallBackImp() {
                     @Override
                     public void onSuccess(ResInfo info) {
@@ -92,6 +96,11 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn_to_register:
                 ActivityUtils.startActivity(RegisterActivity.class);
+                break;
+            case R.id.tv_reset:
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("reset", true);
+                ActivityUtils.startActivity(bundle, RegisterActivity.class);
                 break;
         }
     }

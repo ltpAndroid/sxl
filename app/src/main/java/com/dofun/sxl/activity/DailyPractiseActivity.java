@@ -18,6 +18,8 @@ import com.dofun.sxl.activity.sjd.SjdKindActivity;
 import com.dofun.sxl.activity.xhz.XhzListActivity;
 import com.dofun.sxl.adapter.PractiseAdapter;
 import com.dofun.sxl.bean.DailyPractise;
+import com.dofun.sxl.bean.EventBusBean;
+import com.dofun.sxl.constant.EventConstants;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 
@@ -128,5 +130,21 @@ public class DailyPractiseActivity extends BaseActivity {
     @OnClick(R.id.iv_back_daily)
     public void onViewClicked() {
         finish();
+    }
+
+
+    @Override
+    public boolean hasEventBus() {
+        return true;
+    }
+
+    public void onEventMainThread(EventBusBean bean) {
+        if ((int) bean.getTag() == EventConstants.FINISH_CODE) {
+            switch (bean.getCode()) {
+                case EventConstants.FINISH:
+                    finish();
+                    break;
+            }
+        }
     }
 }

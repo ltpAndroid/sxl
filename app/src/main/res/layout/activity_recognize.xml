@@ -20,7 +20,8 @@
             android:padding="@dimen/dp5"
             android:text="@string/go_back"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp16" />
+            android:textSize="@dimen/sp16"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -33,7 +34,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_xhz"
         android:fadingEdge="none"
         android:overScrollMode="never"
@@ -154,7 +156,42 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY" />
+
+
         </LinearLayout>
     </ScrollView>
 
+    <View style="@style/d_w" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45">
+
+        <View
+            android:id="@+id/line_view"
+            style="@style/d_h"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tv_again"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/line_view"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="重做一遍"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:id="@+id/tv_look"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/line_view"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="查看成绩"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+    </RelativeLayout>
 </LinearLayout>

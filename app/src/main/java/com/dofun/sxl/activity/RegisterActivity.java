@@ -49,6 +49,8 @@ public class RegisterActivity extends BaseActivity {
 
     private MyCountDownTimer countDownTimer;
 
+    private boolean reset;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -56,7 +58,16 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
-        //btnToLogin.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        initView();
+    }
+
+    private void initView() {
+        reset = getIntent().getBooleanExtra("reset", false);
+        if (reset) {
+            btnRegister.setText("重置密码");
+        } else {
+            btnRegister.setText("注册");
+        }
     }
 
     @OnClick({R.id.tv_verCode, R.id.btn_register, R.id.btn_to_login})
@@ -66,12 +77,80 @@ public class RegisterActivity extends BaseActivity {
                 getCode();
                 break;
             case R.id.btn_register:
-                doRegister();
+                phone = etPhone.getText().toString();
+                password = etPassword.getText().toString();
+                code = etCode.getText().toString();
+                if (reset) {
+                    resetPwd();
+                } else {
+                    doRegister();
+                }
                 break;
             case R.id.btn_to_login:
                 finish();
                 break;
         }
+    }
+
+    private void resetPwd() {
+        //非空验证
+        if (StringUtils.isEmpty(phone) ||
+                StringUtils.isEmpty(password) ||
+                StringUtils.isEmpty(code)) {
+            showTip("请填写完整信息");
+            return;
+        }
+        //验证手机号
+        if (!RegexUtils.isMobileExact(phone)) {
+            showTip("请输入正确手机号");
+            return;
+        }
+        //密码至少6位
+        if (password.length() < 6) {
+            showTip("密码长度至少6位");
+            return;
+        }
+
+        JSONObject param = new JSONObject();
+        param.put("mobile", phone);
+        param.put("verifyCode", code);
+        param.put("roleType", "1");
+        HttpUs.send(Deploy.getForgotPassword(), param, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtils.i(info.toString());
+                JSONObject params = new JSONObject();
+                params.put("password", password);
+                HttpUs.send(Deploy.getSetPassword(), params, new HttpUs.CallBackImp() {
+                    @Override
+                    public void onSuccess(ResInfo info) {
+                        LogUtils.i(info.toString());
+                        SPUtils.setString(SPUtils.UserName, phone);
+                        SPUtils.setString(SPUtils.UserPwd, password);
+                        HintDiaUtils.createDialog(mContext).showSucceedDialog("密码已重置");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 500);
+                    }
+
+                    @Override
+                    public void onFailure(ResInfo info) {
+                        LogUtils.i(info.toString());
+                        showTip(info.getMsg());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.toString());
+                showTip(info.getMsg());
+            }
+        });
+
     }
 
     private void getCode() {
@@ -113,9 +192,6 @@ public class RegisterActivity extends BaseActivity {
 
     private void doRegister() {
         //非空验证
-        phone = etPhone.getText().toString();
-        password = etPassword.getText().toString();
-        code = etCode.getText().toString();
         if (StringUtils.isEmpty(phone) ||
                 StringUtils.isEmpty(password) ||
                 StringUtils.isEmpty(code)) {
@@ -136,6 +212,7 @@ public class RegisterActivity extends BaseActivity {
         JSONObject param = new JSONObject();
         param.put("mobile", phone);
         param.put("verifyCode", code);
+        param.put("roleType", "1");
         HttpUs.send(Deploy.getRegister(), param, new HttpUs.CallBackImp() {
             @Override
             public void onSuccess(ResInfo info) {

@@ -9,20 +9,20 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.dofun.sxl.R;
-import com.dofun.sxl.bean.Interact;
+import com.dofun.sxl.bean.Announce;
 import com.dofun.sxl.view.CircleImageView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class InteractAdapter extends BaseQuickAdapter<Interact, BaseViewHolder> {
-    public InteractAdapter(int layoutResId, @Nullable List<Interact> data) {
+public class AnnounceAdapter extends BaseQuickAdapter<Announce, BaseViewHolder> {
+    public AnnounceAdapter(int layoutResId, @Nullable List<Announce> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Interact item) {
+    protected void convert(BaseViewHolder helper, Announce item) {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String time = TimeUtils.millis2String(item.getCreateTime(), format);
         helper.setText(R.id.item_comment_name, item.getNickname())

@@ -101,6 +101,10 @@ public class PickFragment extends BaseFragment {
 
     private void initView() {
         current = Integer.parseInt(tvCurrent.getText().toString());
+
+        if (detailList.size() == 1) {
+            btnNext.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -145,9 +149,13 @@ public class PickFragment extends BaseFragment {
                     rbB.setChecked(false);
                     rbC.setChecked(false);
                     EventBus.getDefault().post(new EventBusBean<Integer>(1, EventConstants.LYS_POSITION, current));
-                } else {
+
+                    if (current == topic.size()) {
+                        btnNext.setVisibility(View.INVISIBLE);
+                    }
+                } /*else {
                     showTip("本题型已做完");
-                }
+                }*/
                 break;
             case R.id.rb_A:
                 answerContent = rbA.getText().toString();

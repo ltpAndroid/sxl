@@ -108,6 +108,10 @@ public class FillFragment extends BaseFragment {
         disableShowInput(etResult);
         GridLayoutManager manager = new GridLayoutManager(mActivity, 4);
         rvCalculator.setLayoutManager(manager);
+
+        if (detailList.size() == 1) {
+            btnNext.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -191,9 +195,13 @@ public class FillFragment extends BaseFragment {
             EventBus.getDefault().post(new EventBusBean<Integer>(1, EventConstants.LYS_POSITION, current));
             etResult.setText("");
             result = "";
-        } else {
+
+            if (current == topic.size()) {
+                btnNext.setVisibility(View.INVISIBLE);
+            }
+        } /*else {
             showTip("本题型已做完，请点击下一题");
-        }
+        }*/
     }
 
     @Override

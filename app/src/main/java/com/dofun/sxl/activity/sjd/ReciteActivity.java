@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -48,12 +49,12 @@ public class ReciteActivity extends BaseActivity {
     TextView tvContent;
     @BindView(R.id.tv_duration)
     TextView tvDuration;
-    @BindView(R.id.start_record)
-    TextView tvStart;
-    @BindView(R.id.stop_record)
-    TextView tvStop;
     @BindView(R.id.tv_evaluate)
     TextView tvEvaluate;
+    @BindView(R.id.start_record)
+    LinearLayout llStart;
+    @BindView(R.id.stop_record)
+    LinearLayout llStop;
 
     private long duration = 0;
     private Timer timer;
@@ -158,7 +159,7 @@ public class ReciteActivity extends BaseActivity {
                         handler.sendMessage(msg);
                     }
                 }, 2000, 1000);
-                tvStart.setEnabled(false);
+                llStart.setEnabled(false);
                 break;
             case R.id.stop_record:
                 stopRecord();
@@ -168,7 +169,7 @@ public class ReciteActivity extends BaseActivity {
                 }
                 handler.sendEmptyMessage(1);
                 duration = 0;
-                tvStart.setEnabled(true);
+                llStart.setEnabled(true);
                 break;
             case R.id.tv_evaluate:
                 // 解析最终结果
@@ -246,7 +247,7 @@ public class ReciteActivity extends BaseActivity {
                 builder.append(result.getResultString());
                 mLastResult = builder.toString();
 
-                tvStop.performClick();
+                llStop.performClick();
                 tvEvaluate.setVisibility(View.VISIBLE);
 
                 showTip("录音结束");
@@ -259,7 +260,7 @@ public class ReciteActivity extends BaseActivity {
             if (error != null) {
                 showTip("error:" + error.getErrorCode() + ","
                         + error.getErrorDescription());
-                tvStop.performClick();//8-21
+                llStop.performClick();//8-21
             } else {
                 LogUtils.i("evaluator over");
             }

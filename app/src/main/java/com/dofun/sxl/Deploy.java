@@ -17,8 +17,8 @@ public class Deploy {
     //public static String U = "http://10.168.1.147:8080/";
     public static String U = "http://116.255.145.242:8801/";
     public static String ImgURL = "http://116.255.145.242:8801/funny/";
-    //    public static String URL = U + "funny/api/";
-    public static String URL = "http://192.168.0.125:8080/funny/api/";
+    public static String URL = U + "funny/api/";
+    //    public static String URL = "http://10.168.2.231:8080/funny/api/";
 
     // 学趣部落使用条款及隐私
     public static String SERVICEPROTOCOL_URL = U + "funny/serviceProtocol.html";
@@ -55,7 +55,7 @@ public class Deploy {
 
     /**
      * 校验验证码，完成注册 { "method": "register", "params": { "mobile": "18901780827"，
-     * "verifyCode": "1234" } }
+     * "verifyCode": "1234" ,"roleType}:"1" }
      */
     public static String[] getRegister() {
         String ret[] = {"login", "register"};
@@ -71,15 +71,15 @@ public class Deploy {
         String ret[] = {"login", "setPassword"};
         return ret;
     }
-    //
-    //    /**
-    //     * 找回密码 { "method": "forgotPassword", "params": { "mobile": "18901780827",
-    //     * "verifyCode": "1234" } }
-    //     */
-    //    public static String[] getForgotPassword() {
-    //        String ret[] = {"login", "forgotPassword"};
-    //        return ret;
-    //    }
+
+    /**
+     * 找回密码 { "method": "forgotPassword", "params": { "mobile": "18901780827",
+     * "verifyCode": "1234" } }
+     */
+    public static String[] getForgotPassword() {
+        String ret[] = {"login", "forgotPassword"};
+        return ret;
+    }
     //
     //    /**
     //     * 获得当前用户信息 { "method": "info", "token":"fLlbvyL6sYS15vPYm1r9eZhK3Ydx05tv" }
@@ -600,10 +600,18 @@ public class Deploy {
     }
 
     /**
-     * 师生互动详情接口
+     * 师生互动详情接口-公告
      */
     public static String[] queryByMapDataList() {
         String ret[] = {"interaction", "queryByMapDataList"};
+        return ret;
+    }
+
+    /**
+     * 师生互动-消息
+     */
+    public static String[] queryInteractionList() {
+        String ret[] = {"interaction", "queryInteractionList"};
         return ret;
     }
 }

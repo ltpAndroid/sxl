@@ -6,142 +6,163 @@
     android:orientation="vertical"
     tools:context=".activity.lys.LysDetailActivity">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height">
-
-        <TextView
-            android:id="@+id/topic_type"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/main_color"
-            android:gravity="center"
-            android:text="@string/lys_ks"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_size" />
-
-        <TextView
-            android:id="@+id/tv_back_lys"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/dp10"
-            android:paddingRight="@dimen/dp10"
-            android:text="@string/go_back"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp16" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_lys"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/detail_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp10"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp5"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="作业提交倒计时："
-                    android:textColor="@color/md_grey_600"
-                    android:textSize="@dimen/sp12" />
-
-                <TextView
-                    android:id="@+id/tv_surplus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="03分56秒"
-                    android:textColor="@color/md_grey_600"
-                    android:textSize="@dimen/sp12" />
-            </LinearLayout>
-
-            <SeekBar
-                android:id="@+id/countdown_progress"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:max="300"
-                android:thumb="@drawable/bomb1" />
+                android:layout_height="@dimen/title_bar_height">
+
+                <TextView
+                    android:id="@+id/topic_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/main_color"
+                    android:gravity="center"
+                    android:text="@string/lys_ks"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_size" />
+
+                <TextView
+                    android:id="@+id/tv_back_lys"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingRight="@dimen/dp10"
+                    android:text="@string/go_back"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_lys"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/detail_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="作业提交倒计时："
+                            android:textColor="@color/md_grey_600"
+                            android:textSize="@dimen/sp12" />
+
+                        <TextView
+                            android:id="@+id/tv_surplus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="03分56秒"
+                            android:textColor="@color/md_grey_600"
+                            android:textSize="@dimen/sp12" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/countdown_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:max="900"
+                        android:thumb="@drawable/bomb1" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp0.5"
+                    android:background="@color/white"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10">
+
+                    <View
+                        android:id="@+id/line_center"
+                        android:layout_width="@dimen/dp0.5"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_previous"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@id/line_center"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center"
+                            android:text="上一题"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_next"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_btn_quit">
+                        <!--android:layout_toRightOf="@id/line_center"-->
+                        <TextView
+                            android:id="@+id/tv_next_one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="@dimen/dp5"
+                            android:gravity="center"
+                            android:text="下一题"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp0.5"
-            android:background="@color/white"
+        <ImageView
+            android:id="@+id/iv_animation"
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp200"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/firework"
             android:visibility="gone" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp40"
-            android:layout_marginBottom="@dimen/dp10"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_marginRight="@dimen/dp10">
-
-            <View
-                android:id="@+id/line_center"
-                android:layout_width="@dimen/dp0.5"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:background="@color/white"
-                android:visibility="gone" />
-
-            <RelativeLayout
-                android:id="@+id/rl_previous"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/line_center"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp5"
-                    android:drawablePadding="@dimen/dp5"
-                    android:gravity="center"
-                    android:text="上一题"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_next"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_btn_quit">
-                <!--android:layout_toRightOf="@id/line_center"-->
-                <TextView
-                    android:id="@+id/tv_next_one"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="@dimen/dp5"
-                    android:gravity="center"
-                    android:text="下一题"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

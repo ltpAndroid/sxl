@@ -40,6 +40,18 @@
                     android:text="@string/go_back"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp16" />
+
+                <TextView
+                    android:id="@+id/tv_evaluate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:padding="@dimen/dp5"
+                    android:text="查看评测"
+                    android:textColor="@color/md_red_500"
+                    android:textSize="@dimen/sp16"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -143,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:max="300"
+                    android:max="1200"
                     android:thumb="@drawable/bomb1" />
 
             </LinearLayout>
@@ -203,11 +215,11 @@
 
         <ImageView
             android:id="@+id/iv_animation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp200"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/next_bg"
+            android:src="@drawable/firework"
             android:visibility="gone" />
 
     </FrameLayout>

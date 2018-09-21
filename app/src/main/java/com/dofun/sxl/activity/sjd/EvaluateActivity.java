@@ -116,11 +116,11 @@ public class EvaluateActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_again:
-                if (ReciteActivity.count == 0) {
-                    showTip("次数用尽");
-                    return;
-                }
-                ReciteActivity.count--;
+                //                if (ReciteActivity.count == 0) {
+                //                    showTip("次数用尽");
+                //                    return;
+                //                }
+                //ReciteActivity.count--;
                 finish();
                 break;
             case R.id.tv_detail:

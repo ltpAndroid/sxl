@@ -159,8 +159,11 @@
         <activity android:name=".activity.personal.term.TermListActivity" />
         <activity android:name=".activity.personal.term.ClassListActivity" />
         <activity android:name=".activity.BookDetailActivity" />
-        <activity android:name=".activity.InteractListActivity" />
-        <activity android:name=".activity.InteractDetailActivity"></activity>
+        <activity android:name=".activity.InteractActivity" />
+        <activity android:name=".activity.AnnounceDetailActivity" />
+        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.sjd.SjdCheckActivity" />
+        <activity android:name=".activity.lys.LysCheckActivity"></activity>
     </application>
 
 </manifest>

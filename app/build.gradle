@@ -67,4 +67,9 @@ dependencies {
     implementation 'com.hjq:xxpermissions:5.0'
     //录制视频
     implementation 'cjt.library.wheel:camera:1.1.9'
+    //View的各种动画效果框架
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
+    //仿QQ右上角弹窗
+    implementation 'com.zaaach:toprightmenu:1.0'
 }

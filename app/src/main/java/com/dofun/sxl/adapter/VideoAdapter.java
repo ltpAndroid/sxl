@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.bean.VideoBean;
+import com.dofun.sxl.util.TimeTool;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,8 +25,7 @@ public class VideoAdapter extends BaseQuickAdapter<VideoBean, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, VideoBean item) {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = TimeUtils.millis2String(item.getCreateTime(), format);
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        String duration = TimeUtils.millis2String(Long.valueOf(item.getSecond()) * 1000, format);
+        String duration = TimeTool.getFormatHMS(Long.valueOf(item.getSecond()) * 1000);
         helper.setText(R.id.item_video_time, duration)
                 .setText(R.id.item_video_title, item.getName())
                 .setText(R.id.item_video_sender, item.getTeacher().getName())

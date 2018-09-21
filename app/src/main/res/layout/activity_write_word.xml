@@ -124,14 +124,53 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp10"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="作业提交倒计时："
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="@dimen/sp12" />
+
+                <TextView
+                    android:id="@+id/tv_surplus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="@dimen/sp12" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/countdown_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:max="1200"
+                android:thumb="@drawable/bomb1" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/btn_camera"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="@dimen/dp200"
             android:layout_height="@dimen/dp40"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp10"
             android:background="@drawable/bg_btn_quit"
             android:text="拍照上传作业"
             android:textColor="@color/white" />

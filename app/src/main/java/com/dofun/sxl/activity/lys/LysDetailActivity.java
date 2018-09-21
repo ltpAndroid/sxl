@@ -1,5 +1,6 @@
 package com.dofun.sxl.activity.lys;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,13 +11,17 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
@@ -63,6 +68,8 @@ public class LysDetailActivity extends BaseActivity {
     RelativeLayout rlNext;
     @BindView(R.id.tv_next_one)
     TextView tvNextOne;
+    @BindView(R.id.iv_animation)
+    ImageView ivAnimation;
 
     private int i = 0;
     private MyTimer myTimer;
@@ -92,7 +99,7 @@ public class LysDetailActivity extends BaseActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
 
-        countdownProgress.setProgress(300);
+        countdownProgress.setProgress(15 * 60);
         countdownProgress.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -100,7 +107,7 @@ public class LysDetailActivity extends BaseActivity {
             }
         });
 
-        myTimer = new MyTimer(5 * 60 * 1000, 1000);
+        myTimer = new MyTimer(15 * 60 * 1000, 1000);
         myTimer.start();
     }
 
@@ -253,17 +260,42 @@ public class LysDetailActivity extends BaseActivity {
                     return;
                 }
 
-                final DialogWaiting dialogNext = DialogWaiting.build(this);
-                dialogNext.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialogNext.dimiss();
-                        position++;
-                        changeViews(position);
-                        queryTopic();
-                    }
-                }, 500);
+
+                YoYo.with(Techniques.DropOut)
+                        .duration(2000)
+                        .withListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                ivAnimation.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                ivAnimation.setVisibility(View.GONE);
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        position++;
+                                        changeViews(position);
+                                        queryTopic();
+                                    }
+                                }, 500);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        })
+                        .playOn(ivAnimation);
+
+
                 num = 1;
                 break;
         }
@@ -313,12 +345,16 @@ public class LysDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
-                AnswerConstants.lysMap.clear();
+                //AnswerConstants.lysMap.clear();
                 EventBus.getDefault().post(new EventBusBean<String>(0, EventConstants.FINISH, ""));
                 HintDiaUtils.createDialog(mContext).showSucceedDialog("提交成功");
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("homeworkId", homeworkId);
+                        bundle.putInt("fkId", fkId);
+                        ActivityUtils.startActivity(bundle, LysCheckActivity.class);
                         finish();
                     }
                 }, 1000);
@@ -348,7 +384,7 @@ public class LysDetailActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             i++;
-            countdownProgress.setProgress(300 - i);
+            countdownProgress.setProgress(15 * 60 - i);
             DateFormat format = new SimpleDateFormat("mm:ss");
             String surplusTime = TimeUtils.millis2String(millisUntilFinished, format);
             String time[] = surplusTime.split(":");

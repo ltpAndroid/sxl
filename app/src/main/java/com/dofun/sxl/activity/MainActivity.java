@@ -1,8 +1,11 @@
 package com.dofun.sxl.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -166,5 +169,24 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    public static void navToOrder(Activity activity, int index) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("bottomIndex", index);
+        NavUtils.navigateUpTo(activity, intent);
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //        int index = getIntent().getIntExtra("bottomIndex", 0);
+        //        if (index == 2) {
+        rbNote.setChecked(true);
+        //            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //            ft.replace(R.id.container, noteFragment).commit();
+        //        }
     }
 }

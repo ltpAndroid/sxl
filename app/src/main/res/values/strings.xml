@@ -137,4 +137,7 @@
 
     <!-- 新用户请完善学校信息 -->
     <string name="perfect_information">新用户请完善学校等相关信息</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

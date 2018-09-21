@@ -57,7 +57,7 @@
                     android:lineSpacingExtra="@dimen/dp2"
                     android:lineSpacingMultiplier="1.5"
                     android:text="@string/homework_toast"
-                    android:textSize="@dimen/sp12" />
+                    android:textSize="@dimen/sp16" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:layout_marginLeft="@dimen/dp20"
-                    android:text="JI SUAN TI"
+                    android:text="KOU SUAN TI"
                     android:textColor="#b7b7b7" />
             </LinearLayout>
 
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:layout_marginLeft="@dimen/dp20"
-                    android:text="KOU SUAN TI"
+                    android:text="JI SUAN TI"
                     android:textColor="#b7b7b7" />
             </LinearLayout>
 

@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.DailyPractiseActivity;
-import com.dofun.sxl.activity.InteractListActivity;
+import com.dofun.sxl.activity.InteractActivity;
 import com.dofun.sxl.activity.NoticeListActivity;
 import com.dofun.sxl.activity.StatisticsActivity;
 import com.dofun.sxl.activity.StudyToolActivity;
@@ -151,12 +151,16 @@ public class MainFragment extends BaseFragment {
     private void bindData(List<DailyPractise> practises) {
         for (DailyPractise daily :
                 practises) {
-            if (daily.getCourseName().equals("诵经典")) {
-                sjdPractises.add(daily);
-            } else if (daily.getCourseName().equals("习汉字")) {
-                xhzPractises.add(daily);
-            } else {
-                lysPractises.add(daily);
+            switch (daily.getCourseName()) {
+                case "诵经典":
+                    sjdPractises.add(daily);
+                    break;
+                case "习汉字":
+                    xhzPractises.add(daily);
+                    break;
+                default:
+                    lysPractises.add(daily);
+                    break;
             }
         }
         bindView();
@@ -230,7 +234,7 @@ public class MainFragment extends BaseFragment {
                 ActivityUtils.startActivity(StudyToolActivity.class);
                 break;
             case R.id.ll_interact:
-                ActivityUtils.startActivity(InteractListActivity.class);
+                ActivityUtils.startActivity(InteractActivity.class);
                 break;
             case R.id.ll_rush:
                 break;

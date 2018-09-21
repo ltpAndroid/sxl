@@ -48,6 +48,7 @@ public class XhzListActivity extends BaseActivity {
                 bundle.putInt("homeworkId", homeworkId);
                 bundle.putInt("fkId", fkId);
                 ActivityUtils.startActivity(bundle, WriteWordActivity.class);
+                finish();
                 break;
         }
     }

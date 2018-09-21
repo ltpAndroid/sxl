@@ -3,6 +3,7 @@ package com.dofun.sxl;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.Utils;
 import com.dofun.sxl.activity.LoginActivity;
@@ -21,7 +22,7 @@ public class MyApplication extends Application {
         return myApp;
     }
 
-    public static List<Activity> activityList = new ArrayList<>();
+    public static List<AppCompatActivity> activityList = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -42,7 +43,6 @@ public class MyApplication extends Application {
     //退出应用
     public static void exitApp() {
         try {
-            AnswerConstants.sjdMap.clear();
             for (Activity ac : activityList) {
                 ac.finish();
             }

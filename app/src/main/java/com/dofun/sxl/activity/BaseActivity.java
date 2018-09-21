@@ -1,6 +1,5 @@
 package com.dofun.sxl.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
@@ -30,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     public BaseActivity mActivity;
     protected Typeface mTfLight;
 
-    public List<Activity> activityList = MyApplication.activityList;
+    public List<AppCompatActivity> activityList = MyApplication.activityList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -185,7 +184,6 @@ public class BaseActivity extends AppCompatActivity {
             String termStr = JSONObject.parseObject(data).getString("term");
             TermBean term = JSONObject.parseObject(termStr, TermBean.class);
             SPUtils.setBaseBean(SPUtils.TERM, term);
-            //SPUtils.setBoolean(SPUtils.ISSUBJECT, true);
         } catch (Exception e) {
             e.printStackTrace();
         }

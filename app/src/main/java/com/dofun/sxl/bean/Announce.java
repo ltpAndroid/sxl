@@ -1,6 +1,6 @@
 package com.dofun.sxl.bean;
 
-public class Interact extends BaseBean {
+public class Announce extends BaseBean {
     /**
      * avatarUrl : http://116.255.145.242:8801/funny/attachment/images/1536052319302_I0SNzr.jpg
      * classId : 1
