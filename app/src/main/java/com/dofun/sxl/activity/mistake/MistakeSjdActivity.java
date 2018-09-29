@@ -132,8 +132,8 @@ public class MistakeSjdActivity extends BaseActivity {
                         kindList.add(topicDetail.getKind());
                     }
                 }
-                bindView();
                 initFragment();
+                bindView();
             }
 
             @Override

@@ -71,7 +71,6 @@ public class NoteFragment extends BaseFragment {
 
     private MistakeNoteAdapter adapter;
     private List<MistakeList> mistakeList = new ArrayList<>();
-    private List<MistakeList> orgList = new ArrayList<>();
 
     private String timeType = "";
     String courseId = "10";
@@ -98,6 +97,12 @@ public class NoteFragment extends BaseFragment {
                 .setRefreshFooter(new ClassicsFooter(mActivity));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshMistake.autoRefresh();
+    }
+
     private void initData() {
         timeType = SPUtils.getString("timeType", "1");
         changeData(courseId);
@@ -111,14 +116,14 @@ public class NoteFragment extends BaseFragment {
                         refreshLayout.finishLoadMore();
                         changeData(courseId);
                     }
-                }, 2000);
+                }, 1000);
 
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 changeData(courseId);
-                refreshLayout.finishRefresh(2000);
+                refreshLayout.finishRefresh(1000);
             }
         });
     }

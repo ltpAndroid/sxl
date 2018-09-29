@@ -10,7 +10,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
@@ -25,9 +27,6 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -38,7 +37,6 @@ import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.zaaach.toprightmenu.MenuItem;
@@ -56,12 +54,12 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
 
     @BindView(R.id.score_full)
     CircleProgress scoreFull;
-    @BindView(R.id.score_high)
-    CircleProgress scoreHigh;
-    @BindView(R.id.score_low)
-    CircleProgress scoreLow;
-    @BindView(R.id.score_average)
-    CircleProgress scoreAverage;
+    @BindView(R.id.score_sjd)
+    CircleProgress scoreSjd;
+    @BindView(R.id.score_xhz)
+    CircleProgress scoreXhz;
+    @BindView(R.id.score_lys)
+    CircleProgress scoreLys;
     @BindView(R.id.pieChart)
     PieChart mPieChart;
     @BindView(R.id.tv_back_statistics)
@@ -85,9 +83,9 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
     @BindView(R.id.rg_sxl)
     RadioGroup rgSxl;
 
-    private int highScore;
-    private int lowScore;
-    private int averageScore;
+    private int sjdScore;
+    private int xhzScore;
+    private int lysScore;
 
     private float first;
     private float second;
@@ -97,7 +95,7 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
 
     private String[] type = {"1", "2", "3", "4", "5"};
 
-    private List<Statistics.AnswerWrongListBean> answerWrongList = new ArrayList<>();
+    //private List<Statistics.AnswerWrongListBean> answerWrongList = new ArrayList<>();
 
     private String timeType = "1";
 
@@ -111,49 +109,57 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
 
         initData();
         //initView();
-        initRadarView();
-        rbSjd.setChecked(true);
+        //        initRadarView();
+        //rbSjd.setChecked(true);
     }
 
     private void initData() {
         JSONObject param = new JSONObject();
         param.put("timeType", timeType);
-        HttpUs.send(Deploy.queryStatistics(), param, new HttpUs.CallBackImp() {
+        HttpUs.send(Deploy.getStudentReport(), param, new HttpUs.CallBackImp() {
             @Override
             public void onSuccess(ResInfo info) {
                 LogUtils.i(info.toString());
-                Statistics statistics = JSONObject.parseObject(info.getData(), Statistics.class);
-                highScore = statistics.getMaxScore();
-                lowScore = statistics.getMinScore();
-                averageScore = (int) statistics.getAverageScore();
+                List<Statistics> statisticsList = JSONArray.parseArray(info.getData(), Statistics.class);
 
-                first = statistics.getOneLevel();
-                second = statistics.getTwoLevel();
-                third = statistics.getThreeLevel();
-                fourth = statistics.getFourLevel();
-                total = statistics.getTotalCount();
-
-                answerWrongList = statistics.getAnswerWrongList();
-                initView();
+                for (int i = 0; i < 2; i++) {
+                    initView(statisticsList);
+                }
             }
 
             @Override
             public void onFailure(ResInfo info) {
                 LogUtils.i(info.toString());
-                showTip("没有已提交的作业，无统计结果");
+                showTip(info.getMsg());
             }
-        });
+        }, mContext, "数据加载中");
     }
 
-    private void initView() {
-        scoreHigh.setProgress(highScore);
-        scoreLow.setProgress(lowScore);
-        scoreAverage.setProgress(averageScore);
+    private void initView(List<Statistics> dataList) {
+        for (Statistics sta :
+                dataList) {
+            String courseId = sta.getCourseId();
+            switch (courseId) {
+                case "10":
+                    scoreSjd.setProgress(sta.getTotalScore());
+                    sjdScore = sta.getTotalScore();
+                    break;
+                case "11":
+                    scoreXhz.setProgress(sta.getTotalScore());
+                    xhzScore = sta.getTotalScore();
+                    break;
+                case "12":
+                    scoreLys.setProgress(sta.getTotalScore());
+                    lysScore = sta.getTotalScore();
+                    break;
+            }
+        }
 
         //initPieChart();
-        //initRadarView();
-        initBarChart();
+        initRadarView();
+        //initBarChart();
     }
+
 
     private void initRadarView() {
         radarView.getDescription().setEnabled(false);
@@ -174,7 +180,7 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
         xAxis.setXOffset(0f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
 
-            private String[] fk = new String[]{"练运算", "诵经典", "习汉字"};
+            private String[] fk = new String[]{"诵经典", "习汉字", "练运算"};
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -195,9 +201,9 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
 
     private void setRadarData() {
         ArrayList<RadarEntry> entries = new ArrayList<>();
-        entries.add(new RadarEntry(55));
-        entries.add(new RadarEntry(90));
-        entries.add(new RadarEntry(70));
+        entries.add(new RadarEntry(sjdScore));
+        entries.add(new RadarEntry(xhzScore));
+        entries.add(new RadarEntry(lysScore));
 
         RadarDataSet set = new RadarDataSet(entries, "fk statistics");
         set.setColor(setColor(R.color.md_teal_200));
@@ -336,92 +342,92 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
 
         mBarChart.getAxisRight().setEnabled(false);
 
-        setBarData(answerWrongList);
+        //setBarData(answerWrongList);
     }
 
-    private void setBarData(List<Statistics.AnswerWrongListBean> dataList) {
-        List<BarEntry> yVals = new ArrayList<>();
+    //    private void setBarData(List<Statistics.AnswerWrongListBean> dataList) {
+    //        List<BarEntry> yVals = new ArrayList<>();
+    //
+    //        if (dataList.size() == 3) {
+    //            for (int i = 0; i < dataList.size(); i++) {
+    //                int kind = dataList.get(i).getFkId();
+    //                int count = dataList.get(i).getCount();
+    //                switch (kind) {
+    //                    case 10:
+    //                        yVals.add(new BarEntry(01f, count));
+    //                        break;
+    //                    case 11:
+    //                        yVals.add(new BarEntry(02f, count));
+    //                        break;
+    //                    case 12:
+    //                        yVals.add(new BarEntry(03f, count));
+    //                        break;
+    //                }
+    //            }
+    //        } else if (dataList.size() == 1) {
+    //            int kind = dataList.get(0).getFkId();
+    //            int count = dataList.get(0).getCount();
+    //            switch (kind) {
+    //                case 10:
+    //                    yVals.add(new BarEntry(01f, count));
+    //                    yVals.add(new BarEntry(02f, 0));
+    //                    yVals.add(new BarEntry(03f, 0));
+    //                    break;
+    //                case 11:
+    //                    yVals.add(new BarEntry(01f, 0));
+    //                    yVals.add(new BarEntry(02f, count));
+    //                    yVals.add(new BarEntry(03f, 0));
+    //                    break;
+    //                case 12:
+    //                    yVals.add(new BarEntry(01f, 0));
+    //                    yVals.add(new BarEntry(02f, 0));
+    //                    yVals.add(new BarEntry(03f, count));
+    //                    break;
+    //            }
+    //        } else if (dataList.size() == 2) {
+    //            int count1 = 0;
+    //            int count2 = 0;
+    //            int count3 = 0;
+    //            for (int i = 0; i < dataList.size(); i++) {
+    //                int kind = dataList.get(i).getFkId();
+    //                switch (kind) {
+    //                    case 10:
+    //                        count1 = dataList.get(i).getCount();
+    //                        break;
+    //                    case 11:
+    //                        count2 = dataList.get(i).getCount();
+    //                        break;
+    //                    case 12:
+    //                        count3 = dataList.get(i).getCount();
+    //                        break;
+    //                }
+    //            }
+    //            yVals.add(new BarEntry(01f, count1));
+    //            yVals.add(new BarEntry(02f, count2));
+    //            yVals.add(new BarEntry(03f, count3));
+    //        } else {
+    //            yVals.add(new BarEntry(01f, 0));
+    //            yVals.add(new BarEntry(02f, 0));
+    //            yVals.add(new BarEntry(03f, 0));
+    //        }
+    //
+    //
+    //        BarDataSet setData = new BarDataSet(yVals, "Data Set");
+    //        setData.setColors(setColor(R.color.main_color));
+    //        setData.setDrawValues(true);
+    //
+    //        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+    //        dataSets.add(setData);
+    //
+    //        BarData data = new BarData(dataSets);
+    //        data.setBarWidth(0.5f);
+    //        data.setValueTextSize(10f);
+    //        mBarChart.setData(data);
+    //        mBarChart.setFitBars(true);
+    //
+    //    }
 
-        if (dataList.size() == 3) {
-            for (int i = 0; i < dataList.size(); i++) {
-                int kind = dataList.get(i).getFkId();
-                int count = dataList.get(i).getCount();
-                switch (kind) {
-                    case 10:
-                        yVals.add(new BarEntry(01f, count));
-                        break;
-                    case 11:
-                        yVals.add(new BarEntry(02f, count));
-                        break;
-                    case 12:
-                        yVals.add(new BarEntry(03f, count));
-                        break;
-                }
-            }
-        } else if (dataList.size() == 1) {
-            int kind = dataList.get(0).getFkId();
-            int count = dataList.get(0).getCount();
-            switch (kind) {
-                case 10:
-                    yVals.add(new BarEntry(01f, count));
-                    yVals.add(new BarEntry(02f, 0));
-                    yVals.add(new BarEntry(03f, 0));
-                    break;
-                case 11:
-                    yVals.add(new BarEntry(01f, 0));
-                    yVals.add(new BarEntry(02f, count));
-                    yVals.add(new BarEntry(03f, 0));
-                    break;
-                case 12:
-                    yVals.add(new BarEntry(01f, 0));
-                    yVals.add(new BarEntry(02f, 0));
-                    yVals.add(new BarEntry(03f, count));
-                    break;
-            }
-        } else if (dataList.size() == 2) {
-            int count1 = 0;
-            int count2 = 0;
-            int count3 = 0;
-            for (int i = 0; i < dataList.size(); i++) {
-                int kind = dataList.get(i).getFkId();
-                switch (kind) {
-                    case 10:
-                        count1 = dataList.get(i).getCount();
-                        break;
-                    case 11:
-                        count2 = dataList.get(i).getCount();
-                        break;
-                    case 12:
-                        count3 = dataList.get(i).getCount();
-                        break;
-                }
-            }
-            yVals.add(new BarEntry(01f, count1));
-            yVals.add(new BarEntry(02f, count2));
-            yVals.add(new BarEntry(03f, count3));
-        } else {
-            yVals.add(new BarEntry(01f, 0));
-            yVals.add(new BarEntry(02f, 0));
-            yVals.add(new BarEntry(03f, 0));
-        }
-
-
-        BarDataSet setData = new BarDataSet(yVals, "Data Set");
-        setData.setColors(setColor(R.color.main_color));
-        setData.setDrawValues(true);
-
-        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-        dataSets.add(setData);
-
-        BarData data = new BarData(dataSets);
-        data.setBarWidth(0.5f);
-        data.setValueTextSize(10f);
-        mBarChart.setData(data);
-        mBarChart.setFitBars(true);
-
-    }
-
-    @OnClick({R.id.tv_back_statistics, R.id.ll_more})
+    @OnClick({R.id.tv_back_statistics, R.id.ll_more, R.id.rb_sjd, R.id.rb_xhz, R.id.rb_lys})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_statistics:
@@ -430,6 +436,15 @@ public class StatisticsActivity extends BaseActivity implements OnChartValueSele
             case R.id.ll_more:
                 //ivMore.setImageResource(R.drawable.more_up);
                 showRightTop();
+                break;
+            case R.id.rb_sjd:
+                ActivityUtils.startActivity(StatisticsSjdActivity.class);
+                break;
+            case R.id.rb_xhz:
+
+                break;
+            case R.id.rb_lys:
+
                 break;
         }
 

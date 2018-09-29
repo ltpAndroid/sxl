@@ -559,8 +559,8 @@ public class Deploy {
     /**
      * 作业统计/成绩报告
      */
-    public static String[] queryStatistics() {
-        String ret[] = {"homework", "homeworkStatistics"};
+    public static String[] getStudentReport() {  //queryStatistics 作废
+        String ret[] = {"homework", "getStudentReport"};
         return ret;
     }
 
@@ -612,6 +612,14 @@ public class Deploy {
      */
     public static String[] queryInteractionList() {
         String ret[] = {"interaction", "queryInteractionList"};
+        return ret;
+    }
+
+    /**
+     * 统计报告 详情
+     */
+    public static String[] getAnswerWrongBookDetail() {
+        String ret[] = {"answerWrongBook", "getAnswerWrongBookDetail"};
         return ret;
     }
 }

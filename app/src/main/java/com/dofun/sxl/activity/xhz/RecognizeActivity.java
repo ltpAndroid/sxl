@@ -1,18 +1,18 @@
 package com.dofun.sxl.activity.xhz;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.R;
 import com.dofun.sxl.activity.BaseActivity;
-import com.dofun.sxl.activity.StatisticsActivity;
+import com.dofun.sxl.bean.Answer;
 import com.dofun.sxl.bean.EventBusBean;
 import com.dofun.sxl.bean.RecogWord;
 import com.dofun.sxl.constant.EventConstants;
@@ -21,6 +21,8 @@ import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.view.CircleProgress;
 import com.tandong.sa.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -45,8 +47,10 @@ public class RecognizeActivity extends BaseActivity {
     ImageView ivWord;
     @BindView(R.id.tv_again)
     TextView tvAgain;
-    @BindView(R.id.tv_look)
-    TextView tvLook;
+    @BindView(R.id.tv_commit)
+    TextView tvCommit;
+
+    private int homeworkId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +61,17 @@ public class RecognizeActivity extends BaseActivity {
         initData();
     }
 
+    private String result;
+    private String topicId;
+    private String fraction;
+
     private void initData() {
-        String result = getIntent().getStringExtra("result").trim();
+        homeworkId = getIntent().getIntExtra("homeworkId", 0);
+        fraction = getIntent().getStringExtra("fraction");
+        result = getIntent().getStringExtra("result").trim();
         tvResult.setText(result);
         String filePath = getIntent().getStringExtra("filePath");
-        String topicId = getIntent().getStringExtra("topicId");
+        topicId = getIntent().getStringExtra("topicId");
         JSONObject param = new JSONObject();
         param.put("topicId", topicId);
         param.put("filePath", filePath);
@@ -79,11 +89,13 @@ public class RecognizeActivity extends BaseActivity {
                 LogUtils.i(info.toString());
                 showTip(info.getMsg());
                 totalScore.setProgress(0);
+                tvResult.setText(info.getMsg());
+                tvResult.setTextColor(Color.RED);
                 tvKind1.setText("评测失败，暂无结果");
                 tvKind2.setText("评测失败，暂无结果");
                 tvKind3.setText("评测失败，暂无结果");
             }
-        });
+        }, mContext, "加载中");
         Glide.with(this).load(WriteWordActivity.pathName).into(ivWord);
     }
 
@@ -95,7 +107,7 @@ public class RecognizeActivity extends BaseActivity {
         tvKind3.setText(word.getEvaluate3());
     }
 
-    @OnClick({R.id.tv_back_recognize, R.id.tv_again, R.id.tv_look})
+    @OnClick({R.id.tv_back_recognize, R.id.tv_again, R.id.tv_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back_recognize:
@@ -104,14 +116,40 @@ public class RecognizeActivity extends BaseActivity {
             case R.id.tv_again:
                 finish();
                 break;
-            case R.id.tv_look:
-                EventBus.getDefault().post(new EventBusBean<String>(EventConstants.FINISH_CODE, EventConstants.FINISH, ""));
-
-                ActivityUtils.startActivity(StatisticsActivity.class);
-                finish();
+            case R.id.tv_commit:
+                commitAnswer();
                 break;
         }
 
+    }
+
+    private void commitAnswer() {
+        List<Answer> answerList = new ArrayList<>();
+        Answer answer = new Answer();
+        answer.setAnswer("");
+        answer.setAnswerU(result);
+        answer.setIsRight("1");
+        answer.setTopicId(topicId);
+        answer.setScore(fraction);
+        answerList.add(answer);
+
+        JSONObject params = new JSONObject();
+        params.put("workId", String.valueOf(homeworkId));
+        params.put("topicList", answerList);
+        HttpUs.send(Deploy.subHomework(), params, new HttpUs.CallBackImp() {
+            @Override
+            public void onSuccess(ResInfo info) {
+                LogUtils.i(info.toString());
+                EventBus.getDefault().post(new EventBusBean<String>(EventConstants.FINISH_CODE, EventConstants.FINISH, ""));
+                finish();
+            }
+
+            @Override
+            public void onFailure(ResInfo info) {
+                LogUtils.i(info.toString());
+                showTip(info.getMsg());
+            }
+        });
     }
 
     @Override

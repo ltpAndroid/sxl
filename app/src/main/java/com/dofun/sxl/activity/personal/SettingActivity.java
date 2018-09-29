@@ -2,13 +2,13 @@ package com.dofun.sxl.activity.personal;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.dofun.sxl.Deploy;
 import com.dofun.sxl.MyApplication;
@@ -18,6 +18,7 @@ import com.dofun.sxl.activity.personal.term.PerfectInfoActivity;
 import com.dofun.sxl.http.HttpUs;
 import com.dofun.sxl.http.ResInfo;
 import com.dofun.sxl.util.CacheUtil;
+import com.dofun.sxl.util.HintDiaUtils;
 import com.dofun.sxl.util.SPUtils;
 
 import butterknife.BindView;
@@ -45,13 +46,12 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int cacheSize = (int) CacheUtil.getInstance().getCacheSize();
-                tvCache.setText(cacheSize + " M");
-            }
-        }).start();
+        try {
+            String cacheSize = CacheUtil.getTotalCacheSize(this);
+            tvCache.setText(cacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.tv_back_setting, R.id.change_term, R.id.net_setting, R.id.clear_cache, R.id.btn_quit})
@@ -71,9 +71,16 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        CleanUtils.cleanInternalCache();
-                        tvCache.setText("0 M");
-                        showTip("缓存已清理");
+                        CacheUtil.clearAllCache(mContext);
+                        tvCache.setText("0 K");
+                        final HintDiaUtils diaUtils = HintDiaUtils.createDialog(mContext);
+                        diaUtils.showSucceedDialog("缓存已清理");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                diaUtils.dismiss();
+                            }
+                        }, 500);
                     }
                 });
                 break;

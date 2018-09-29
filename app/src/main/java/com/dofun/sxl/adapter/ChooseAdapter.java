@@ -1,6 +1,7 @@
 package com.dofun.sxl.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,6 +27,9 @@ public class ChooseAdapter extends BaseQuickAdapter<TopicDetail, BaseViewHolder>
                 .addOnClickListener(R.id.item_choose_B)
                 .addOnClickListener(R.id.item_choose_C);
 
+        if (item.getOptionList().size() == 2) {
+            helper.getView(R.id.item_choose_C).setVisibility(View.GONE);
+        }
     }
 
 }

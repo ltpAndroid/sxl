@@ -122,7 +122,7 @@
     <string name="do_again">是否重做该题？</string>
 
     <!--诵读例子-->
-    <string name="recite_content">五月的槐乡，连风儿打的漩涡都香气扑鼻，整个槐乡都浸在香海中。</string>
+    <string name="recite_content">五月的槐乡，连风儿打的漩涡都香气扑鼻，整个槐乡都浸在香海中。五月的槐乡，连风儿打的漩涡都香气扑鼻，整个槐乡都浸在香海中。五月的槐乡，连风儿打的漩涡都香气扑鼻，整个槐乡都浸在香海中。</string>
     <string name="fluency">流畅度</string>
     <string name="integrity">完整度</string>
     <string name="accuracy">准确度</string>

@@ -60,27 +60,6 @@ public class SchoolListActivity extends BaseActivity {
                 LogUtils.i(info.toString());
                 JSONObject object = JSONObject.parseObject(info.getData());
                 schoolList = JSONArray.parseArray(object.getString("schoolClassList"), SchoolListBean.class);
-
-                List<SchoolListBean.ClassListBean> classList = new ArrayList<>();
-                for (SchoolListBean school :
-                        schoolList) {
-                    classList.addAll(school.getClassList());
-                }
-
-                List<String> className = new ArrayList<>();
-                for (SchoolListBean.ClassListBean classBean :
-                        classList) {
-                    className.add(classBean.getClassName());
-                }
-                SPUtils.putListData("classNameList", className);
-
-                List<Integer> classId = new ArrayList<>();
-                for (SchoolListBean.ClassListBean classBean :
-                        classList) {
-                    classId.add(classBean.getId());
-                }
-                SPUtils.putListData("classIdList", classId);
-
                 List<String> schoolName = new ArrayList<>();
                 for (SchoolListBean school :
                         schoolList) {
@@ -103,6 +82,24 @@ public class SchoolListActivity extends BaseActivity {
         lvSchool.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolListBean schoolListBean = schoolList.get(position);
+                List<SchoolListBean.ClassListBean> classList = schoolListBean.getClassList();
+
+                List<String> className = new ArrayList<>();
+                for (SchoolListBean.ClassListBean classBean :
+                        classList) {
+                    className.add(classBean.getClassName());
+                }
+                SPUtils.putListData("classNameList", className);
+
+                List<Integer> classId = new ArrayList<>();
+                for (SchoolListBean.ClassListBean classBean :
+                        classList) {
+                    classId.add(classBean.getId());
+                }
+                SPUtils.putListData("classIdList", classId);
+
+
                 int schoolId = schoolList.get(position).getSchoolId();
                 SPUtils.setString("schoolId", String.valueOf(schoolId));
 

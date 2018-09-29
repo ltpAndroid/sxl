@@ -116,9 +116,9 @@ public class WriteWordActivity extends BaseActivity {
         myTimer.start();
     }
 
-
+    private int homeworkId;
     private void initData() {
-        int homeworkId = getIntent().getIntExtra("homeworkId", 0);
+        homeworkId = getIntent().getIntExtra("homeworkId", 0);
         int fkId = getIntent().getIntExtra("fkId", 0);
         JSONObject param = new JSONObject();
         param.put("homeworkId", homeworkId);
@@ -360,12 +360,14 @@ public class WriteWordActivity extends BaseActivity {
                     bundle.putString("result", result);
                     bundle.putString("filePath", filePath);
                     bundle.putString("topicId", String.valueOf(topicId));
+                    bundle.putInt("homeworkId", homeworkId);
+                    bundle.putString("fraction", tvScore.getText().toString());
                     ActivityUtils.startActivity(bundle, RecognizeActivity.class);
                     finish();
                     break;
                 case 1:
                     result = (String) msg.obj;
-                    showTip("识别出错");
+                    showTip("未能识别，请重新拍照");
                     break;
                 case 2:
                     showTip("上传成功");
@@ -444,7 +446,11 @@ public class WriteWordActivity extends BaseActivity {
                                 }
                             }
                             Message msg = Message.obtain(mHandler);
-                            msg.what = 0;
+                            if (EmptyUtils.isNotEmpty(finalContent)) {
+                                msg.what = 0;
+                            } else {
+                                msg.what = 1;
+                            }
                             msg.obj = finalContent;
                             mHandler.sendMessage(msg);
                         }

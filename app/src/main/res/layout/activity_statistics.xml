@@ -38,6 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/dp5"
+            android:visibility="invisible"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -152,7 +153,7 @@
                         android:orientation="vertical">
 
                         <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_high"
+                            android:id="@+id/score_sjd"
                             android:layout_width="@dimen/dp60"
                             android:layout_height="@dimen/dp60"
                             app:max="100"
@@ -177,7 +178,7 @@
                         android:orientation="vertical">
 
                         <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_low"
+                            android:id="@+id/score_xhz"
                             android:layout_width="@dimen/dp60"
                             android:layout_height="@dimen/dp60"
                             app:max="100"
@@ -202,7 +203,7 @@
                         android:orientation="vertical">
 
                         <com.dofun.sxl.view.CircleProgress
-                            android:id="@+id/score_average"
+                            android:id="@+id/score_lys"
                             android:layout_width="@dimen/dp60"
                             android:layout_height="@dimen/dp60"
                             app:max="100"
@@ -356,73 +357,74 @@
 
                 <View style="@style/d_w" />
 
-                <RadioGroup
-                    android:id="@+id/rg_sxl"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="@dimen/dp5"
-                    android:layout_marginTop="@dimen/dp5"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_sjd"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_sxl"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="诵经典"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp16" />
-
-                    <RadioButton
-                        android:id="@+id/rb_xhz"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_sxl"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="习汉字"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp16" />
-
-                    <RadioButton
-                        android:id="@+id/rb_lys"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_sxl"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="练运算"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp16" />
-
-                </RadioGroup>
-
-
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/bar_chart"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:layout_marginLeft="@dimen/dp10"
-                    android:layout_marginRight="@dimen/dp10" />
+                    android:layout_marginRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp10" />
             </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/rg_sxl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_sjd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_sxl"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="诵经典"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16" />
+
+                <RadioButton
+                    android:id="@+id/rb_xhz"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_sxl"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="习汉字"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16" />
+
+                <RadioButton
+                    android:id="@+id/rb_lys"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_sxl"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="练运算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16" />
+
+            </RadioGroup>
+
         </LinearLayout>
 
     </ScrollView>
